@@ -1,57 +1,66 @@
-# IntelliJ
+### Gradle ###
+**/.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
+### IntelliJ IDEA ###
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 .idea/
-
 *.iml
 
-# OS
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
 .DS_Store
 
-Thumbs.db
+### Obsidian ###
+.obsidian
 
-# Java / IntelliJ build output
-
-**/out/
-
-# Gradle
-
-**/.gradle/
-
-**/build/
-
-# Logs
-
-*.log
-
-# Node
-
+### Node ###
 **/node_modules/
-
 **/dist/
-
 **/.vite/
-
 **/.next/
-
 **/.cache/
 
-# Python
-
+### Python ###
 **/__pycache__/
-
 **/*.pyc
-
 **/.venv/
-
 **/venv/
-
 .pytest_cache/
 
-# Env / secrets
-
+### Env / secrets ###
 .env
-
 .env.*
-
 !.env.example
+
+### Logs ###
+*.log
