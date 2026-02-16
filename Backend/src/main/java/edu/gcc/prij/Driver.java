@@ -4,7 +4,7 @@
 package edu.gcc.prij;
 
 /*
- @author zimms
+ @author: Isaiah Zimmerman
 */
 
 public class Driver {
