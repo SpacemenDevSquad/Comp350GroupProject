@@ -3,9 +3,9 @@
 
 package edu.gcc.prij;
 
-/*
- @author zimms
-*/
+/**
+ * @author YOHOJR23
+ */
 
 public class Driver {
     public static void main(String[] args) {
