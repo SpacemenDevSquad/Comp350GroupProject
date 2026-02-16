@@ -1,10 +1,9 @@
-// @author: Ryan Merrick
-
-
 package edu.gcc.prij;
 
-/*
- @author: Isaiah Zimmerman
+/**
+ * @author YOHOJR23
+ * @author Ryan Merrick
+ * @author: Isaiah Zimmerman
 */
 
 public class Driver {
