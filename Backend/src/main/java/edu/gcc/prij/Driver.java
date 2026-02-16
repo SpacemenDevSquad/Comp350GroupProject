@@ -3,7 +3,8 @@ package edu.gcc.prij;
 /**
  * @author YOHOJR23
  * @author Ryan Merrick
- * @author: Isaiah Zimmerman
+ * @author Isaiah Zimmerman
+ * @author Peter Brumbach
 */
 
 public class Driver {
