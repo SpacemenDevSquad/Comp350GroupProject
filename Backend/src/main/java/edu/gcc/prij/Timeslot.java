@@ -9,7 +9,7 @@ public class Timeslot{
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }; //M,T,W,R,F TODO: change to enum
 
-    public Timeslot(int startTime, int endTime, char day){
+    public Timeslot(String startTime, String endTime, char day){
         this.startTime = startTime;
         this.endTime = endTime;
         this.day = day;
@@ -40,7 +40,7 @@ public class Timeslot{
     }
 
     public String toString(){
-        return day + " " + TimeHelper.timeToString(startTime) + "-" + TimeHelper.timeToString(endTime);
+        return day + " " + startTime + "-" + endTime;
     }
 
     public int getStartTime(){

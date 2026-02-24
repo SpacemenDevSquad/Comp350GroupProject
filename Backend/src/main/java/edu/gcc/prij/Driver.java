@@ -36,5 +36,7 @@ public class Driver {
         controllers.forEach(c -> c.registerRoutes(app));
 
         CustomJsonParser.parseCustomData();
+//        Timeslot ts = new Timeslot(480, 530, 'M');
+//        System.out.println(ts);
     }
 }

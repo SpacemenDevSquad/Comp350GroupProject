@@ -10,4 +10,5 @@ public class Search {
     public void addFilter(Filter newFilter){}
 
     public ArrayList<Course> evaluateSearch(){return new ArrayList<Course>();}
+
 }
