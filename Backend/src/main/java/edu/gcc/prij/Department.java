@@ -32,9 +32,7 @@ public class Department {
         return addOrGet("null");
     }
 
-    public String toString(){
+    public String getName(){
         return name;
     }
-
-
 }

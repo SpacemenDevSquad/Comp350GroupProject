@@ -15,7 +15,7 @@ public class SectionController implements Controller {
         };
 
         Professor[] fs = {
-            new Professor(1, "Dr. McCray"),
+            new Professor("Dr. McCray"),
         };
 
         Semester sem = new Semester(2026, 'F');
@@ -24,6 +24,10 @@ public class SectionController implements Controller {
 
         app.get("/section/{year}/{term}/{department}/{number}/{section}", ctx -> {
             ctx.json(s);
+        });
+
+        app.get("/sections", ctx -> {
+            ctx.json(Section.getSections());
         });
     }
     

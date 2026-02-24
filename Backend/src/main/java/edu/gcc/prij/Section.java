@@ -1,7 +1,9 @@
 package edu.gcc.prij;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Section {
@@ -53,6 +55,18 @@ public class Section {
             sections.put(key, addedSection);
             return addedSection;
         }
+    }
+
+    public static Section addOrGet(Section section){
+        SectionKey key = new SectionKey(section.getCourse(), section.getSectionLetter(), section.getSemester());
+
+        sections.put(key, section);
+
+        return section;
+    }
+
+    public static Collection<Section> getSections(){
+        return sections.values();
     }
 }
 
