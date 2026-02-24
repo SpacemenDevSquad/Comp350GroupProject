@@ -54,7 +54,7 @@ public class Main {
             if (s.getTimeslots() != null && s.getTimeslots().length > 0) {
                 for (Timeslot t : s.getTimeslots()) {
                     // Note: Change these to match your actual Timeslot getters!
-                    System.out.print("[" + t.getDay() + " " + t.getStartTime() + " - " + t.getEndTime() + "] ");
+                    System.out.print("[" + t.toString() + "] ");
                 }
                 System.out.println();
             } else {
