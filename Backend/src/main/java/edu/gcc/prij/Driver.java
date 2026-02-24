@@ -13,14 +13,8 @@ import io.javalin.Javalin;
 
 public class Driver {
     public static void main(String[] args) {
-        System.out.println("Hello jars");
-        System.out.println("jsdfklifbr3bvcoqjksdj");
-        System.out.println("test");
+        CustomJsonParser.parseCustomData();
 
-        Timeslot ts = new Timeslot(480, 530, 'M');
-        System.out.println(ts);
-
-        // uncomment after first exercise, index.html needs to be in the resources/public new folder
         Javalin app = Javalin.create(config -> {
             // Serve static files from: src/main/resources/public
             // config.staticFiles.add("public");
@@ -34,9 +28,5 @@ public class Driver {
         );
 
         controllers.forEach(c -> c.registerRoutes(app));
-
-        CustomJsonParser.parseCustomData();
-//        Timeslot ts = new Timeslot(480, 530, 'M');
-//        System.out.println(ts);
     }
 }

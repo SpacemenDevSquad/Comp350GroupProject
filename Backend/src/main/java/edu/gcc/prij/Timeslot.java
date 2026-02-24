@@ -1,42 +1,26 @@
 package edu.gcc.prij;
 
+import java.time.LocalTime;
+
 public class Timeslot{
     private int startTime; //Minutes from midnight
     private int endTime; //Minutes from midnight
     private char day;
 
-    private enum Day {
-        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
-    }; //M,T,W,R,F TODO: change to enum
-
-    public Timeslot(String startTime, String endTime, char day){
+    public Timeslot(int startTime, int endTime, char day){
         this.startTime = startTime;
         this.endTime = endTime;
         this.day = day;
     }
 
-    // public Timeslot(String startTime, String endTime, char day);
+    public Timeslot(String startTime, String endTime, char day){
+        LocalTime startLocalTime = LocalTime.parse(startTime);
+        this.startTime = (startLocalTime.getHour() * 60) + startLocalTime.getMinute();
 
-    public static Day getDay(char day){
-        switch(day){
-            case 'M':
-                return Day.MONDAY;
+        LocalTime endLocalTime = LocalTime.parse(endTime);
+        this.endTime = (endLocalTime.getHour() * 60) + endLocalTime.getMinute();
 
-            case 'T':
-                return Day.TUESDAY;
-
-            case 'W':
-                return Day.WEDNESDAY;
-
-            case 'R':
-                return Day.THURSDAY;
-
-            case 'F':
-                return Day.FRIDAY;
-
-            default:
-                return Day.SUNDAY;
-        }
+        this.day = day;
     }
 
     public String toString(){
