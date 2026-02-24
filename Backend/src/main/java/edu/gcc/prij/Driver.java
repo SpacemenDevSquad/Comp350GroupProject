@@ -13,7 +13,7 @@ public class Driver {
         System.out.println("jsdfklifbr3bvcoqjksdj");
         System.out.println("test");
 
-        Timeslot ts = new Timeslot(480, 530, 'M');
-        System.out.println(ts);
+//        Timeslot ts = new Timeslot(480, 530, 'M');
+//        System.out.println(ts);
     }
 }
