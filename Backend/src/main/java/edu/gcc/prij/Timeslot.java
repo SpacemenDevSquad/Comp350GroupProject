@@ -1,8 +1,8 @@
 package edu.gcc.prij;
 
 public class Timeslot{
-    private int startTime; //Minutes from midnight
-    private int endTime; //Minutes from midnight
+    private String startTime;
+    private String endTime;
     private char day;
 
     private enum Day {
@@ -43,15 +43,9 @@ public class Timeslot{
         return day + " " + startTime + "-" + endTime;
     }
 
-    public int getStartTime(){
-        return startTime;
-    }
-
-    public int getEndTime(){
-        return endTime;
-    }
-
     public char getDay(){
         return day;
     }
+    public String getStartTime() { return startTime; }
+    public String getEndTime() { return endTime; }
 }

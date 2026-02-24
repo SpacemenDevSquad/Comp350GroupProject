@@ -7,9 +7,13 @@ import java.util.Map;
 public class Section {
     private Course course;
     private char sectionLetter;
+    private String name;
     private Timeslot[] timeslots;
     private Professor[] faculty;
+    private int credits;
     private Semester semester;
+    private String subject;
+    private int number;
 
     private static Map<SectionKey, Section> sections = new HashMap<SectionKey, Section>();
 
@@ -43,6 +47,9 @@ public class Section {
         return semester;
     }
 
+    public String getSubject() { return subject; }
+    public int getNumber() { return number; }
+    public String getName() { return name; }
     public static Section addOrGet(Course course, char sectionLetter, Semester semester){
         SectionKey key = new SectionKey(course, sectionLetter, semester);
 

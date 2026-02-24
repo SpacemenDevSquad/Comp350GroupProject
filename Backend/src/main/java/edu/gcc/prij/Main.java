@@ -21,8 +21,8 @@ public class Main {
                 System.out.println(s.getSubject() + " " + s.getNumber() + " - " + s.getName());
 
                 /// Testing Timeslots
-                 if (s.getTimes() != null && !s.getTimes().isEmpty()) {
-                     System.out.println("   Meets on: " + s.getTimes().get(0).getDay());
+                 if (s.getTimeslots() != null && (s.getTimeslots().length!=0)) {
+                     System.out.println("   Meets on: " + s.getTimeslots()[0].getDay());
                  }
             }
         } else {
