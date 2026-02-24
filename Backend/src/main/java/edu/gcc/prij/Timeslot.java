@@ -23,10 +23,6 @@ public class Timeslot{
         this.day = day;
     }
 
-    public String toString(){
-        return day + " " + startTime + "-" + endTime;
-    }
-
     public int getStartTime(){
         return startTime;
     }
@@ -37,5 +33,26 @@ public class Timeslot{
 
     public char getDay(){
         return day;
+    }
+
+    private String formatMinutesToTime(int totalMinutes) {
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+        String amPm = (hours >= 12) ? "PM" : "AM";
+
+        // Convert military time to standard 12-hour format
+        if (hours > 12) {
+            hours -= 12;
+        } else if (hours == 0) {
+            hours = 12;
+        }
+
+        // String.format ensures minutes always have two digits (e.g., "10:05" instead of "10:5")
+        return String.format("%d:%02d %s", hours, minutes, amPm);
+    }
+
+    @Override
+    public String toString(){
+        return day + " " + formatMinutesToTime(startTime) + " - " + formatMinutesToTime(endTime);
     }
 }
