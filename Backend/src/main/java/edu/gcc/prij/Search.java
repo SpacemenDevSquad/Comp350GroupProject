@@ -1,6 +1,8 @@
 package edu.gcc.prij;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Search {
@@ -29,16 +31,36 @@ public class Search {
     // }
 
     // The single public method the rest of your app will call
-    public List<Section> executeSearch(SearchQuery query, List<Section> masterCatalog) {
+    public List<Section> executeSearch(SearchQuery query, Collection<Section> masterCatalog) {
 
         // Start with an empty list
         List<Section> textMatchResults = new ArrayList<>();
 
-        // James's job: Loop through the sections and find results that match the text fields (course name, professor, etc.)
-        for (Section section : masterCatalog) {
+        String searchText = query.getSearchText();
+        if (searchText == null || searchText.trim().isEmpty()) {
+            // If the search bar is empty, everything matches initially!
+            textMatchResults.addAll(masterCatalog);
+        } else {
+            // Split the input into words
+            String[] tokens = searchText.toLowerCase().trim().split("\\s+");
 
-            // (Your logic to check query.getCourseName(), query.getProfessor(), etc. goes here)
-            // If it matches the text fields, add it to textMatchResults
+            for (Section section : masterCatalog) {
+                // Build the super-string (subject + number + name + faculty)
+                String superString = buildSuperString(section);
+
+                // Check if EVERY token is inside the super-string
+                boolean matchesAllTokens = true;
+                for (String token : tokens) {
+                    if (!superString.contains(token)) {
+                        matchesAllTokens = false;
+                        break;
+                    }
+                }
+
+                if (matchesAllTokens) {
+                    textMatchResults.add(section);
+                }
+            }
         }
 
         // 3. Isaiah's job: Apply the filters to the results
@@ -52,5 +74,32 @@ public class Search {
         // Add other filters...
 
         return finalResults;
+    }
+
+    // Helper method to create a super string that contains all searchable text for a section
+    private String buildSuperString(Section section) {
+        String subject = section.getCourse().getDepartment().getName().toLowerCase();
+        String number = String.valueOf(section.getCourse().getNumber());
+        String name = section.getCourse().getTitle().toLowerCase();
+
+        StringBuilder facultyBuilder = new StringBuilder();
+
+        if (section.getFaculty() != null) {
+            for (Professor prof : section.getFaculty()) {
+                if (prof != null) {
+                    facultyBuilder.append(prof.getName()).append(" ");
+                }
+            }
+        }
+
+        String faculty = facultyBuilder.toString().toLowerCase();
+
+        String description = "";
+        if (section.getCourse().getDescription() != null) {
+            description = section.getCourse().getDescription().toLowerCase();
+        }
+
+        // Include "acct 201" and "acct201"
+        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description;
     }
 }
