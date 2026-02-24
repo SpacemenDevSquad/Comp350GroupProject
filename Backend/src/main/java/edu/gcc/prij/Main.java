@@ -1,32 +1,67 @@
 package edu.gcc.prij;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        DataLoader loader = new DataLoader();
+        // 1. Load all the data using your new Jackson parser
+        System.out.println("Loading course catalog...");
+        CustomJsonParser.parseCustomData();
 
+        // 2. Grab the master list
+        Collection<Section> masterCatalog = Section.getSections();
 
-        String filePath = "src/main/resources/classes.json"; // Make sure the filename matches exactly
-        System.out.println("Attempting to load data...");
-        List<Section> allSections = loader.loadCourseData(filePath);
+        // 3. Test the omni-search
+        Search searchEngine = new Search();
+        SearchQuery testQuery = new SearchQuery();
 
-        if (allSections != null && !allSections.isEmpty()) {
-            System.out.println("Success! Loaded " + allSections.size() + " sections.\n");
+        String userSearchText = "ACCT 201 graybill";
+        testQuery.setSearchText(userSearchText);
 
-            // Print out the first 3 sections to prove the data mapped correctly
-            System.out.println("--- First 3 Classes ---");
-            for (int i = 0; i < Math.min(3, allSections.size()); i++) {
-                Section s = allSections.get(i);
-                System.out.println(s.getCourse().getDepartment().getName() + " " + s.getCourse().getNumber() + " - " + s.getCourse().getTitle());
+        System.out.println("Searching for: '" + userSearchText + "'...\n");
 
-                /// Testing Timeslots
-                //  if (s.getTimes() != null && !s.getTimes().isEmpty()) {
-                //      System.out.println("   Meets on: " + s.getTimes().get(0).getDay());
-                //  }
+        List<Section> results = searchEngine.executeSearch(testQuery, masterCatalog);
+
+        // 4. Print the results clearly
+        System.out.println("Found " + results.size() + " matches:");
+        System.out.println("==================================================");
+
+        for (Section s : results) {
+            // Grab the core course info
+            String dept = s.getCourse().getDepartment().getName();
+            int number = s.getCourse().getNumber();
+            String title = s.getCourse().getTitle();
+            char sectionLetter = s.getSectionLetter();
+
+            // Print the main header (e.g., "ACCT 201 A: Principles of Accounting I")
+            System.out.println(dept + " " + number + " " + sectionLetter + ": " + title);
+
+            // Print the Professor(s) safely
+            System.out.print("  Instructor(s): ");
+            if (s.getFaculty() != null && s.getFaculty().length > 0) {
+                for (Professor p : s.getFaculty()) {
+                    // Note: Change .getName() to whatever method your Professor class uses!
+                    System.out.print(p.getName() + " ");
+                }
+                System.out.println();
+            } else {
+                System.out.println("TBD");
             }
-        } else {
-            System.out.println("Uh oh. The list is empty. Check your file path and JSON format.");
+
+            // Print the Timeslots safely
+            System.out.print("  Schedule:      ");
+            if (s.getTimeslots() != null && s.getTimeslots().length > 0) {
+                for (Timeslot t : s.getTimeslots()) {
+                    // Note: Change these to match your actual Timeslot getters!
+                    System.out.print("[" + t.toString() + "] ");
+                }
+                System.out.println();
+            } else {
+                System.out.println("Online / TBA");
+            }
+
+            System.out.println("--------------------------------------------------");
         }
     }
 }
