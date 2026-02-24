@@ -1,5 +1,9 @@
 package edu.gcc.prij;
 
+import java.util.List;
+
+import io.javalin.Javalin;
+
 /**
  * @author YOHOJR23
  * @author Ryan Merrick
@@ -15,5 +19,22 @@ public class Driver {
 
         Timeslot ts = new Timeslot(480, 530, 'M');
         System.out.println(ts);
+
+        // uncomment after first exercise, index.html needs to be in the resources/public new folder
+        Javalin app = Javalin.create(config -> {
+            // Serve static files from: src/main/resources/public
+            // config.staticFiles.add("public");
+        }).start(7000);
+
+        List<Controller> controllers = List.of(
+            new CourseController(),
+            new UserController(),
+            new SectionController(),
+            new ScheduleController()
+        );
+
+        controllers.forEach(c -> c.registerRoutes(app));
+
+        CustomJsonParser.parseCustomData();
     }
 }

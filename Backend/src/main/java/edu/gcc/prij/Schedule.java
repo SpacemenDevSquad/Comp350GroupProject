@@ -3,7 +3,7 @@ package edu.gcc.prij;
 import java.util.ArrayList;
 
 public class Schedule {
-    private ArrayList<Section> classes;
+    private ArrayList<Section> sections;
     private User owner;
 
     public boolean addClass(Section newClass){return true;}
@@ -12,4 +12,16 @@ public class Schedule {
     public boolean hasConflict(Section newClass){return true;}
     public int currentCredits(){return 0;}
 
+    public Schedule(ArrayList<Section> sections, User owner){
+        this.sections = sections;
+        this.owner = owner;
+    }
+
+    public ArrayList<Section> getSections(){
+        return sections;
+    }
+
+    // public User getOwner(){
+    //     return owner;
+    // }
 }
