@@ -18,12 +18,12 @@ public class Main {
             System.out.println("--- First 3 Classes ---");
             for (int i = 0; i < Math.min(3, allSections.size()); i++) {
                 Section s = allSections.get(i);
-                System.out.println(s.getSubject() + " " + s.getNumber() + " - " + s.getName());
+                System.out.println(s.getCourse().getDepartment().getName() + " " + s.getCourse().getNumber() + " - " + s.getCourse().getTitle());
 
                 /// Testing Timeslots
-                 if (s.getTimes() != null && !s.getTimes().isEmpty()) {
-                     System.out.println("   Meets on: " + s.getTimes().get(0).getDay());
-                 }
+                //  if (s.getTimes() != null && !s.getTimes().isEmpty()) {
+                //      System.out.println("   Meets on: " + s.getTimes().get(0).getDay());
+                //  }
             }
         } else {
             System.out.println("Uh oh. The list is empty. Check your file path and JSON format.");

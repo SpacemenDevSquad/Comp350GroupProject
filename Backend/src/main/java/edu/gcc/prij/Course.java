@@ -27,7 +27,7 @@ public class Course {
         this.number = number;
     }
     
-    public int getCode(){
+    public int getNumber(){
         return number;
     }
 
@@ -43,8 +43,8 @@ public class Course {
         return credits;
     }
 
-    public String getDepartmentString(){
-        return department.toString();
+    public Department getDepartment(){
+        return department;
     }
 
     public static Course addOrGet(Department department, int number){
@@ -61,6 +61,14 @@ public class Course {
         System.out.println(newCourse.toString());
 
         return newCourse;
+    }
+
+    public static Course addOrGet(Course course){
+        CourseKey key = new CourseKey(course.getDepartment(), course.getNumber());
+
+        courses.put(key, course);
+
+        return course;
     }
 
     public static Course get(Department department, int number){

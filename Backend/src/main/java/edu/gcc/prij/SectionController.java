@@ -15,7 +15,7 @@ public class SectionController implements Controller {
         };
 
         Professor[] fs = {
-            new Professor(1, "Dr. McCray"),
+            new Professor("Dr. McCray"),
         };
 
         Semester sem = new Semester(2026, 'F');
@@ -23,7 +23,23 @@ public class SectionController implements Controller {
         Section s = new Section(c, 'A', ts, fs, sem);
 
         app.get("/section/{year}/{term}/{department}/{number}/{section}", ctx -> {
-            ctx.json(s);
+            int year = Integer.parseInt(ctx.pathParam("year"));
+            char term = ctx.pathParam("term").charAt(0);
+            Semester semester = Semester.addOrGet(year, term);
+
+            Department department = Department.get(ctx.pathParam("department"));
+            int number = Integer.parseInt(ctx.pathParam("number"));
+            Course course = Course.get(department, number);
+
+            char sectionLetter = ctx.pathParam("section").charAt(0);
+
+            Section section = Section.addOrGet(course, sectionLetter, semester);
+
+            ctx.json(section);
+        });
+
+        app.get("/sections", ctx -> {
+            ctx.json(Section.getSections());
         });
     }
     

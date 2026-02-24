@@ -1,5 +1,6 @@
 package edu.gcc.prij;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class User {
@@ -7,6 +8,8 @@ public class User {
     private String email;
     private String name;
     private Map<Semester, Schedule> schedules;
+
+    private Map<Integer, User> users = new HashMap<Integer, User>();
 
     public String getName(){
         return name;

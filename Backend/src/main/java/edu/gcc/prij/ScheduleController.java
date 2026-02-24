@@ -15,7 +15,7 @@ public class ScheduleController implements Controller {
         };
 
         Professor[] fs = {
-            new Professor(1, "Dr. McCray"),
+            new Professor("Dr. McCray"),
         };
 
         Semester sem = new Semester(2026, 'F');
@@ -30,7 +30,7 @@ public class ScheduleController implements Controller {
         };
 
         Professor[] fs2 = {
-            new Professor(2, "Prof. Johnson"),
+            new Professor("Prof. Johnson"),
         };
 
         Semester sem2 = new Semester(2026, 'S');
