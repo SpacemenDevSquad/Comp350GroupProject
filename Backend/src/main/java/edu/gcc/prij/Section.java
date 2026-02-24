@@ -1,21 +1,59 @@
 package edu.gcc.prij;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Section {
-    private String subject;
-    private int number;
-    private String name;
-    private List<String> faculty;
-    private int credits;
-    private List<Timeslot> times;
+    private Course course;
+    private char sectionLetter;
+    private Timeslot[] timeslots;
+    private Professor[] faculty;
+    private Semester semester;
 
-    // Add standard getters and setters here
-    public String getSubject() { return subject; }
-    public String getName() { return name; }
-    public List<String> getFaculty() { return faculty; }
-    public int getNumber() { return number; }
-    public List<Timeslot> getTimes() { return times; }
+    private static Map<SectionKey, Section> sections = new HashMap<SectionKey, Section>();
+
+    public record SectionKey(Course course, char sectionLetter, Semester semester) {}
+
+    public Section(Course course, char sectionLetter, Timeslot[] timeslots, Professor[] faculty, Semester semester){
+        this.course = course;
+        this.sectionLetter = sectionLetter;
+        this.timeslots = timeslots;
+        this.faculty = faculty;
+        this.semester = semester;
+    }
+
+    public Course getCourse(){
+        return course;
+    }
+
+    public char getSectionLetter(){
+        return sectionLetter;
+    }
+
+    public Timeslot[] getTimeslots(){
+        return timeslots;
+    }
+
+    public Professor[] getFaculty(){
+        return faculty;
+    }
+
+    public Semester getSemester(){
+        return semester;
+    }
+
+    public static Section addOrGet(Course course, char sectionLetter, Semester semester){
+        SectionKey key = new SectionKey(course, sectionLetter, semester);
+
+        if(sections.containsKey(key)){
+            return sections.get(key);
+        }else{
+            Section addedSection = new Section(course, sectionLetter, null, null, semester);
+            sections.put(key, addedSection);
+            return addedSection;
+        }
+    }
 }
 
 
