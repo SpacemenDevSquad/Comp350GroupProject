@@ -1,7 +1,10 @@
-package edu.gcc.prij;
+package edu.gcc.prij.objects.user;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.gcc.prij.objects.schedule.Schedule;
+import edu.gcc.prij.objects.semester.Semester;
 
 public class User {
     private int id;

@@ -1,9 +1,12 @@
-package edu.gcc.prij;
+package edu.gcc.prij.objects.search;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+
+import edu.gcc.prij.objects.professor.Professor;
+import edu.gcc.prij.objects.section.Section;
 
 public class Search {
 //    private String userInput;

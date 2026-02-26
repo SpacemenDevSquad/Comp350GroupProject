@@ -1,6 +1,8 @@
-package edu.gcc.prij;
+package edu.gcc.prij.filters;
 
 import java.util.ArrayList;
+
+import edu.gcc.prij.objects.course.Course;
 
 public class TimeFilter implements Filter {
     @Override
