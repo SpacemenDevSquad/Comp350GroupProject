@@ -4,7 +4,7 @@ function Course({department, number}) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(`/api/course/${department}/${number}/`)
+    fetch(`http://localhost:8096/api/course/${department}/${number}/`)
       .then(res => res.json())
       .then(fetchedData => {
         // Log it to see the structure, then save it to state
