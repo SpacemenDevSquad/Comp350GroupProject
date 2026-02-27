@@ -1,4 +1,4 @@
-package edu.gcc.prij;
+package edu.gcc.prij.utils;
 
 import io.javalin.Javalin;
 

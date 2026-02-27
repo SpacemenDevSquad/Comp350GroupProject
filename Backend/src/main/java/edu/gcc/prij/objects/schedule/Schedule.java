@@ -1,6 +1,10 @@
-package edu.gcc.prij;
+package edu.gcc.prij.objects.schedule;
 
 import java.util.ArrayList;
+
+import edu.gcc.prij.objects.course.Course;
+import edu.gcc.prij.objects.section.Section;
+import edu.gcc.prij.objects.user.User;
 
 public class Schedule {
     // SCHEDULE VARIABLES
@@ -17,15 +21,11 @@ public class Schedule {
     }
 
     
-    public void removeClass(Section section){
-        sections.remove(section);
-    }
+    public void removeClass(Section section){ sections.remove(section); }
 
     
     public boolean hasConflict(Section newClass){
-        
-        return false;
-        
+        return false;       
     }
 
     

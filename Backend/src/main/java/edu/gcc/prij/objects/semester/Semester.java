@@ -1,4 +1,4 @@
-package edu.gcc.prij;
+package edu.gcc.prij.objects.semester;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,5 +51,9 @@ public class Semester {
         }
 
         return Semester.addOrGet(Integer.parseInt(year), '?');
+    }
+
+    public String toString(){
+        return term + " " + year;
     }
 }

@@ -1,4 +1,4 @@
-package edu.gcc.prij;
+package edu.gcc.prij.objects.search;
 
 public class SearchQuery {
     // Search Fields (Text Inputs) ---

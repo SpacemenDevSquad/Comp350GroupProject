@@ -1,4 +1,4 @@
-package edu.gcc.prij;
+package edu.gcc.prij.utils.time;
 
 public class TimeHelper {
     public static String timeToString(int time){
