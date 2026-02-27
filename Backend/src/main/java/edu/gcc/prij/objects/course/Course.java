@@ -1,8 +1,9 @@
 package edu.gcc.prij.objects.course;
 
 import edu.gcc.prij.objects.department.Department;
+import edu.gcc.prij.utils.RepositoryObject;
 
-public class Course {
+public class Course implements RepositoryObject<CourseKey> {
     private int number;
     private String title;
     private String description;
@@ -30,5 +31,10 @@ public class Course {
 
     public String toString(){
         return department.toString() + " " + number;
+    }
+
+    @Override
+    public CourseKey getKey() {
+        return new CourseKey(department, number);
     }
 }

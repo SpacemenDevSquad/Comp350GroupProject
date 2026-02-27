@@ -4,11 +4,21 @@ import java.util.ArrayList;
 
 import edu.gcc.prij.objects.course.Course;
 import edu.gcc.prij.objects.section.Section;
+import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.user.User;
+import edu.gcc.prij.utils.RepositoryObject;
 
-public class Schedule {
+public class Schedule implements RepositoryObject<ScheduleKey> {
     // SCHEDULE VARIABLES
+    private User user;
+    private Semester semester;
     private ArrayList<Section> sections;
+
+    // SCHEDULE CONSTRUCTOR
+    public Schedule(User user, Semester semester){
+        this.semester = semester;
+        this.user = user;
+    }
 
     // SCHEDULE METHODS
     public boolean addClass(Section newClass){
@@ -39,12 +49,13 @@ public class Schedule {
             
     }
 
-    // SCHEDULE CONSTRUCTOR
-    public Schedule(ArrayList<Section> sections, User owner){
-        this.sections = sections;
-    }
-
     public ArrayList<Section> getSections(){
         return sections;
+    }
+
+
+    @Override
+    public ScheduleKey getKey() {
+        return new ScheduleKey(user, semester);
     }
 }

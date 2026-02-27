@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Base from './Base';
+import Base from './components/Base';
 import Home from './views/Home';
 import Schedule from './views/Schedule';
 

@@ -1,17 +1,10 @@
 package edu.gcc.prij.objects.semester;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import edu.gcc.prij.utils.RepositoryObject;
 
-public class Semester {
+public class Semester implements RepositoryObject<SemesterKey> {
     private int year;
     private char term;
-
-    private static Map<SemesterKey, Semester> semesters = new HashMap<SemesterKey, Semester>();
-
-    public record SemesterKey(int year, char term) {}
 
     public Semester(int year, char term){
         this.year = year;
@@ -26,34 +19,27 @@ public class Semester {
         return term;
     }
 
-    public static Semester addOrGet(int year, char term){
-        SemesterKey key = new SemesterKey(year, term);
-
-        if(semesters.containsKey(key)){
-            return semesters.get(key);
-        }
-
-        Semester newSemester = new Semester(year, term);
-
-        semesters.put(key, newSemester);
-
-        return newSemester;
-    }
-
     public static Semester getSemesterFromString(String semesterString){
-        String year = semesterString.substring(0, semesterString.indexOf("_"));
-        String term = semesterString.substring(semesterString.indexOf("_") + 1);
+        String yearString = semesterString.substring(0, semesterString.indexOf("_"));
+        int year = Integer.parseInt(yearString);
+        String termString = semesterString.substring(semesterString.indexOf("_") + 1);
 
-        if(term.equals("Fall")){
-            return Semester.addOrGet(Integer.parseInt(year), 'F');
-        }else if(term.equals("Spring")){
-            return Semester.addOrGet(Integer.parseInt(year), 'S');
-        }
+        char term = 0;
+        if(termString.equals("Fall")){ term = 'F'; }
+        else if(termString.equals("Spring")){ term = 'S'; }
 
-        return Semester.addOrGet(Integer.parseInt(year), '?');
+        if(term == 0)
+            return null;
+
+        return new Semester(year, term);
     }
 
     public String toString(){
         return term + " " + year;
+    }
+
+    @Override
+    public SemesterKey getKey() {
+        return new SemesterKey(year, term);
     }
 }

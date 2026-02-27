@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 
-function Home() {
+function Course({department, number}) {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const department = "HUMA";
-    const number = "202";
-
-    fetch(`/api/section/${department}/${number}/`)
+    fetch(`/api/course/${department}/${number}/`)
       .then(res => res.json())
       .then(fetchedData => {
         // Log it to see the structure, then save it to state
@@ -15,7 +12,7 @@ function Home() {
         setData(fetchedData); 
       })
       .catch(error => console.error("Error fetching data:", error)); // Added error handling
-  }, []);
+  }, [department, number]);
 
   return (
     <div>
@@ -31,4 +28,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Course;

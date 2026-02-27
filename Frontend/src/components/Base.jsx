@@ -4,6 +4,7 @@ function Base() {
   return (
     <div className='app-layout'>
       {/* <Sidebar /> */}
+      <div>Base-specific stuff</div>
       <main className='main-content'>
         <Outlet />
       </main>

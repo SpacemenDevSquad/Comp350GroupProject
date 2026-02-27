@@ -81,6 +81,7 @@ public class CustomJsonParser {
                 }
 
                 Semester semester = Semester.getSemesterFromString(semesterString);
+                
                 SectionKey sectionKey = new SectionKey(course, sectionLetter, semester);
                 Section section = new Section(course, sectionLetter, times.toArray(new Timeslot[0]), profs.toArray(new Professor[0]), semester);
 

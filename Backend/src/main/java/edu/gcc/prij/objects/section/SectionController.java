@@ -28,7 +28,8 @@ public class SectionController implements Controller {
         app.get("/api/section/{year}/{term}/{department}/{number}/{section}", ctx -> {
             int year = Integer.parseInt(ctx.pathParam("year"));
             char term = ctx.pathParam("term").charAt(0);
-            Semester semester = Semester.addOrGet(year, term);
+            // Semester semester = Semester.addOrGet(year, term);
+            Semester semester = new Semester(year, term);
 
             Department department = departmentRepository.findById(ctx.pathParam("department"));
 

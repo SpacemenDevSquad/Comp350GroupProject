@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryRepository<T, ID> implements Repository<T, ID> {
+public class InMemoryRepository<T extends RepositoryObject<ID>, ID> implements Repository<T, ID> {
     // We make this 'protected' so specific repositories can access it if they need to
     protected final Map<ID, T> database = new HashMap<>();
 
@@ -22,6 +22,13 @@ public class InMemoryRepository<T, ID> implements Repository<T, ID> {
     public T save(ID id, T entity) {
         database.put(id, entity);
         return entity;
+    }
+
+    public boolean update(ID id, T entity) {
+        //object did not exist
+        if (!deleteById(id)) { return false; }
+        save(entity.getKey(), entity);
+        return true;
     }
 
     @Override
