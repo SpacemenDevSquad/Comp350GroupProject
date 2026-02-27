@@ -1,6 +1,8 @@
 package edu.gcc.prij.objects.professor;
 
-public class Professor {
+import edu.gcc.prij.utils.RepositoryObject;
+
+public class Professor implements RepositoryObject<String> {
     private String name;
 
     public Professor(String name){
@@ -8,4 +10,9 @@ public class Professor {
     }
 
     public String getName(){ return name; }
+
+    @Override
+    public String getKey() {
+        return name;
+    }
 }

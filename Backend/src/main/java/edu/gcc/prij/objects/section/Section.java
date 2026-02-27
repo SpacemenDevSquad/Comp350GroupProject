@@ -3,9 +3,10 @@ package edu.gcc.prij.objects.section;
 import edu.gcc.prij.objects.course.Course;
 import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.semester.Semester;
+import edu.gcc.prij.utils.RepositoryObject;
 import edu.gcc.prij.utils.time.Timeslot;
 
-public class Section {
+public class Section implements RepositoryObject<SectionKey> {
     private Course course;
     private char sectionLetter;
     private Timeslot[] timeslots;
@@ -27,6 +28,11 @@ public class Section {
     public Timeslot[] getTimeslots(){ return timeslots; }
     public Professor[] getFaculty(){ return faculty; }
     public Semester getSemester(){ return semester; }
+
+    @Override
+    public SectionKey getKey() {
+        return new SectionKey(course, sectionLetter, semester);
+    }
 }
 
 
