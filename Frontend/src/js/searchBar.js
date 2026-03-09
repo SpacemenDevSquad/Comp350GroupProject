@@ -6,7 +6,6 @@ export default async function OnHitEnter(e) {
   // Send search API call here to retrieve a list of courses
   const courseResults = [];
 
-  // TODO:
   // Change CSS to fit in new course elements
   const titleText = document.getElementById("title");
   const content = document.getElementById("content");
