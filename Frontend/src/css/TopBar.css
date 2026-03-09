@@ -14,3 +14,21 @@
     margin: 5px;
     height: 75%;
 }
+
+#calendarBtn {
+    height: 45px;
+    width: 45px;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 5px;
+    border: 4px solid white;
+    cursor: pointer;
+
+    background-image: url('../images/calendar.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: fixed;
+    top: 2.5px;
+    right: 5px;
+}

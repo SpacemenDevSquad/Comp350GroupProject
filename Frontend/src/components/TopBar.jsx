@@ -5,6 +5,7 @@ function Base() {
   return (
     <div id='background'>
       <img id="logo" src={logoImage}></img>
+      <button id="calendarBtn" onClick={() => console.log("Hello World")}></button>
     </div>
   )
 }
