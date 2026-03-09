@@ -1,0 +1,140 @@
+/* Fonts, content div, default settings */
+
+div {height: 100%; width: 100%;}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease;
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('../fonts/robotoslab-variablefont_wght-webfont.woff2') format('woff2'),
+         url('../fonts/robotoslab-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Background CSS */
+
+#bgImage {
+    background-image: url('../images/bg2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: -20;
+}
+
+#bgImageTint {
+    background-color: black;
+    opacity: 60%;
+}
+
+/* Text Objects */
+
+#title {
+    margin: 0px;
+    user-select: none;
+    transition: 0.4s ease;
+
+    color: white;
+    font-size: 5vw;
+    font-family: 'Roboto Slab';
+    text-align: center;
+}
+
+/* Search Bar */
+
+#searchBar {
+    width: 40vw;
+    height: 40px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+
+    color: black;
+    font-size: 20px;
+    font-family: 'Roboto Slab';
+    border: 4px solid rgb(50, 50, 50);
+
+    border-radius: 20px;
+    appearance: none;
+
+    padding-left: 35px;
+    padding-top: 3.5px;
+    background-image: url('../images/search.svg');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 16px;
+}
+
+#searchContainer {
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease;
+}
+
+#searchBar:focus {
+    width: 44vw;
+    height: 45px;
+
+    font-size: 23px;
+    background-size: 22px;
+    padding-left: 40px;
+    border: 4px solid rgb(160, 0, 0);
+}
+
+#searchBar::placeholder {
+    color: rgb(126, 126, 126);
+    font-style: italic;
+}
+
+#filterButton {
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+
+    color: black;
+    font-size: 15px;
+    font-family: 'Roboto Slab';
+    border-radius: 20px;
+    background-color: white;
+    border: 4px solid rgb(50, 50, 50);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+#filterButton:focus {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 40px;
+    border: 4px solid rgb(160, 0, 0);
+}
+
+/* Courses */
+#courseContainer {
+    height: auto;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+}
