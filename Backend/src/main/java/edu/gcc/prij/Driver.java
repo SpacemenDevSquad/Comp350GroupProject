@@ -1,5 +1,8 @@
 package edu.gcc.prij;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import edu.gcc.prij.objects.course.Course;
@@ -47,11 +50,18 @@ public class Driver {
         /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
         Javalin app = Javalin.create(config -> {
             // Serve static files from: /Frontend/dist (react build path)
-            config.staticFiles.add(staticFiles -> {
-                staticFiles.hostedPath = "/";
-                staticFiles.directory = "Frontend/dist";
-                staticFiles.location = Location.EXTERNAL;
-            });;
+            // config.staticFiles.add(staticFiles -> {
+            //     staticFiles.hostedPath = "/";
+            //     staticFiles.directory = "Frontend/dist";
+            //     staticFiles.location = Location.EXTERNAL;
+            // });
+
+            //Frontend access allowed
+            config.bundledPlugins.enableCors(cors -> {
+                cors.addRule(it -> {
+                    it.anyHost();
+                });
+            });
         }).start(8096);
         /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
 

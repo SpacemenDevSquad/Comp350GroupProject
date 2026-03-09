@@ -24,6 +24,7 @@ public class InMemoryRepository<T extends RepositoryObject<ID>, ID> implements R
         return entity;
     }
 
+    @Override
     public boolean update(ID id, T entity) {
         //object did not exist
         if (!deleteById(id)) { return false; }
