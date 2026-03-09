@@ -1,4 +1,23 @@
+/* Fonts, content div, default settings */
+
 div {height: 100%; width: 100%;}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('../fonts/robotoslab-variablefont_wght-webfont.woff2') format('woff2'),
+         url('../fonts/robotoslab-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Background CSS */
 
 #bgImage {
     background-image: url('../images/bg2.jpg');
@@ -17,12 +36,7 @@ div {height: 100%; width: 100%;}
     opacity: 60%;
 }
 
-#content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+/* Text Objects */
 
 #title {
     margin: 0px;
@@ -33,6 +47,8 @@ div {height: 100%; width: 100%;}
     font-family: 'Roboto Slab';
     text-align: center;
 }
+
+/* Search Bar */
 
 #searchBar {
     width: 40vw;
@@ -105,12 +121,4 @@ div {height: 100%; width: 100%;}
     font-size: 20px;
     border-radius: 40px;
     border: 4px solid rgb(160, 0, 0);
-}
-
-@font-face {
-    font-family: 'Roboto Slab';
-    src: url('../fonts/robotoslab-variablefont_wght-webfont.woff2') format('woff2'),
-         url('../fonts/robotoslab-variablefont_wght-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 }
