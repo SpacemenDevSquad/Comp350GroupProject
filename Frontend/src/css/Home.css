@@ -25,31 +25,86 @@ div {height: 100%; width: 100%;}
 }
 
 #title {
-    opacity: 100%;
-    text-align: center;
     margin: 0px;
-    font-size: 5vw;
+    user-select: none;
+
     color: white;
+    font-size: 5vw;
     font-family: 'Roboto Slab';
+    text-align: center;
 }
 
 #searchBar {
     width: 40vw;
     height: 40px;
     margin-top: 10px;
-    transition: 0.3s ease;
+    transition: 0.4s ease;
 
+    color: black;
     font-size: 20px;
     font-family: 'Roboto Slab';
+    border: 4px solid rgb(50, 50, 50);
 
     border-radius: 20px;
     appearance: none;
+
+    padding-left: 35px;
+    padding-top: 3.5px;
+    background-image: url('../images/search.svg');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 16px;
+}
+
+#searchContainer {
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #searchBar:focus {
-    width: 41vw;
-    height: 42px;
-    border: 2px solid rgb(160, 0, 0);
+    width: 44vw;
+    height: 45px;
+
+    font-size: 23px;
+    background-size: 22px;
+    padding-left: 40px;
+    border: 4px solid rgb(160, 0, 0);
+}
+
+#searchBar::placeholder {
+    color: rgb(126, 126, 126);
+    font-style: italic;
+}
+
+#filterButton {
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+
+    color: black;
+    font-size: 15px;
+    font-family: 'Roboto Slab';
+    border-radius: 20px;
+    background-color: white;
+    border: 4px solid rgb(50, 50, 50);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+#filterButton:focus {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 40px;
+    border: 4px solid rgb(160, 0, 0);
 }
 
 @font-face {

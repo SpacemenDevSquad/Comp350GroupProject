@@ -10,7 +10,10 @@ function Home() {
       </div>
       <div id='content'>
         <h1 id='title'>GCC Course Search</h1>
-        <input type='search' id="searchBar" placeholder='Search Courses...'></input>
+        <div id="searchContainer">
+          <input type='search' id="searchBar" placeholder='Search Courses...'></input>
+          <button id="filterButton">☰</button>
+        </div>
       </div>
     </div>
   );
