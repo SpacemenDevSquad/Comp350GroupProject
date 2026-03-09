@@ -43,8 +43,7 @@ function gotToCalendar() {
 }
 
 export function goToSearch() {
-    history.pushState({}, "", "/search");
-    location.hash = searchBar.value;
+    history.pushState({}, "", "/search#"+searchBar.value);
     renderPage();
 }
 
