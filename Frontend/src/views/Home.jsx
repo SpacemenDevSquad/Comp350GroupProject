@@ -1,10 +1,17 @@
 import { useState, useEffect } from 'react';
 import Course from '../components/Course'
+import '../css/Home.css'
 
 function Home() {
   return (
     <div>
-      <Course department="HUMA" number="202" />
+      <div id='bgImage'>
+        <div id='bgImageTint'></div>
+      </div>
+      <div id='content'>
+        <h1 id='title'>GCC Course Search</h1>
+        <input type='search' id="searchBar" placeholder='Search Courses...'></input>
+      </div>
     </div>
   );
 }

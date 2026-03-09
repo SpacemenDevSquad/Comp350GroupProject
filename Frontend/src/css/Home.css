@@ -1,0 +1,61 @@
+div {height: 100%; width: 100%;}
+
+#bgImage {
+    background-image: url('../images/bg2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: -20;
+}
+
+#bgImageTint {
+    background-color: black;
+    opacity: 60%;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    opacity: 100%;
+    text-align: center;
+    margin: 0px;
+    font-size: 5vw;
+    color: white;
+    font-family: 'Roboto Slab';
+}
+
+#searchBar {
+    width: 40vw;
+    height: 40px;
+    margin-top: 10px;
+    transition: 0.3s ease;
+
+    font-size: 20px;
+    font-family: 'Roboto Slab';
+
+    border-radius: 20px;
+    appearance: none;
+}
+
+#searchBar:focus {
+    width: 41vw;
+    height: 42px;
+    border: 2px solid rgb(160, 0, 0);
+}
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('../fonts/robotoslab-variablefont_wght-webfont.woff2') format('woff2'),
+         url('../fonts/robotoslab-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
