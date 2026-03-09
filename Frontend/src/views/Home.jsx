@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import Course from '../components/Course'
+import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter from '../js/searchBar.js'
 
@@ -16,7 +15,11 @@ function Home() {
       <div id='content'>
         <h1 id='title'>GCC Course Search</h1>
         <div id="searchContainer">
-          <input type='search' id="searchBar" placeholder='Search Courses...' onKeyDown={(e) => {OnHitEnter(e)}}></input>
+          <input type='search' id="searchBar" placeholder='Search Courses...' onKeyDown={(e) => {
+            if (e.key !== "Enter") return;
+            OnHitEnter(); 
+            goToSearch();
+            }}></input>
           <button id="filterButton">☰</button>
         </div>
       </div>
