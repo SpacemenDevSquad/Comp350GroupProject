@@ -7,6 +7,7 @@ function App() {
     <div>
       <TopBar />
       <Home />
+      <Schedule />
     </div>
   );
 }

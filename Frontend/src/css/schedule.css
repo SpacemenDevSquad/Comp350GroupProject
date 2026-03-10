@@ -1,0 +1,40 @@
+#scheduleBlock {
+    height: calc(100% - 50px);
+    width: 100%;
+
+    top: 50px;
+    left: 100vw;
+    position: fixed;
+    transition: transform 0.4s ease;
+}
+
+#backArrow {
+    height: 45px;
+    width: 45px;
+    border: 0px;
+    cursor: pointer;
+    opacity: 0%;
+
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('../images/backArrow.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    top: 15px;
+    left: 15px;
+    position: fixed;
+    transition: transform 0.4s ease;
+}
+
+#scheduleTitle {
+    margin: 0px;
+    margin-top: 40px;
+    user-select: none;
+    transition: 0.4s ease;
+
+    color: white;
+    font-size: 5vw;
+    font-family: 'Roboto Slab';
+    text-align: center;
+}
