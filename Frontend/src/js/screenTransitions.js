@@ -43,6 +43,7 @@ function gotToCalendar() {
 }
 
 export function goToSearch() {
+    catchMissingElements();
     history.pushState({}, "", "/search#"+searchBar.value);
     renderPage();
 }
@@ -52,6 +53,7 @@ export function goToSearch() {
 // Page rendering code
 
 async function renderPage() {
+    catchMissingElements();
     if (location.pathname === '/schedule') Calendar();
     if (location.pathname === '/search') Search();
     if (location.pathname === '/') Home();
@@ -74,6 +76,7 @@ async function Calendar() {
 
 // Transition back to home
 async function Home() {
+    catchMissingElements();
     titleText.style.opacity = '100%';
     titleText.style.fontSize = '5vw';
     titleText.style.height = '';
@@ -91,6 +94,7 @@ async function Home() {
 
 // Transition to search view
 async function Search() {
+    catchMissingElements();
     searchBar.value = decodeURIComponent(location.hash.substring(1));
 
     titleText.style.opacity = '0%';
@@ -106,4 +110,13 @@ async function Search() {
     backArrow.style.opacity = '0%';
 
     scheduleBlock.style.transform = '';
+}
+// A tiny safety net to catch elements if React rendered them late
+function catchMissingElements() {
+    if (!content) content = document.getElementById("content");
+    if (!backArrow) backArrow = document.getElementById("backArrow");
+    if (!scheduleBlock) scheduleBlock = document.getElementById("scheduleBlock");
+    if (!titleText) titleText = document.getElementById("title");
+    if (!courseContainer) courseContainer = document.getElementById("courseContainer");
+    if (!searchBar) searchBar = document.getElementById("searchBar");
 }

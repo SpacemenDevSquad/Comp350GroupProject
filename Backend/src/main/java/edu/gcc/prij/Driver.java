@@ -47,6 +47,18 @@ public class Driver {
         customJsonParser.parse();
         /* ---------- PARSE JSON FILE ---------- */
 
+
+        /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
+
+        /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
+        List<Controller> controllers = List.of(
+            new CourseController(courseRepository, departmentRepository),
+            new UserController(),
+            new SectionController(sectionRepository, departmentRepository, courseRepository),
+            new ScheduleController(),
+            new RatingController(ratingRepository)
+        );
+
         /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
         Javalin app = Javalin.create(config -> {
             // Serve static files from: /Frontend/dist (react build path)
@@ -63,16 +75,6 @@ public class Driver {
                 });
             });
         }).start(8096);
-        /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
-
-        /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
-        List<Controller> controllers = List.of(
-            new CourseController(courseRepository, departmentRepository),
-            new UserController(),
-            new SectionController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(),
-            new RatingController(ratingRepository)
-        );
 
         controllers.forEach(c -> c.registerRoutes(app));
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */

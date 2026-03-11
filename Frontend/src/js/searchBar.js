@@ -3,7 +3,27 @@ export default async function OnHitEnter(e) {
   
   // TODO:
   // Send search API call here to retrieve a list of courses
-  const courseResults = [];
+  const searchQuery = e.target.value;
+  let courseResults = [];
+
+  try{
+    const response = await fetch("http://localhost:8096/api/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ searchText: searchQuery })
+    });
+    if (!response.ok) {
+      throw new Error("Search API call failed");
+    }
+    courseResults = await response.json();
+    console.log(`Successfully retrieved ${courseResults.length} courses!`);
+  } catch (error) {
+    console.error("Error fetching course results:", error);
+    return;
+  }
+
 
 
   // TODO:

@@ -15,9 +15,9 @@ function Home() {
       <div id='content'>
         <h1 id='title'>GCC Course Search</h1>
         <div id="searchContainer">
-          <input type='search' id="searchBar" placeholder='Search Courses...' onKeyDown={(e) => {
+          <input type='search' id="searchBar" placeholder='Search Courses...' onKeyDown={async (e) => {
             if (e.key !== "Enter") return;
-            OnHitEnter(); 
+            await OnHitEnter(e); 
             goToSearch();
             }}></input>
           <button id="filterButton">☰</button>
