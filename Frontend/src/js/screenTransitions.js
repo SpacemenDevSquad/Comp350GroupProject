@@ -111,6 +111,7 @@ async function Search() {
 
     scheduleBlock.style.transform = '';
 }
+
 // A tiny safety net to catch elements if React rendered them late
 function catchMissingElements() {
     if (!content) content = document.getElementById("content");

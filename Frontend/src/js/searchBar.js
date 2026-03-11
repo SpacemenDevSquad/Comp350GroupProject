@@ -1,7 +1,6 @@
 export default async function OnHitEnter(e) {
   console.log("Searching for courses...")
   
-  // TODO:
   // Send search API call here to retrieve a list of courses
   const searchQuery = e.target.value;
   let courseResults = [];
@@ -24,11 +23,6 @@ export default async function OnHitEnter(e) {
     console.error("Error fetching course results:", error);
     return [];
   }
-
-
-
-  // TODO:
-  // Wait for course results, then create course HTML objects
 
 }
 
