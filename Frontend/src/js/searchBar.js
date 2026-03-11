@@ -19,9 +19,10 @@ export default async function OnHitEnter(e) {
     }
     courseResults = await response.json();
     console.log(`Successfully retrieved ${courseResults.length} courses!`);
+    return courseResults;
   } catch (error) {
     console.error("Error fetching course results:", error);
-    return;
+    return [];
   }
 
 
