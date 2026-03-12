@@ -25,8 +25,10 @@ function Section({ data }) {
       let day = rawTimes[i].day;
 
       // Calculate if the class time is AM or PM
-      let timeOfDay = "am";
-      if (Math.floor((startTime/60)/12) == 1) timeOfDay = "pm";
+      let startTimeOfDay = "am";
+      let endTimeOfDay = "am";
+      if (Math.floor((startTime/60)/12) == 1) startTimeOfDay = "pm";
+      if (Math.floor((endTime/60)/12) == 1) endTimeOfDay = "pm";
 
       // Get the starting time of the class as a string
       let startString = ((Math.floor(startTime/60))%12 == 0 ? 12 : (Math.floor(startTime/60))%12) + ":" + ((startTime%60) > 10 ? (startTime%60).toString() : "0"+(startTime%60).toString());
@@ -38,7 +40,7 @@ function Section({ data }) {
       let existed = false;
 
       for (let j = 0; j < Math.floor(joinedTimes.length/2); j++) {
-        if (joinedTimes[j*2+1] == startString+" - "+endString+timeOfDay) {
+        if (joinedTimes[j*2+1] == startString+startTimeOfDay+" - "+endString+endTimeOfDay) {
           existed = true;
           joinedTimes[j*2] += day;
           break;
@@ -48,7 +50,7 @@ function Section({ data }) {
       // If the timeslot doesn't already 
       if (!existed) {
         joinedTimes.push(day);
-        joinedTimes.push(startString+" - "+endString+timeOfDay)
+        joinedTimes.push(startString+startTimeOfDay+" - "+endString+endTimeOfDay)
       }
 
     }
