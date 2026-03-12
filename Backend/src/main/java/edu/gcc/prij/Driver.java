@@ -55,7 +55,7 @@ public class Driver {
             new CourseController(courseRepository, departmentRepository),
             new UserController(),
             new SectionController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(),
+            new ScheduleController(sectionRepository, departmentRepository, courseRepository),
             new RatingController(ratingRepository)
         );
 
