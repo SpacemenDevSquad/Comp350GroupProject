@@ -32,7 +32,7 @@ function Section({ data }) {
       let startString = ((Math.floor(startTime/60))%12 == 0 ? 12 : (Math.floor(startTime/60))%12) + ":" + ((startTime%60) > 10 ? (startTime%60).toString() : "0"+(startTime%60).toString());
 
       // Get the ending time of the class as a string
-      let endString = ((Math.floor(endTime/60))%12 == 0 ? 12 : (Math.floor(startTime/60))%12) + ":" + ((endTime%60) > 10 ? (endTime%60).toString() : "0"+(endTime%60).toString());
+      let endString = ((Math.floor(endTime/60))%12 == 0 ? 12 : (Math.floor(endTime/60))%12) + ":" + ((endTime%60) > 10 ? (endTime%60).toString() : "0"+(endTime%60).toString());
 
       // Detects if a class shares the same time between multiple days. For example, MWF at 9:00-9:50am all share the same time
       let existed = false;
