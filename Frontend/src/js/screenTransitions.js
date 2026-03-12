@@ -105,12 +105,13 @@ async function Search() {
 
     courseContainer.style.transform = '';
     courseContainer.style.top = '120px';
-    courseContainer.style.height = '1000px';
+    courseContainer.style.height = 'calc(100vh - 120px)';
 
     backArrow.style.opacity = '0%';
 
     scheduleBlock.style.transform = '';
 }
+
 // A tiny safety net to catch elements if React rendered them late
 function catchMissingElements() {
     if (!content) content = document.getElementById("content");
