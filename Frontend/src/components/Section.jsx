@@ -7,7 +7,7 @@ function Section({ data }) {
   let splitTitle = rawTitle.split(" ");
   let joinedTitle = ""
   for (let i = 0; i < splitTitle.length; i++) {
-    joinedTitle += splitTitle[i][0].toString().toUpperCase() + splitTitle[i].substring(1).toLowerCase()+" ";
+    joinedTitle += splitTitle[i][0].toString().toUpperCase() + splitTitle[i].substring(1).toUpperCase()+" ";
   }
 
   // Timeslots
