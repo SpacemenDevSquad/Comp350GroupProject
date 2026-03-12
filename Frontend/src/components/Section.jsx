@@ -58,7 +58,7 @@ function Section({ data }) {
 
 
   // Safely grab the details from the Java Section object you passed in
-  const deptCode = data.course?.department?.name || data.course?.department?.id || "N/A";
+  const deptCode = data.course?.department?.code || data.course?.department?.id || "N/A";
   const courseNum = data.course?.number || "000";
   const sectionLetter = data.sectionLetter || "?";
   const credits = data.course?.credits || "Null";
