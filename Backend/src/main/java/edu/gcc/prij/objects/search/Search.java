@@ -61,7 +61,11 @@ public class Search {
                 }
 
                 if (matchesAllTokens) {
-                    textMatchResults.add(section);
+                    if(section.getCourse().getDepartment().getCode().toLowerCase().equals("zload")){
+                    }
+                    else{
+                        textMatchResults.add(section);
+                    }
                 }
             }
         }
@@ -81,7 +85,8 @@ public class Search {
 
     // Helper method to create a super string that contains all searchable text for a section
     private String buildSuperString(Section section) {
-        String subject = section.getCourse().getDepartment().getName().toLowerCase();
+        String subject = section.getCourse().getDepartment().getCode().toLowerCase();
+        String deptName = section.getCourse().getDepartment().getFullName().toLowerCase();
         String number = String.valueOf(section.getCourse().getNumber());
         String name = section.getCourse().getTitle().toLowerCase();
 
@@ -103,6 +108,6 @@ public class Search {
         }
 
         // Include "acct 201" and "acct201"
-        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description;
+        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description + " " + deptName;
     }
 }
