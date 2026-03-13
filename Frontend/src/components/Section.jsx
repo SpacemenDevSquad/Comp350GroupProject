@@ -59,6 +59,52 @@ function Section({ data }) {
   }
 
 
+  //ADD/DROP LOGIC
+  const addSection= async (force= false) => {
+    //make api call
+    const response= await fetch(`http://localhost:8096/api/schedule/add/1?force=${force}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    //checks for conflict
+    if(!response.ok){
+      const msg = await response.text();
+      
+      //credit limit popup
+      if(response.status==403 && msg === "CREDIT_LIMIT"){
+        const confirmForce = window.confirm("Warning: This puts you over 18 credits. Force add anyway?");
+        if (confirmForce) {
+          addSection(true);
+        }
+        return;
+      }
+      
+      alert(msg);
+      return;
+    }
+    alert("Course Added");
+  }
+
+  const dropSection= async (section) => {
+     //make api call
+    const response= await fetch("http://localhost:8096/api/schedule/drop/1", {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    //checks if not in schedule
+    if(!response.ok){
+      alert("Could not drop course. Not found in schedule.");
+      return;
+    }
+    alert("Course Dropped");
+  }
+
+
+
   // Safely grab the details from the Java Section object you passed in
   const deptCode = data.course?.department?.code || data.course?.department?.id || "N/A";
   const courseNum = data.course?.number || "000";
@@ -74,19 +120,17 @@ function Section({ data }) {
   
 
   return (
-    <div class="sectionCard">
-      <p class="sectionTitle">{title}</p>
-      <p class="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
-      <p class="sectionProf">{"Professor: "+profName}</p>
+    <div className="sectionCard">
+      <p className="sectionTitle">{title}</p>
+      <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
+      <p className="sectionProf">{"Professor: "+profName}</p>
       <p class="sectionTerm">{"Semester: "+year+" "+term}</p>
-      <p class="sectionTime">{timeSlots}</p>
-      <p class="sectionCreds">Credits: {credits}</p>
+      <p className="sectionTime">{timeSlots}</p>
+      <p className="sectionCreds">Credits: {credits}</p>
+      <button onClick={addSection} className="addButton">Add</button>
+      <button onClick={dropSection} className="dropButton">Drop</button>
     </div>
   );
 }
-
-//<pre style={{ fontSize: '10px' }}>
-// {JSON.stringify(data, null, 2)}
-// </pre>
 
 export default Section;

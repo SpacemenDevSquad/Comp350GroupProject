@@ -9,7 +9,12 @@ public class Professor implements RepositoryObject<String> {
         this.name = name;
     }
 
+    
+    public Professor(){}
+
+    //GETTERS AND SETTERS
     public String getName(){ return name; }
+    public void setName(String name) {this.name=name;}
 
     @Override
     public String getKey() {

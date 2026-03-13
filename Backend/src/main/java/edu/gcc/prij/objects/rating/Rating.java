@@ -23,6 +23,8 @@ public class Rating implements RepositoryObject<Integer> {
         this.quality = quality;
         this.review = review;
     }
+    
+    public Rating(){}
 
     //getters
     public int getId(){ return id; }
