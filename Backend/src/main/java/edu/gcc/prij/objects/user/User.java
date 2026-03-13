@@ -25,6 +25,8 @@ public class User {
         this.schedules = schedules;
     }
 
+    public User(){}
+
     @Override
     public boolean equals(Object o) {
         // 1. Check if it's the exact same memory address

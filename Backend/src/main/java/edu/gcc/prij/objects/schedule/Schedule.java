@@ -23,27 +23,34 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         this.sections= new ArrayList<>();
     }
 
+    public Schedule(){}
+
     // SCHEDULE METHODS
-    public boolean addSection(Section newSection){
-        if(hasConflict(newSection)){
-            return false;
+    public String addSection(Section newSection){
+        int numCredits= newSection.getCourse().getCredits();
+        if(hasOverlap(newSection)){
+            return "CONFLICT";
+        }
+        if(exceedsCredits(numCredits)){
+            return "CREDIT_LIMIT";
         }
 
         sections.add(newSection);
-        return true;
+        return "ADD";
+    }
+    
+    public boolean dropSection(Section section){ 
+        return sections.remove(section); 
     }
 
     
-    public void removeSection(Section section){ sections.remove(section); }
-
-    
-    public boolean hasConflict(Section newSection){
+    public boolean hasOverlap(Section newSection){
         //loop through section in the schedules
-        for (Section existingSection : sections) {
+        for (Section existingSection: sections) {
             //loop through the TIMESLOTS in the new section
-            for (Timeslot newSlot : newSection.getTimeslots()) {
+            for (Timeslot newSlot: newSection.getTimeslots()) {
                 //loop through TIMESLOT of existing section
-                for (Timeslot existingSlot : existingSection.getTimeslots()) {
+                for (Timeslot existingSlot: existingSection.getTimeslots()) {
                     //check if on same day
                     if (newSlot.getDay() == existingSlot.getDay()) {
                         //check for overlap
@@ -57,6 +64,16 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         }
 
         return false;       
+    }
+
+    public boolean exceedsCredits(int addCredits){
+        int currCredits=currentCredits();
+        if(currCredits+addCredits>18){
+            return true;
+        }
+        return false;
+
+
     }
 
     

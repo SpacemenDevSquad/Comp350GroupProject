@@ -60,32 +60,89 @@ public class ScheduleController implements Controller {
         // POST: Add a section to the schedule
         app.post("/api/schedule/add/{userId}", ctx -> {
             
-            int userId = Integer.parseInt(ctx.pathParam("userId")); //gets userID from API call
-            Section newSection = ctx.bodyAsClass(Section.class);
-            
-            //manual user
-            User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-            Semester sem = new Semester(2023,'F');
+            //force add if over 18 credits
+            boolean force = Boolean.parseBoolean(ctx.queryParam("force"));
 
-            //builds schedule key
-            ScheduleKey key = new ScheduleKey(user, sem);
+            System.out.println("ADD Request received for user: " + ctx.pathParam("userId")); 
 
-            // If schedule doesn't exist, exit
-            Schedule sch = userSchedules.get(key);
-            if (sch == null) {
-                ctx.status(404).result("Schedule not found.");
-                return;
+            try{
+                int userId = Integer.parseInt(ctx.pathParam("userId")); //gets userID from API call
+                Section newSection = ctx.bodyAsClass(Section.class);
+                
+                //manual user
+                User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
+                Semester sem = new Semester(2023,'F');
+
+                //builds schedule key
+                ScheduleKey key = new ScheduleKey(user, sem);
+
+                // If schedule doesn't exist, exit
+                Schedule sch = userSchedules.get(key);
+                if (sch == null) {
+                    ctx.status(404).result("Schedule not found.");
+                    return;
+                }
+                //adds section to schedule if there is no conflict
+                String result = sch.addSection(newSection);
+                if (result.equals("ADD") || (result.equals("CREDIT_LIMIT")  && force)) {
+                    ctx.status(201).json(sch);
+                } 
+                else if (result.equals("CONFLICT"))  {
+                    ctx.status(409).result("Conflict detected!");
+                }
+                else{
+                    ctx.status(403).result("CREDIT_LIMIT");
+                }
+                        
+            } catch (Exception e){
+                e.printStackTrace();
+
+                ctx.status(500).result("Java Crash: " + e.getMessage());
             }
-            //adds section to schedule if there is no conflict
-            if (sch.addSection(newSection) == true) {
-                ctx.status(201).json(sch);
-            } else {
-                ctx.status(409).result("Conflict detected!");
+        });
+
+        //DELETE: Delete section from the schedule
+        app.delete("/api/schedule/drop/{userId}", ctx ->{
+
+            System.out.println("DELETE Request received for user: " + ctx.pathParam("userId"));
+
+            try{
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                Section sectionToDrop = ctx.bodyAsClass(Section.class);
+                
+                //manual user
+                User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
+                Semester sem = new Semester(2023,'F');
+
+                //builds schedule key
+                ScheduleKey key = new ScheduleKey(user, sem);
+                
+                // If schedule doesn't exist, exit
+                Schedule sch = userSchedules.get(key);
+                if (sch == null) {
+                    ctx.status(404).result("Schedule not found.");
+                    return;
+                }
+
+                //removes section from schedule
+                if (sch.dropSection(sectionToDrop)) {
+                    ctx.status(201).json(sch);
+                } else {
+                    ctx.status(409).result("Section not found in schedule");
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+                ctx.status(500).result("Error: " + e.getMessage());
+
             }
+
+
         });
 
     }
 }
+
 
 
 

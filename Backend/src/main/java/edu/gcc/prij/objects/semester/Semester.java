@@ -11,6 +11,8 @@ public class Semester implements RepositoryObject<SemesterKey> {
         this.term = term;
     }
 
+    public Semester(){}
+
     public int getYear(){
         return year;
     }

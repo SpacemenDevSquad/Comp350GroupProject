@@ -1,13 +1,16 @@
 package edu.gcc.prij.objects.department;
 
 import java.util.Map;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.gcc.prij.utils.RepositoryObject;
 import static java.util.Map.entry;
 
 
 public class Department implements RepositoryObject<String> {
-    private String name;
+    private String code;
 
         private static final Map<String, String> COURSE_DEPARTMENTS = Map.ofEntries(
             entry("ABRD", "Study Abroad"),
@@ -65,19 +68,40 @@ public class Department implements RepositoryObject<String> {
     );
 
     
-    public Department(String name){
-        this.name = name;
+    public Department(String code){
+        this.code= code;
     }
 
-    public String getCode(){ return name; }
-    public String toString(){ return name; }
+    public Department(){}
+
+    //GETTERS AND SETTERS
+    public String getCode(){ return code;}
+    public void setCode(String code) { this.code = code; }
+
+    @JsonIgnore
     public String getFullName() {
-        return COURSE_DEPARTMENTS.getOrDefault(name, "Unknown Department");
+        return COURSE_DEPARTMENTS.getOrDefault(code, "Unknown Department");
     }
 
+    public String toString(){ return code;}
 
     @Override
     public String getKey() {
-        return name;
+        return code;
     }
+
+    //allows the department in search and department in schedule to be identified as equal when trying to delete
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(code, that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
+    }
+
 }
