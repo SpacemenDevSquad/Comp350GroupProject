@@ -1,8 +1,5 @@
 package edu.gcc.prij;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import edu.gcc.prij.objects.course.Course;
@@ -13,6 +10,7 @@ import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.rating.Rating;
 import edu.gcc.prij.objects.rating.RatingController;
 import edu.gcc.prij.objects.schedule.ScheduleController;
+import edu.gcc.prij.objects.search.SearchController;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionController;
 import edu.gcc.prij.objects.section.SectionKey;
@@ -21,8 +19,8 @@ import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.CustomJsonParser;
 import edu.gcc.prij.utils.InMemoryRepository;
 import edu.gcc.prij.utils.Repository;
+
 import io.javalin.Javalin;
-import io.javalin.http.staticfiles.Location;
 
 /**
  * @author James Yoho
@@ -47,27 +45,8 @@ public class Driver {
         customJsonParser.parse();
         /* ---------- PARSE JSON FILE ---------- */
 
-
-        /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
-
-        /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
-        List<Controller> controllers = List.of(
-            new CourseController(courseRepository, departmentRepository),
-            new UserController(),
-            new SectionController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(sectionRepository, departmentRepository, courseRepository),
-            new RatingController(ratingRepository)
-        );
-
-        /* ---------- CREATE JAVALIN APP AND ADD STATIC FILES ---------- */
+        /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
         Javalin app = Javalin.create(config -> {
-            // Serve static files from: /Frontend/dist (react build path)
-            // config.staticFiles.add(staticFiles -> {
-            //     staticFiles.hostedPath = "/";
-            //     staticFiles.directory = "Frontend/dist";
-            //     staticFiles.location = Location.EXTERNAL;
-            // });
-
             //Frontend access allowed
             config.bundledPlugins.enableCors(cors -> {
                 cors.addRule(it -> {
@@ -75,6 +54,17 @@ public class Driver {
                 });
             });
         }).start(8096);
+        /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
+
+        /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
+        List<Controller> controllers = List.of(
+            new CourseController(courseRepository, departmentRepository),
+            new UserController(),
+            new SectionController(sectionRepository, departmentRepository, courseRepository),
+            new SearchController(sectionRepository, departmentRepository, courseRepository),
+            new ScheduleController(sectionRepository, departmentRepository, courseRepository),
+            new RatingController(ratingRepository)
+        );
 
         controllers.forEach(c -> c.registerRoutes(app));
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */

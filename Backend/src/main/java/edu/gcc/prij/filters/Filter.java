@@ -2,8 +2,8 @@ package edu.gcc.prij.filters;
 
 import java.util.ArrayList;
 
-import edu.gcc.prij.objects.course.Course;
+import edu.gcc.prij.objects.section.Section;
 
 public interface Filter {
-    public abstract ArrayList<Course> filter(ArrayList<Course> currentCourses);
+    public abstract ArrayList<Section> filter(ArrayList<Section> currentCourses);
 }

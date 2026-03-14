@@ -8,15 +8,14 @@ public class SearchQuery {
     private String department;
     private Integer credits;
     private String days;
-    private String startTime;
+    private String startTime; 
 
     // Getters
-    public String getSearchText() {
-        return searchText;
-    }
+    public String getSearchText() { return searchText; }
+    public Integer getCredits() { return credits; }
+
 
     // Setters
-    public void setSearchText(String searchText) {
-        this.searchText = searchText;
-    }
+    public void setSearchText(String searchText) { this.searchText = searchText; }
+    public void setCredits(Integer credits) { this.credits = credits; }
 }
