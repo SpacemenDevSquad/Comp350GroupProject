@@ -1,14 +1,15 @@
 package edu.gcc.prij.objects.search;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 import edu.gcc.prij.filters.CreditFilter;
 import edu.gcc.prij.filters.Filter;
+import edu.gcc.prij.filters.TimeFilter;
 import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.section.Section;
+import edu.gcc.prij.utils.Availability;
 
 public class Search {
     // The single public method the rest of your app will call
@@ -56,6 +57,15 @@ public class Search {
         // query.setCredits(2);
 
         if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
+        Availability a = new Availability
+                            (
+                                "{\"M\": [[480, 530]],"+
+                                "\"T\": [],"+
+                                "\"W\": [[480, 530]],"+
+                                "\"R\": [],"+
+                                "\"F\": [[480, 530]]}"
+                            );
+        filters.add(new TimeFilter(a));
 
         for (Filter f : filters){
             finalResults = f.filter(finalResults);

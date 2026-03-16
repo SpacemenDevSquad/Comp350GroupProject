@@ -1,9 +1,7 @@
 package edu.gcc.prij.objects.schedule;
 import edu.gcc.prij.objects.user.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import edu.gcc.prij.objects.course.Course;
@@ -12,11 +10,8 @@ import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.department.Department;
-import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.Repository;
-import edu.gcc.prij.utils.time.Timeslot;
-
 import io.javalin.Javalin;
 
 public class ScheduleController implements Controller {
