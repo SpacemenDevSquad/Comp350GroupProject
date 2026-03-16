@@ -18,8 +18,6 @@ public class SectionController implements Controller {
     private Repository<Department, String> departmentRepository;
     private Repository<Course, CourseKey> courseRepository;
 
-    private Search searchEngine;
-
     public SectionController(
         Repository<Section, SectionKey> sectionRepository,
         Repository<Department, String> departmentRepository,
@@ -28,8 +26,6 @@ public class SectionController implements Controller {
         this.sectionRepository = sectionRepository;
         this.departmentRepository = departmentRepository;
         this.courseRepository = courseRepository;
-
-        this.searchEngine = new Search();
     }
 
     @Override
@@ -57,21 +53,5 @@ public class SectionController implements Controller {
         app.get("/api/sections", ctx -> {
             ctx.json(sectionRepository.findAll());
         });
-
-        app.post("/api/search", ctx -> {
-            
-            // A. Catch the JSON from React and turn it into a SearchQuery object
-            SearchQuery userTicket = ctx.bodyAsClass(SearchQuery.class);
-
-            // B. Grab the master list from your awesome repository pattern
-            Collection<Section> masterCatalog = sectionRepository.findAll();
-
-            // C. Hand the ticket and the data to your stateless engine
-            List<Section> results = searchEngine.executeSearch(userTicket, masterCatalog);
-
-            // D. Package the exact matches back into JSON and send them to the frontend
-            ctx.json(results);
-        });
-    }
-    
+    }   
 }
