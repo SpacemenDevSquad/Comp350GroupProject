@@ -60,7 +60,7 @@ function Section({ data }) {
 
 
   //ADD/DROP LOGIC
-  const addSection= async (force= false) => {
+  async function addSection(force=false) {
     //make api call
     const response= await fetch(`http://localhost:8096/api/schedule/add/1?force=${force}`, {
       method: 'POST',
@@ -87,8 +87,8 @@ function Section({ data }) {
     alert("Course Added");
   }
 
-  const dropSection= async (section) => {
-     //make api call
+  async function dropSection(section) {
+    //make api call
     const response= await fetch("http://localhost:8096/api/schedule/drop/1", {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
