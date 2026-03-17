@@ -1,0 +1,163 @@
+.schedule-container {
+    background-color: white;
+    border-radius: 10px;
+    width: 95%;
+    height: 75vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weekly-grid {
+    width: 100%;
+    flex-grow:1;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    padding-bottom: 50px;
+
+}
+
+.day-column {
+    background-color: lightgray;
+    border-radius: 20px;
+    width:19%;
+    height: 1200px; 
+    overflow: visible;
+    
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-start;   
+    border: 1px solid gray;
+
+    background-image: 
+        linear-gradient(#eee 1px, transparent 1px),
+        linear-gradient(rgba(238, 238, 238, 0.5) 1px, transparent 1px);
+    
+    background-size: 100% 80px, 100% 40px; 
+    background-position: 0 40px;
+    background-repeat: repeat-y;
+    position: relative;
+    height: 1200px;
+   
+}
+
+.day-label {
+   font-size: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-weight: bold;
+   height: 40px;
+   background-color: white;
+   border-color: black;
+   border-width: 5px;
+   border-radius: 20px;
+
+
+}
+
+/* 2. The Time Gutter Column */
+.time-gutter {
+    width: 60px;
+    height: 1200px; /* Matches the day-column height */
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Prevents the sidebar from getting squashed */
+}
+
+.courses-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1;
+    
+}
+
+.calendar-card {
+    background-color:rgb(160, 0, 0);
+    color: white;
+    width: 95%;
+    border-radius:8px;
+    margin: 0;
+    padding: 4px;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    
+}
+
+.card-dept { 
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  
+    
+    font-size: 16;
+    
+}
+.card-title{
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    text-overflow: ellipsis;
+    
+}
+
+.card-time { 
+    margin: 0;
+    padding: 0;
+    font-size: 0.65rem;
+ 
+    opacity: 0.9;
+    
+}
+.action-group{
+    display:flex;
+    justify-content: end;
+    align-items: end;
+}
+.action-button{
+    padding: 0 5px;
+    font-size: 10px;
+    width: 16px; 
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.no-classes {
+    margin-top: 100px; 
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    z-index: 1;
+}
+
+.hour-marker {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    
+    color: #555;
+
+
+}
+
+.hours-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
