@@ -1,7 +1,5 @@
 package edu.gcc.prij.objects.section;
 
-import edu.gcc.prij.objects.search.Search;
-import edu.gcc.prij.objects.search.SearchQuery;
 import edu.gcc.prij.objects.course.Course;
 import edu.gcc.prij.objects.course.CourseKey;
 import edu.gcc.prij.objects.department.Department;
@@ -9,9 +7,6 @@ import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.Repository;
 import io.javalin.Javalin;
-
-import java.util.Collection;
-import java.util.List;
 
 public class SectionController implements Controller {
     private Repository<Section, SectionKey> sectionRepository;

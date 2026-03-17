@@ -12,7 +12,6 @@ import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.utils.time.Timeslot;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;

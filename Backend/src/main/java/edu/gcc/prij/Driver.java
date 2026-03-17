@@ -69,7 +69,6 @@ public class Driver {
         controllers.forEach(c -> c.registerRoutes(app));
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
 
-        Rating r = new Rating(1, null, null, null, 0, 0, null);
-        ratingRepository.getOrAdd(1, r);
+        
     }
 }
