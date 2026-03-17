@@ -125,10 +125,18 @@ public class ScheduleController implements Controller {
                 }
 
                 //removes section from schedule
-                if (sch.dropSection(sectionToDrop)) {
-                    ctx.status(201).json(sch);
+                if (sch != null && sectionToDrop != null) {
+                    // Call the updated method and check the return value
+                    boolean removed = sch.dropSection(sectionToDrop);
+                    
+                    if (removed) {
+                        ctx.status(200).json(sch); // 200 is more standard for deletion than 201
+                    } else {
+                        // This triggers if the course exists in sectionRepo but NOT in the user's list
+                        ctx.status(404).result("This course is not currently in your schedule.");
+                    }
                 } else {
-                    ctx.status(409).result("Section not found in schedule");
+                    ctx.status(404).result("Section or Schedule not found.");
                 }
 
             }catch (Exception e){

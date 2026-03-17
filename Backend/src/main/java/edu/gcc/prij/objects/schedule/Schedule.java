@@ -40,7 +40,11 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     }
     
     public boolean dropSection(Section section){ 
-        return sections.remove(section); 
+        if (sections.contains(section)) { //contains uses custom equals method here
+            sections.remove(section);
+            return true;
+        }
+        return false;
     }
 
     
