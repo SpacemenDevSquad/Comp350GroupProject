@@ -3,10 +3,12 @@ import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'
 import Section from '../components/Section.jsx';
+import Filters from '../components/Filters.jsx';
 
 function Home() {
   const [sections, setSections] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [availability, setAvailability] = useState([]);
   useEffect(() => {
     const searchInput = document.getElementById("searchBar");
     
@@ -14,7 +16,7 @@ function Home() {
       const text = e.target.value;
       console.log("Typing detected:", text);
       
-      const results = await OnType(text);
+      const results = await OnType(text, availability);
       setSuggestions(results || []);
     };
 
@@ -53,7 +55,7 @@ function Home() {
             if (e.key !== "Enter") return;
             setSuggestions([]); 
             
-            const fetchedSections = await OnHitEnter(e);
+            const fetchedSections = await OnHitEnter(e, availability);
             setSections(fetchedSections || []); 
             
             goToSearch();
@@ -73,8 +75,7 @@ function Home() {
                       setSuggestions([]); 
                       
                       // 3. Auto-trigger the backend search!
-                      const fakeEvent = { target: { value: suggestion } };
-                      const fetchedSections = await OnHitEnter(fakeEvent);
+                      const fetchedSections = await OnHitEnter({ target: { value: suggestion } }, availability);
                       
                       // 4. Update the UI and slide the page down
                       setSections(fetchedSections || []);
@@ -93,6 +94,12 @@ function Home() {
 
         </div>
       </div>
+
+      {/* Filters */}
+      <Filters
+        availability={availability} 
+        setAvailability={setAvailability}
+      />
 
       {/* Courses */}
       <div id='courseContainer'>

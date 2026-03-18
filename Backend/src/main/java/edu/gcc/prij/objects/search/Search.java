@@ -46,26 +46,21 @@ public class Search {
         }
 
         // 3. Isaiah's job: Apply the filters to the results
+        List<Filter> filters = new ArrayList<>();
+
+        if (query.getCredits() != null) { 
+            filters.add(new CreditFilter(query.getCredits())); 
+        }
+        
+        if (query.getAvailabilityJson() != null && !query.getAvailabilityJson().trim().isEmpty()) {
+            Availability a = new Availability(query.getAvailabilityJson());
+            filters.add(new TimeFilter(a));
+        }
+
         ArrayList<Section> finalResults = textMatchResults;
-
-        // List<Filter> filters = new ArrayList<>();
-
-        // // query.setCredits(2);
-
-        // if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
-        // Availability a = new Availability
-        //                     (
-        //                         "{\"M\": [[480, 530]],"+
-        //                         "\"T\": [],"+
-        //                         "\"W\": [[480, 530]],"+
-        //                         "\"R\": [],"+
-        //                         "\"F\": [[480, 530]]}"
-        //                     );
-        // filters.add(new TimeFilter(a));
-
-        // for (Filter f : filters){
-        //     finalResults = f.filter(finalResults);
-        // }
+        for (Filter f : filters){
+            finalResults = f.filter(finalResults);
+        }
 
         return finalResults;
     }

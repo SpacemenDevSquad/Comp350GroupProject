@@ -1,0 +1,76 @@
+.filter_availability_day {
+    border: 2px solid red;
+    border-radius: 10%;
+    height: 30px;
+    width: 30px;
+    margin: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: box-shadow 0.5s, color 0.5s, background-color 0.5s;
+    font-size: large;
+}
+
+.filter_availability_day.toggled {
+    background-color: red;
+    color: white;
+}
+
+.filter_availability_day:hover {
+    box-shadow: 0px 0px 1px black;
+    cursor: pointer;
+}
+
+.time_availability_input{
+    font-family: inherit;
+    font-size: large;
+    border: none;
+    outline: none;
+}
+
+.time_availability_input:focus{
+    outline: none;
+}
+
+#filter_availability_days{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#availability_time_selectors{
+    display: flex;
+    flex-direction: column;
+    width: unset;
+    min-width: 245px;
+}
+
+#availability_container div{
+    display: flex;
+}
+
+#availability_container{
+    display: flex;
+}
+
+#add_button_container{
+    display: flex;
+    width: unset;
+    align-items: center;
+}
+
+#availability_filter{
+    background-color: white;
+    height: fit-content;
+    width: fit-content;
+    padding: 5px;
+}
+
+#filter_availability_times{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#filter_availability_times div{
+    width: unset;
+}
