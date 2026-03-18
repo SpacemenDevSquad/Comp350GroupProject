@@ -40,14 +40,13 @@ public class Search {
                 }
 
                 if (matchesAllTokens) {
-                    if (superString.contains("zload") || 
+                    if (
+                        superString.contains("zload") || 
                         section.getSemester() == null ||  // THE FIX: Catch the null semester here first!
                         section.getSemester().getTerm() != 'F' || 
-                        section.getSemester().getYear() != 2023) {
-                        
-                        // Skip this section
-                        continue; 
-}
+                        section.getSemester().getYear() != 2023
+                    )
+                    { continue; }
                     else{
                         textMatchResults.add(section);
                     }
@@ -56,26 +55,21 @@ public class Search {
         }
 
         // 3. Isaiah's job: Apply the filters to the results
+        List<Filter> filters = new ArrayList<>();
+
+        if (query.getCredits() != null) { 
+            filters.add(new CreditFilter(query.getCredits())); 
+        }
+        
+        if (query.getAvailabilityJson() != null && !query.getAvailabilityJson().trim().isEmpty()) {
+            Availability a = new Availability(query.getAvailabilityJson());
+            filters.add(new TimeFilter(a));
+        }
+
         ArrayList<Section> finalResults = textMatchResults;
-
-        // List<Filter> filters = new ArrayList<>();
-
-        // // query.setCredits(2);
-
-        // if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
-        // Availability a = new Availability
-        //                     (
-        //                         "{\"M\": [[480, 530]],"+
-        //                         "\"T\": [],"+
-        //                         "\"W\": [[480, 530]],"+
-        //                         "\"R\": [],"+
-        //                         "\"F\": [[480, 530]]}"
-        //                     );
-        // filters.add(new TimeFilter(a));
-
-        // for (Filter f : filters){
-        //     finalResults = f.filter(finalResults);
-        // }
+        for (Filter f : filters){
+            finalResults = f.filter(finalResults);
+        }
 
         return finalResults;
     }

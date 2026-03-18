@@ -16,7 +16,7 @@ function Home() {
       const text = e.target.value;
       console.log("Typing detected:", text);
       
-      const results = await OnType(text);
+      const results = await OnType(text, availability);
       setSuggestions(results || []);
     };
 
@@ -55,7 +55,7 @@ function Home() {
             if (e.key !== "Enter") return;
             setSuggestions([]); 
             
-            const fetchedSections = await OnHitEnter(e);
+            const fetchedSections = await OnHitEnter(e, availability);
             setSections(fetchedSections || []); 
             
             goToSearch();
@@ -75,8 +75,7 @@ function Home() {
                       setSuggestions([]); 
                       
                       // 3. Auto-trigger the backend search!
-                      const fakeEvent = { target: { value: suggestion } };
-                      const fetchedSections = await OnHitEnter(fakeEvent);
+                      const fetchedSections = await OnHitEnter({ target: { value: suggestion } }, availability);
                       
                       // 4. Update the UI and slide the page down
                       setSections(fetchedSections || []);
