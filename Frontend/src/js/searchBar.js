@@ -11,7 +11,7 @@ export default async function OnHitEnter(e) {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ searchText: searchQuery })
+      body: JSON.stringify({ searchText: searchQuery, filters: {availability} })
     });
     if (!response.ok) {
       throw new Error("Search API call failed");

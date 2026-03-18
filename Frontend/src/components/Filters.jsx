@@ -1,0 +1,116 @@
+import '../css/Filters.css';
+import { useState } from 'react';
+
+const DAYS_OF_WEEK = ['M', 'T', 'W', 'R', 'F'];
+
+function Filters({ availability, setAvailability }) {
+  const [daysToggled, setDaysToggled] = useState([]);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+
+  const toggleDayAvailability = (day) => {
+    setDaysToggled((prevDays) => {
+      if (prevDays.includes(day)) {
+        return prevDays.filter((d) => d !== day);
+      } else {
+        return [...prevDays, day];
+      }
+    });
+  };
+
+  const handleAdd = () => {
+    if (daysToggled.length === 0 || !startTime || !endTime) {
+      alert("Please select days and times.");
+      return;
+    }
+
+    const newAvailabilityBlock = {
+      days: DAYS_OF_WEEK.filter(day => daysToggled.includes(day)).join(''), 
+      startTime: startTime,
+      endTime: endTime,
+    };
+
+    setAvailability([...availability, newAvailabilityBlock]);
+
+    setDaysToggled([]);
+    setStartTime("");
+    setEndTime("");
+  };
+
+  // NEW: Function to handle removing an item by its index
+  const handleRemove = (indexToRemove) => {
+    setAvailability((prevAvailability) => {
+      // Return a new array containing all items EXCEPT the one at the targeted index
+      return prevAvailability.filter((_, index) => index !== indexToRemove);
+    });
+  };
+
+  return (
+    <div id='availability_filter'>
+      <div>Available:</div>
+      
+      <div id='availability_container'>
+        <div id='availability_time_selectors'>
+          <div id='filter_availability_times'>
+            <div>
+              <input 
+                type="time" 
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)} 
+                className='time_availability_input'
+              />
+            </div>
+            <div>to</div>
+            <div>
+              <input 
+                type="time" 
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)} 
+                className='time_availability_input'
+              />
+            </div>
+          </div>
+
+          <div id='filter_availability_days'>
+            {DAYS_OF_WEEK.map((day) => {
+              const isToggled = daysToggled.includes(day);
+              return (
+                <div 
+                  key={day}
+                  className={`filter_availability_day ${isToggled ? "toggled" : ""}`} 
+                  onClick={() => toggleDayAvailability(day)}
+                >
+                  {day}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className='add_button_container'>
+          <button onClick={handleAdd}>add</button>
+        </div>
+      </div>
+      
+
+      <div>
+        <ul>
+          {availability.map((block, index) => (
+            <li key={index}>
+              {block.days} {block.startTime} - {block.endTime}
+              {/* NEW: Remove button added next to the text */}
+              <button 
+                onClick={() => handleRemove(index)}
+                style={{ marginLeft: "10px" }} // Added a little margin for spacing
+              >
+                remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+export default Filters;
