@@ -4,6 +4,7 @@ import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'
 import Section from '../components/Section.jsx';
 import Filters from '../components/Filters.jsx';
+import toggleFilter from '../js/toggleFilter.js';
 
 function Home() {
   const [sections, setSections] = useState([]);
@@ -40,7 +41,7 @@ function Home() {
         <div id='bgImageTint'></div>
       </div>
 
-{/* Searchbar, titletext, other general content */}
+      {/* Searchbar, titletext, other general content */}
       <div id='content'>
         <h1 id='title'>GCC Course Search</h1>
         
@@ -90,16 +91,15 @@ function Home() {
 
           </div>
 
-          <button id="filterButton">☰</button>
+          <button id="filterButton" onClick={toggleFilter}>☰</button>
 
         </div>
+        {/* Filters */}
+        <Filters
+          availability={availability} 
+          setAvailability={setAvailability}
+        />
       </div>
-
-      {/* Filters */}
-      <Filters
-        availability={availability} 
-        setAvailability={setAvailability}
-      />
 
       {/* Courses */}
       <div id='courseContainer'>
