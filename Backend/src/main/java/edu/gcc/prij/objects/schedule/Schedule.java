@@ -7,6 +7,7 @@ import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.user.User;
 import edu.gcc.prij.utils.RepositoryObject;
+import edu.gcc.prij.utils.time.Timeslot;
 
 public class Schedule implements RepositoryObject<ScheduleKey> {
     // SCHEDULE VARIABLES
@@ -15,27 +16,68 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     private ArrayList<Section> sections;
 
     // SCHEDULE CONSTRUCTOR
+    
     public Schedule(User user, Semester semester){
         this.semester = semester;
         this.user = user;
+        this.sections= new ArrayList<>();
     }
+
+    public Schedule(){}
 
     // SCHEDULE METHODS
-    public boolean addClass(Section newClass){
-        if(hasConflict(newClass)){
-            return false;
+    public String addSection(Section newSection){
+        int numCredits= newSection.getCourse().getCredits();
+        if(hasOverlap(newSection)){
+            return "CONFLICT";
+        }
+        if(exceedsCredits(numCredits)){
+            return "CREDIT_LIMIT";
         }
 
-        sections.add(newClass);
-        return true;
+        sections.add(newSection);
+        return "ADD";
+    }
+    
+    public boolean dropSection(Section section){ 
+        if (sections.contains(section)) { //contains uses custom equals method here
+            sections.remove(section);
+            return true;
+        }
+        return false;
     }
 
     
-    public void removeClass(Section section){ sections.remove(section); }
+    public boolean hasOverlap(Section newSection){
+        //loop through section in the schedules
+        for (Section existingSection: sections) {
+            //loop through the TIMESLOTS in the new section
+            for (Timeslot newSlot: newSection.getTimeslots()) {
+                //loop through TIMESLOT of existing section
+                for (Timeslot existingSlot: existingSection.getTimeslots()) {
+                    //check if on same day
+                    if (newSlot.getDay() == existingSlot.getDay()) {
+                        //check for overlap
+                        if (newSlot.getStartTime() < existingSlot.getEndTime() && existingSlot.getStartTime() < newSlot.getEndTime()) {
+                            return true;
+                        }
+                    }
+                    
+                }
+            }
+        }
 
-    
-    public boolean hasConflict(Section newClass){
         return false;       
+    }
+
+    public boolean exceedsCredits(int addCredits){
+        int currCredits=currentCredits();
+        if(currCredits+addCredits>18){
+            return true;
+        }
+        return false;
+
+
     }
 
     
@@ -53,6 +95,13 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return sections;
     }
 
+
+    public User getUser() { 
+        return user; 
+    }
+    public Semester getSemester() { 
+        return semester; 
+    }
 
     @Override
     public ScheduleKey getKey() {

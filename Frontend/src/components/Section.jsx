@@ -7,7 +7,7 @@ function Section({ data }) {
   let splitTitle = rawTitle.split(" ");
   let joinedTitle = ""
   for (let i = 0; i < splitTitle.length; i++) {
-    joinedTitle += splitTitle[i][0].toString().toUpperCase() + splitTitle[i].substring(1).toLowerCase()+" ";
+    joinedTitle += splitTitle[i][0].toString().toUpperCase() + splitTitle[i].substring(1).toUpperCase()+" ";
   }
 
   // Timeslots
@@ -25,20 +25,22 @@ function Section({ data }) {
       let day = rawTimes[i].day;
 
       // Calculate if the class time is AM or PM
-      let timeOfDay = "am";
-      if (Math.floor((startTime/60)/12) == 1) timeOfDay = "pm";
+      let startTimeOfDay = "am";
+      let endTimeOfDay = "am";
+      if (Math.floor((startTime/60)/12) == 1) startTimeOfDay = "pm";
+      if (Math.floor((endTime/60)/12) == 1) endTimeOfDay = "pm";
 
       // Get the starting time of the class as a string
       let startString = ((Math.floor(startTime/60))%12 == 0 ? 12 : (Math.floor(startTime/60))%12) + ":" + ((startTime%60) > 10 ? (startTime%60).toString() : "0"+(startTime%60).toString());
 
       // Get the ending time of the class as a string
-      let endString = ((Math.floor(endTime/60))%12 == 0 ? 12 : (Math.floor(startTime/60))%12) + ":" + ((endTime%60) > 10 ? (endTime%60).toString() : "0"+(endTime%60).toString());
+      let endString = ((Math.floor(endTime/60))%12 == 0 ? 12 : (Math.floor(endTime/60))%12) + ":" + ((endTime%60) > 10 ? (endTime%60).toString() : "0"+(endTime%60).toString());
 
       // Detects if a class shares the same time between multiple days. For example, MWF at 9:00-9:50am all share the same time
       let existed = false;
 
       for (let j = 0; j < Math.floor(joinedTimes.length/2); j++) {
-        if (joinedTimes[j*2+1] == startString+" - "+endString+timeOfDay) {
+        if (joinedTimes[j*2+1] == startString+startTimeOfDay+" - "+endString+endTimeOfDay) {
           existed = true;
           joinedTimes[j*2] += day;
           break;
@@ -48,7 +50,7 @@ function Section({ data }) {
       // If the timeslot doesn't already 
       if (!existed) {
         joinedTimes.push(day);
-        joinedTimes.push(startString+" - "+endString+timeOfDay)
+        joinedTimes.push(startString+startTimeOfDay+" - "+endString+endTimeOfDay)
       }
 
     }
@@ -57,8 +59,54 @@ function Section({ data }) {
   }
 
 
+  //ADD/DROP LOGIC
+  async function addSection(force=false) {
+    //make api call
+    const response= await fetch(`http://localhost:8096/api/schedule/add/1?force=${force}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    //checks for conflict
+    if(!response.ok){
+      const msg = await response.text();
+      
+      //credit limit popup
+      if(response.status==403 && msg === "CREDIT_LIMIT"){
+        const confirmForce = window.confirm("Warning: This puts you over 18 credits. Force add anyway?");
+        if (confirmForce) {
+          addSection(true);
+        }
+        return;
+      }
+      
+      alert(msg);
+      return;
+    }
+    alert("Course Added");
+  }
+
+  async function dropSection(section) {
+    //make api call
+    const response= await fetch("http://localhost:8096/api/schedule/drop/1", {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+
+    //checks if not in schedule
+    if(!response.ok){
+      alert("Could not drop course. Not found in schedule.");
+      return;
+    }
+    alert("Course Dropped");
+  }
+
+
+
   // Safely grab the details from the Java Section object you passed in
-  const deptCode = data.course?.department?.name || data.course?.department?.id || "N/A";
+  const deptCode = data.course?.department?.code || data.course?.department?.id || "N/A";
   const courseNum = data.course?.number || "000";
   const sectionLetter = data.sectionLetter || "?";
   const credits = data.course?.credits || "Null";
@@ -72,19 +120,17 @@ function Section({ data }) {
   
 
   return (
-    <div class="sectionCard">
-      <p class="sectionTitle">{title}</p>
-      <p class="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
-      <p class="sectionProf">{"Professor: "+profName}</p>
-      <p class="sectionTerm">{"Semester: "+year+" "+term}</p>
-      <p class="sectionTime">{timeSlots}</p>
-      <p class="sectionCreds">Credits: {credits}</p>
+    <div className="sectionCard">
+      <p className="sectionTitle">{title}</p>
+      <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
+      <p className="sectionProf">{"Professor: "+profName}</p>
+      <p className="sectionTerm">{"Semester: "+year+" "+term}</p>
+      <p className="sectionTime">{timeSlots}</p>
+      <p className="sectionCreds">Credits: {credits}</p>
+      <button onClick={addSection} className="addButton">Add</button>
+      <button onClick={dropSection} className="dropButton">Drop</button>
     </div>
   );
 }
-
-//<pre style={{ fontSize: '10px' }}>
-// {JSON.stringify(data, null, 2)}
-// </pre>
 
 export default Section;

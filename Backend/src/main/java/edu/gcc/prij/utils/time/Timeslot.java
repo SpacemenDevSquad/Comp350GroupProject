@@ -23,32 +23,19 @@ public class Timeslot{
         this.day = day;
     }
 
-    public int getStartTime(){
-        return startTime;
-    }
+    public Timeslot(){}
 
-    public int getEndTime(){
-        return endTime;
-    }
+    //GETTERS AND SETTERS
+    public int getStartTime(){return startTime; }
+    public int getEndTime(){return endTime;}
+    public char getDay(){ return day;}
 
-    public char getDay(){
-        return day;
-    }
+    public void setStartTime(int startTime) { this.startTime = startTime; }
+    public void setEndTime(int endTime) { this.endTime = endTime; }
+    public void setDay(char day) { this.day = day; }
 
     private String formatMinutesToTime(int totalMinutes) {
-        int hours = totalMinutes / 60;
-        int minutes = totalMinutes % 60;
-        String amPm = (hours >= 12) ? "PM" : "AM";
-
-        // Convert military time to standard 12-hour format
-        if (hours > 12) {
-            hours -= 12;
-        } else if (hours == 0) {
-            hours = 12;
-        }
-
-        // String.format ensures minutes always have two digits (e.g., "10:05" instead of "10:5")
-        return String.format("%d:%02d %s", hours, minutes, amPm);
+        return TimeHelper.timeToString(totalMinutes);
     }
 
     @Override

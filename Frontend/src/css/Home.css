@@ -8,6 +8,11 @@ div {height: 100%; width: 100%;}
     justify-content: center;
     align-items: center;
     transition: transform 0.4s ease;
+
+    position: relative;
+    z-index: 100;
+    
+    pointer-events: none;
 }
 
 /* Background CSS */
@@ -40,6 +45,8 @@ div {height: 100%; width: 100%;}
     font-size: 5vw;
     font-family: 'Roboto Slab';
     text-align: center;
+
+    pointer-events: auto;
 }
 
 /* Search Bar */
@@ -72,6 +79,8 @@ div {height: 100%; width: 100%;}
     justify-content: center;
     align-items: center;
     transition: 0.4s ease;
+
+    pointer-events: auto;
 }
 
 #searchBar:focus {
@@ -129,4 +138,47 @@ div {height: 100%; width: 100%;}
 
     overflow-y: scroll; 
     overflow-x: hidden;
+    z-index: 10;
+}
+
+/* Autocomplete Dropdown */
+
+#autocompleteDropdown {
+    position: absolute;
+    top: 55px; /* Drops it right below the expanded search bar */
+    left: 0;
+    
+    /* THE FIX: This line changed from 44vw to 100% */
+    width: 100%; 
+    
+    background-color: white; /* Fixes the invisible background */
+    color: black;
+    
+    border: 4px solid rgb(50, 50, 50); 
+    border-radius: 20px; 
+    font-family: 'Roboto Slab';
+    
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 9999;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5); /* Adds a heavy shadow to pop off the dark background */
+}
+
+#autocompleteDropdown li {
+    padding: 12px 40px; /* Aligns the text with your focused search bar text */
+    cursor: pointer;
+    border-bottom: 2px solid rgb(200, 200, 200);
+    font-size: 20px;
+    transition: 0.2s ease;
+}
+
+#autocompleteDropdown li:last-child {
+    border-bottom: none;
+}
+
+#autocompleteDropdown li:hover {
+    background-color: rgb(220, 220, 220);
 }

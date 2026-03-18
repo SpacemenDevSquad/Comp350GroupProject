@@ -24,4 +24,31 @@ public class User {
         this.name = name;
         this.schedules = schedules;
     }
+
+    public User(){}
+
+    @Override
+    public boolean equals(Object o) {
+        // 1. Check if it's the exact same memory address
+        if (this == o) return true;
+        
+        // 2. Check if the other object is even a User
+        if (!(o instanceof User)) return false;
+        
+        // 3. Cast it to a User and compare their unique IDs
+        User user = (User) o;
+        
+        // Assuming 'id' is your unique integer identifier
+        return this.id == user.id; 
+        
+        // OR if you prefer comparing by email (since it's unique at GCC):
+        // return Objects.equals(this.email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        // This creates a unique integer based on the ID
+        // This allows the HashMap to find the correct "bucket" instantly
+        return java.util.Objects.hash(id);
+    }
 }

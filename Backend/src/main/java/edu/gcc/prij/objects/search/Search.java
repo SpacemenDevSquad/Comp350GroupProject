@@ -1,43 +1,22 @@
 package edu.gcc.prij.objects.search;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import edu.gcc.prij.filters.CreditFilter;
+import edu.gcc.prij.filters.Filter;
+import edu.gcc.prij.filters.TimeFilter;
 import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.section.Section;
+import edu.gcc.prij.utils.Availability;
 
 public class Search {
-//    private String userInput;
-//    private ArrayList<Section> initialResults;
-//    ArrayList<Filter> filters;
-//
-//    public void addFilter(Filter newFilter){}
-    // public Search(String userInput, ArrayList<Filter> filters){
-    //     this.userInput = userInput;
-    //     this.filters = filters;
-
-    //     evaluateSearch();
-    // }
-
-    // public ArrayList<Section> evaluateSearch(){
-    //     for (Section s : Section.getSections()){
-    //         this.initialResults.add(s);
-    //     }
-
-    //     return this.initialResults;
-    // }
-
-    // public ArrayList<Section> applyFilters(ArrayList<Filter> filters){
-    //     ArrayList<Section>
-    // }
-
     // The single public method the rest of your app will call
-    public List<Section> executeSearch(SearchQuery query, Collection<Section> masterCatalog) {
+    public ArrayList<Section> executeSearch(SearchQuery query, Collection<Section> masterCatalog) {
 
         // Start with an empty list
-        List<Section> textMatchResults = new ArrayList<>();
+        ArrayList<Section> textMatchResults = new ArrayList<>();
 
         String searchText = query.getSearchText();
         if (searchText == null || searchText.trim().isEmpty()) {
@@ -61,27 +40,50 @@ public class Search {
                 }
 
                 if (matchesAllTokens) {
-                    textMatchResults.add(section);
+                    if (superString.contains("zload") || 
+                        section.getSemester() == null ||  // THE FIX: Catch the null semester here first!
+                        section.getSemester().getTerm() != 'F' || 
+                        section.getSemester().getYear() != 2023) {
+                        
+                        // Skip this section
+                        continue; 
+}
+                    else{
+                        textMatchResults.add(section);
+                    }
                 }
             }
         }
 
         // 3. Isaiah's job: Apply the filters to the results
-        List<Section> finalResults = textMatchResults;
+        ArrayList<Section> finalResults = textMatchResults;
 
-//        if (query.getCredits() != null) {
-//            Filter creditFilter = new CreditFilter(query.getCredits());
-//            finalResults = creditFilter.apply(finalResults);
-//        }
+        // List<Filter> filters = new ArrayList<>();
 
-        // Add other filters...
+        // // query.setCredits(2);
+
+        // if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
+        // Availability a = new Availability
+        //                     (
+        //                         "{\"M\": [[480, 530]],"+
+        //                         "\"T\": [],"+
+        //                         "\"W\": [[480, 530]],"+
+        //                         "\"R\": [],"+
+        //                         "\"F\": [[480, 530]]}"
+        //                     );
+        // filters.add(new TimeFilter(a));
+
+        // for (Filter f : filters){
+        //     finalResults = f.filter(finalResults);
+        // }
 
         return finalResults;
     }
 
     // Helper method to create a super string that contains all searchable text for a section
     private String buildSuperString(Section section) {
-        String subject = section.getCourse().getDepartment().getName().toLowerCase();
+        String subject = section.getCourse().getDepartment().getCode().toLowerCase();
+        String deptName = section.getCourse().getDepartment().getFullName().toLowerCase();
         String number = String.valueOf(section.getCourse().getNumber());
         String name = section.getCourse().getTitle().toLowerCase();
 
@@ -103,6 +105,6 @@ public class Search {
         }
 
         // Include "acct 201" and "acct201"
-        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description;
+        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description + " " + deptName;
     }
 }

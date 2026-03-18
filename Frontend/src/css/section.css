@@ -57,3 +57,17 @@
     position: absolute;
     top: 125px;
 }
+
+.addButton{
+    position: absolute;
+    top: 125px;
+    right: 15px;
+    width: 10%;
+}
+
+.dropButton{
+    position: absolute;
+    top: 150px;
+    right: 15px;
+    width: 10%;
+}
