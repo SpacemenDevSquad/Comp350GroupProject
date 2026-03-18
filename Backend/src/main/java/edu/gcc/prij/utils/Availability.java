@@ -91,6 +91,10 @@ public class Availability {
         return true;
     }
 
+    public Map<Character, List<Tuple<Integer, Integer>>> getAvailability(){
+        return availability;
+    }
+
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
