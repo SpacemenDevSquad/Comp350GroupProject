@@ -40,8 +40,14 @@ public class Search {
                 }
 
                 if (matchesAllTokens) {
-                    if(section.getCourse().getDepartment().getCode().toLowerCase().equals("zload")){
-                    }
+                    if (superString.contains("zload") || 
+                        section.getSemester() == null ||  // THE FIX: Catch the null semester here first!
+                        section.getSemester().getTerm() != 'F' || 
+                        section.getSemester().getYear() != 2023) {
+                        
+                        // Skip this section
+                        continue; 
+}
                     else{
                         textMatchResults.add(section);
                     }
@@ -52,24 +58,24 @@ public class Search {
         // 3. Isaiah's job: Apply the filters to the results
         ArrayList<Section> finalResults = textMatchResults;
 
-        List<Filter> filters = new ArrayList<>();
+        // List<Filter> filters = new ArrayList<>();
 
-        // query.setCredits(2);
+        // // query.setCredits(2);
 
-        if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
-        Availability a = new Availability
-                            (
-                                "{\"M\": [[480, 530]],"+
-                                "\"T\": [],"+
-                                "\"W\": [[480, 530]],"+
-                                "\"R\": [],"+
-                                "\"F\": [[480, 530]]}"
-                            );
-        filters.add(new TimeFilter(a));
+        // if (query.getCredits() != null) { filters.add(new CreditFilter(query.getCredits())); }
+        // Availability a = new Availability
+        //                     (
+        //                         "{\"M\": [[480, 530]],"+
+        //                         "\"T\": [],"+
+        //                         "\"W\": [[480, 530]],"+
+        //                         "\"R\": [],"+
+        //                         "\"F\": [[480, 530]]}"
+        //                     );
+        // filters.add(new TimeFilter(a));
 
-        for (Filter f : filters){
-            finalResults = f.filter(finalResults);
-        }
+        // for (Filter f : filters){
+        //     finalResults = f.filter(finalResults);
+        // }
 
         return finalResults;
     }

@@ -26,4 +26,28 @@ export default async function OnHitEnter(e) {
 
 }
 
+// Change 'e' to 'text'
+export async function OnType(text) {
+  
+  // REMOVE the line that says: const query = e.target.value;
+
+  // Use the text variable directly
+  if (!text || text.trim().length < 2) {
+    return []; 
+  }
+
+  try {
+    const response = await fetch(`http://localhost:8096/api/autocomplete?q=${encodeURIComponent(text)}`);
+    if (!response.ok) {
+      throw new Error("Autocomplete API call failed");
+    }
+    const suggestions = await response.json();
+    console.log("Suggestions retrieved:", suggestions);
+    return suggestions; 
+  } catch (error) {
+    console.error("Error fetching suggestions:", error);
+    return [];
+  }
+}
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
