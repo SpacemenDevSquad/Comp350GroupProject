@@ -142,6 +142,8 @@ div {height: 100%; width: 100%;}
     overflow-y: scroll; 
     overflow-x: hidden;
     z-index: 10;
+
+    /* pointer-events: none; */
 }
 
 /* Autocomplete Dropdown */

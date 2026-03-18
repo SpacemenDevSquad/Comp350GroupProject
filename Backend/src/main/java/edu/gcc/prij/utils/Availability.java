@@ -67,8 +67,11 @@ public class Availability {
     }
 
     public boolean availableDuringTimeslot(Timeslot timeslot){
-        for (Tuple<Integer, Integer> ts : availability.get(timeslot.getDay())){
-            if (ts.x >= timeslot.getStartTime() && ts.y <= timeslot.getEndTime()){
+        List<Tuple<Integer, Integer>> daySlots = availability.get(timeslot.getDay());
+        if (daySlots == null) return false;
+        for (Tuple<Integer, Integer> ts : daySlots){
+            // Student available [ts.x, ts.y], class [timeslot.start, timeslot.end]
+            if (timeslot.getStartTime() >= ts.x && timeslot.getEndTime() <= ts.y){
                 return true;
             }
         }
@@ -86,6 +89,10 @@ public class Availability {
         }
 
         return true;
+    }
+
+    public Map<Character, List<Tuple<Integer, Integer>>> getAvailability(){
+        return availability;
     }
 
     @Override
