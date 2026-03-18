@@ -77,19 +77,29 @@ async function Calendar() {
 // Transition back to home
 async function Home() {
     catchMissingElements();
-    titleText.style.opacity = '100%';
-    titleText.style.fontSize = '5vw';
-    titleText.style.height = '';
+    if(titleText){
+        titleText.style.opacity = '100%';
+        titleText.style.fontSize = '5vw';
+        titleText.style.height = '';
+    }
 
-    content.style.transform = '';
+    if(content){
+        content.style.transform = '';
+    }
 
-    backArrow.style.opacity = '0%';
-
-    scheduleBlock.style.transform = '';
-
-    courseContainer.style.transform = '';
-    courseContainer.style.top = '0px';
-    courseContainer.style.height = '0px';
+    if(backArrow){
+        backArrow.style.opacity = '0%';
+    }
+    
+    if(scheduleBlock){
+        scheduleBlock.style.transform = '';
+    }   
+    
+    if(courseContainer){
+        courseContainer.style.transform = '';
+        courseContainer.style.top = '0px';
+        courseContainer.style.height = '0px';       
+    }
 }
 
 // Transition to search view
