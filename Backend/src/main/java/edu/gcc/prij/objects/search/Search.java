@@ -54,7 +54,16 @@ public class Search {
         
         if (query.getAvailabilityJson() != null && !query.getAvailabilityJson().trim().isEmpty()) {
             Availability a = new Availability(query.getAvailabilityJson());
-            filters.add(new TimeFilter(a));
+            boolean isEmpty = true;
+            for (char day : new char[]{'M', 'T', 'W', 'R', 'F'}) {
+                if (!a.getAvailability().get(day).isEmpty()) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+            if (!isEmpty) {
+                filters.add(new TimeFilter(a));
+            }
         }
 
         ArrayList<Section> finalResults = textMatchResults;

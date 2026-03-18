@@ -140,7 +140,7 @@ div {height: 100%; width: 100%;}
     overflow-x: hidden;
     z-index: 10;
 
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 /* Autocomplete Dropdown */
