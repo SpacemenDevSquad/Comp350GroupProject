@@ -40,16 +40,7 @@ public class Search {
                 }
 
                 if (matchesAllTokens) {
-                    if (
-                        superString.contains("zload") || 
-                        section.getSemester() == null ||  // THE FIX: Catch the null semester here first!
-                        section.getSemester().getTerm() != 'F' || 
-                        section.getSemester().getYear() != 2023
-                    )
-                    { continue; }
-                    else{
-                        textMatchResults.add(section);
-                    }
+                    textMatchResults.add(section);
                 }
             }
         }
