@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import '../css/section.css'
+import '../js/createAlert.jsx'
+import { createAlert } from '../js/createAlert.jsx';
 
 function Section({ data }) {
 
@@ -81,10 +84,11 @@ function Section({ data }) {
         return;
       }
       
-      alert(msg);
+      createAlert(msg, "Error: "+response.status, "red");
       return;
     }
-    alert("Course Added");
+
+    createAlert("Added Course", "Check schedule for details", "green");
   }
 
   async function dropSection(section) {
@@ -97,10 +101,10 @@ function Section({ data }) {
 
     //checks if not in schedule
     if(!response.ok){
-      alert("Could not drop course. Not found in schedule.");
+      createAlert("Failed to drop", "Could not find in schedule", "red");
       return;
     }
-    alert("Course Dropped");
+    createAlert("Course Dropped", "Check schedule for details", "green");
   }
 
 

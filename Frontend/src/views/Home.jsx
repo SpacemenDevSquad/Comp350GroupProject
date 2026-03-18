@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'

@@ -1,5 +1,6 @@
 import '../css/weeklySchedule.css'
 import React, { useState, useEffect } from 'react';
+import { createAlert } from '../js/createAlert.jsx';
 
 function WeeklySchedule(){
     //state that holds the schedule from backend
@@ -92,17 +93,17 @@ function WeeklySchedule(){
         });
 
         if (!response.ok) {
-            alert("Could not drop course. Not found in schedule.");
+            createAlert("Could not drop course", "Not found in schedule", "red");
             return;
         }
-        alert("Course Dropped");
+        createAlert("Course Dropped", "Updated Schedule", "green");
         fetchSchedule();
     }
 
     //variables
     const dayEntries = Object.entries(scheduleMap); //converts map into array of [key,value]
     const currSemester= schedule.currSemester;
-    const hours = [ "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM"];
+    const hours = [ "", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM"];
     
     return (
     <div className="schedule-container">
@@ -111,7 +112,7 @@ function WeeklySchedule(){
         <div className="weekly-grid">
             {/* Time Gutter */}
             <div className="time-gutter">
-                <div className="day-label">Time</div>
+                <div className="day-label" style={{border: "0px", margin: "1px"}}>Time</div>
                 <div className="hours-container">
                     {hours.map((hour) => (
                         <div key={hour} className="hour-marker">
@@ -158,7 +159,7 @@ function WeeklySchedule(){
                                         {formatMinutesToTime(course.start)} - {formatMinutesToTime(course.end)}
                                     </p>
                                     <div className="action-group">
-                                        <button className="action-button" onClick={() => dropSection(course.originalData)}>-</button>
+                                        <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
                                     </div>
                                    
                                 </div>
