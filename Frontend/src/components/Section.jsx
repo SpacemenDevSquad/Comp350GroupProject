@@ -124,7 +124,7 @@ function Section({ data }) {
       <p className="sectionTitle">{title}</p>
       <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
       <p className="sectionProf">{"Professor: "+profName}</p>
-      <p class="sectionTerm">{"Semester: "+year+" "+term}</p>
+      <p className="sectionTerm">{"Semester: "+year+" "+term}</p>
       <p className="sectionTime">{timeSlots}</p>
       <p className="sectionCreds">Credits: {credits}</p>
       <button onClick={addSection} className="addButton">Add</button>
