@@ -1,0 +1,89 @@
+/* Variables */
+:root {
+    --alertGreenPriColor: rgb(0, 141, 0);
+    --alertGreenSecColor: rgb(131, 210, 131);
+    --alertRedPriColor: rgb(230, 0, 0);
+    --alertRedSecColor: rgb(255, 122, 122);
+}
+
+/* Global Alert CSS */
+#alertBox {
+    width: 250px;
+    height: 70px;
+    position: fixed;
+    top: 65px;
+    right: -200px;
+    z-index: 99;
+    transition: 0.4s ease;
+
+    border-radius: 15px;
+}
+
+#alertTitle {
+    margin: 8px;
+    margin-right: 15px;
+    
+    text-align: right;
+    font-family: 'Roboto Slab';
+    font-style: italic;
+    font-size: 25px;
+}
+
+#alertDesc {
+    margin: 8px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+    
+    text-align: right;
+    font-family: 'Roboto Slab';
+    font-style: italic;
+    font-size: 17px;
+}
+
+#loadingBar {
+    transition: 0.1s linear;
+    width: 100%;
+
+    height: 8px;
+    margin-top: 4px;
+    border-radius: 5px;
+}
+
+/* Green Theme */
+
+#alertBox.green {
+    border: 4px solid var(--alertGreenPriColor);
+    background-color: var(--alertGreenSecColor);
+}
+
+#alertTitle.green {
+    color: var(--alertGreenPriColor);
+}
+
+#alertDesc.green { 
+    color: var(--alertGreenPriColor);
+}
+
+#loadingBar.green {
+    background-color: var(--alertGreenPriColor);
+}
+
+
+/* Red Theme */
+
+#alertBox.red {
+    border: 4px solid var(--alertRedPriColor);
+    background-color: var(--alertRedSecColor);
+}
+
+#alertTitle.red {
+    color: var(--alertRedPriColor);
+}
+
+#alertDesc.red { 
+    color: var(--alertRedPriColor);
+}
+
+#loadingBar.red {
+    background-color: var(--alertRedPriColor);
+}
