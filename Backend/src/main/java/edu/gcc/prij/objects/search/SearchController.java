@@ -35,7 +35,7 @@ public class SearchController implements Controller {
 
   @Override
   public void registerRoutes(Javalin app) {
-    app.post("/api/search", ctx -> {
+    app.post("/api/search/{year}/{term}", ctx -> {
             
       // A. Catch the JSON from React and turn it into a SearchQuery object
       SearchQuery userTicket = ctx.bodyAsClass(SearchQuery.class);
@@ -46,7 +46,7 @@ public class SearchController implements Controller {
       /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" in the title
       masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
-                    .filter(section -> (section.getSemester().getTerm() == 'F' && section.getSemester().getYear() == 2023)) // Filter out  everything butFall 2023 sections
+                    .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
                     .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
                     .collect(Collectors.toList());
 
@@ -57,7 +57,7 @@ public class SearchController implements Controller {
       ctx.json(results);
     });
 
-    app.get("/api/autocomplete", ctx -> {
+    app.get("/api/autocomplete/{year}/{term}", ctx -> {
     // Grab the text the user is currently typing (e.g., ?q=soft)
     String query = ctx.queryParam("q");
     
@@ -75,7 +75,7 @@ public class SearchController implements Controller {
     /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" in the title
     masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
-                    .filter(section -> (section.getSemester().getTerm() == 'F' && section.getSemester().getYear() == 2023)) // Filter out Fall 2023 sections
+                    .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
                     .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
                     .collect(Collectors.toList());
 

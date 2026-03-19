@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import '../css/section.css'
 import { createAlert } from '../js/createAlert.jsx';
 
-function Section({ data }) {
+function Section({ data, year, term }) {
 
   // Gets the title of the course and formats it with proper capitalization
   let rawTitle = data.course?.title || "Null";
@@ -64,7 +64,7 @@ function Section({ data }) {
   //ADD/DROP LOGIC
   async function addSection(force=false) {
     //make api call
-    const response= await fetch(`http://localhost:8096/api/schedule/add/1?force=${force}`, {
+    const response= await fetch(`http://localhost:8096/api/schedule/add/1/${year}/${term}?force=${force}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -88,11 +88,12 @@ function Section({ data }) {
     }
 
     createAlert("Added Course", "Check schedule for details", "green");
+    window.dispatchEvent(new CustomEvent('scheduleRefresh'));
   }
 
-  async function dropSection(section) {
+  async function dropSection() {
     //make api call
-    const response= await fetch("http://localhost:8096/api/schedule/drop/1", {
+    const response= await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -104,6 +105,7 @@ function Section({ data }) {
       return;
     }
     createAlert("Course Dropped", "Check schedule for details", "green");
+    window.dispatchEvent(new CustomEvent('scheduleRefresh'));
   }
 
 
@@ -116,8 +118,8 @@ function Section({ data }) {
   const title = joinedTitle;
   const timeSlots = joinedTimes.join(" ");
   const description = data.course?.description || "Null";
-  const term = data.semester?.term || "Null";
-  const year = data.semester?.year || "Null";
+  const sectionTerm = data.semester?.term || "Null";
+  const sectionYear = data.semester?.year || "Null";
   const profName = data.faculty[0]?.name || "Null";
   
   
@@ -127,7 +129,7 @@ function Section({ data }) {
       <p className="sectionTitle">{title}</p>
       <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
       <p className="sectionProf">{"Professor: "+profName}</p>
-      <p className="sectionTerm">{"Semester: "+year+" "+term}</p>
+      <p className="sectionTerm">{"Semester: "+sectionYear+" "+sectionTerm}</p>
       <p className="sectionTime">{timeSlots}</p>
       <p className="sectionCreds">Credits: {credits}</p>
       <button onClick={addSection} className="addButton">Add</button>
@@ -137,3 +139,4 @@ function Section({ data }) {
 }
 
 export default Section;
+

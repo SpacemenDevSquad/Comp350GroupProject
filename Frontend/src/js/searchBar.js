@@ -1,5 +1,5 @@
-export default async function OnHitEnter(searchText, availability = []) {
-  console.log("Searching for courses...")
+export default async function OnHitEnter(searchText, year, term, availability = [], credits = 0) {
+  console.log("Searching for courses...", searchText, year, term, availability, credits)
   
   let courseResults = [];
 
@@ -18,18 +18,22 @@ export default async function OnHitEnter(searchText, availability = []) {
   const availabilityJson = JSON.stringify(availMap);
   console.log("Sending search JSON:", JSON.stringify({ 
     searchText: searchText, 
-    availabilityJson: availabilityJson 
+    availabilityJson: availabilityJson,
+    credits: credits
   }));
 
   try{
-    const response = await fetch("http://localhost:8096/api/search", {
+    const url = `http://localhost:8096/api/search/${year}/${term}`
+    console.log(url)
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ 
         searchText: searchText, 
-        availabilityJson: availabilityJson 
+        availabilityJson: availabilityJson,
+        credits: credits
       })
     });
     if (!response.ok) {
@@ -52,13 +56,15 @@ function parseTime(timeStr) {
 }
 
 // Change 'e' to 'text'
-export async function OnType(text, availability) {
+export async function OnType(text, year, term, availability, credits=0) {
   if (!text || text.trim().length < 2) {
     return []; 
   }
 
   try {
-    const response = await fetch(`http://localhost:8096/api/autocomplete?q=${encodeURIComponent(text)}`);
+    const url = `http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`
+    console.log(url)
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Autocomplete API call failed");
     }

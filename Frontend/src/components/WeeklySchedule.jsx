@@ -2,7 +2,7 @@ import '../css/weeklySchedule.css'
 import React, { useState, useEffect } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
 
-function WeeklySchedule(){
+function WeeklySchedule({ year, term }){
     //state that holds the schedule from backend
     const [schedule, setSchedule] = useState(null);
 
@@ -12,10 +12,11 @@ function WeeklySchedule(){
 
     //FETCH SCHEDULE
     async function fetchSchedule(){
+        console.log(year, term)
         try {
             //fetch for manual user 1
-            const response = await fetch('http://localhost:8096/api/schedule/1');
-            const creds = await (await fetch('http://localhost:8096/api/schedule/credits/1')).json()
+            const response = await fetch(`http://localhost:8096/api/schedule/1/${year}/${term}`);
+            const creds = await (await fetch(`http://localhost:8096/api/schedule/credits/1/${year}/${term}`)).json()
             const data = await response.json();
             setSchedule(data);
             setCreds(creds);
@@ -27,13 +28,18 @@ function WeeklySchedule(){
         }
     };
     
-    //runs automatically when page opens
+    //runs automatically when props/semester change or add/drop event
     useEffect(() => {
         fetchSchedule();
-        //refreshes every 3000 ms
-        const interval = setInterval(fetchSchedule, 3000); 
-        return () => clearInterval(interval);
-    }, []);
+    }, [year, term]);
+
+    // Listen for add/drop refresh
+    useEffect(() => {
+        const handler = () => fetchSchedule();
+        window.addEventListener('scheduleRefresh', handler);
+        return () => window.removeEventListener('scheduleRefresh', handler);
+    }, [year, term]);
+
 
     if (!schedule) {
         return <div className="schedule-box">Loading your schedule...</div>;
@@ -90,7 +96,7 @@ function WeeklySchedule(){
     }
 
     async function dropSection(courseData) {
-        const response = await fetch("http://localhost:8096/api/schedule/drop/1", {
+        const response = await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(courseData),
@@ -108,11 +114,17 @@ function WeeklySchedule(){
     const dayEntries = Object.entries(scheduleMap); //converts map into array of [key,value]
     const currSemester= schedule.currSemester;
     const hours = [ "", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM"];
+    const termMap = {
+        "F": "Fall",
+        "S": "Spring"
+    }
     
     return (
     <div className="schedule-container">
-        <h2 className="schedule-header">Weekly View - Fall 2023</h2>
+
+        <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
         <p id="totalCredLabel">Total Credits: {totalCreds}</p>
+
         
         <div className="weekly-grid">
             {/* Time Gutter */}

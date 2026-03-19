@@ -1,22 +1,28 @@
 /* Main div Containers */
 #availability_filter {
-    display: none;
+    display: flex;
     flex-direction: column;
+}
+
+#filters{
+    display: none;
     position: fixed;
-    height: auto;
+    top: 500px;
+    overflow: hidden;
+    z-index: 50;
+    transition: 0.3s ease;
     width: 40vw;
     padding: 5px;
-    z-index: 50;
-    top: 500px;
     margin-left: 29vw;
-    transition: 0.3s ease;
-    overflow: hidden;
+    height: auto;
 
     pointer-events: all;
     user-select: none;
     border-radius: 10px;
     border: 4px solid rgb(50, 50, 50);
     background-color: rgb(255, 255, 255);
+
+    flex-direction: column;
 }
 
 #availability_container {

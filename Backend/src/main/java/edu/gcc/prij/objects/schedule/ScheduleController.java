@@ -9,10 +9,12 @@ import edu.gcc.prij.objects.course.CourseKey;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
+import edu.gcc.prij.objects.semester.SemesterKey;
 import edu.gcc.prij.objects.department.Department;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.Repository;
 import io.javalin.Javalin;
+import io.javalin.http.Context;
 
 public class ScheduleController implements Controller {
 
@@ -20,57 +22,68 @@ public class ScheduleController implements Controller {
     private Repository<Department, String> deptRepo;
     private Repository<Course, CourseKey> courseRepo;
     private Repository<Schedule, ScheduleKey> scheduleRepository;
+    private Repository<Semester, SemesterKey> semesterRepository;
+    private Repository<User, Integer> userRepository;
     
     //CONSTRUCTOR (used to load the in-memory sectionRepository)
     public ScheduleController(
         Repository<Section, SectionKey> sectionRepo,
         Repository<Department, String> deptRepo,
         Repository<Course, CourseKey> courseRepo,
-        Repository<Schedule, ScheduleKey> scheduleRepository
+        Repository<Schedule, ScheduleKey> scheduleRepository,
+        Repository<Semester, SemesterKey> semesterRepository,
+        Repository<User, Integer> userRepository
     )
     {
         this.sectionRepo = sectionRepo;
         this.courseRepo = courseRepo;
         this.deptRepo = deptRepo;
         this.scheduleRepository = scheduleRepository;
+        this.semesterRepository = semesterRepository;
+        this.userRepository = userRepository;
+    }
+
+    private Schedule getOrAddSchedule(Context ctx){
+        int userId = Integer.parseInt(ctx.pathParam("userId"));
+        int year = Integer.parseInt(ctx.pathParam("year"));
+        char term = ctx.pathParam("term").charAt(0);
+
+        return getOrAddSchedule(userId, year, term);
+    }
+
+    private Schedule getOrAddSchedule(int userId, int year, char term){
+        User fallbackUser = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick");
+        User user = userRepository.getOrAdd(userId, fallbackUser);
+
+        Semester fallbackSemester = new Semester(
+            year,
+            term
+        );
+        Semester sem = semesterRepository.getOrAdd(
+            fallbackSemester.getKey(),
+            fallbackSemester
+        );
+
+        ScheduleKey key = new ScheduleKey(user, sem);
+
+        //Gets a current schedule or makes a new one based on ScheduleKey
+        return scheduleRepository.getOrAdd(key, new Schedule(user, sem));
     }
 
     public void registerRoutes(Javalin app){
         
         // GET: Retreives the schedule
-        app.get("/api/schedule/{userId}", ctx -> {
-            int userId = Integer.parseInt(ctx.pathParam("userId"));
-            
-            User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-            Semester sem = new Semester(2023,'F');
-            
-            ScheduleKey key = new ScheduleKey(user, sem);
-            
+        app.get("/api/schedule/{userId}/{year}/{term}", ctx -> {
             //Gets a current schedule or makes a new one based on ScheduleKey
-            Schedule sch = scheduleRepository.findById(key);
-            if (sch == null) {
-                sch = new Schedule(user, sem);
-                scheduleRepository.save(key, sch);
-            }
+            Schedule sch = getOrAddSchedule(ctx);
 
             ctx.json(sch);
         });
 
         // GET: Retrieves total credits
-        app.get("/api/schedule/credits/{userId}", ctx -> {
-            int userId = Integer.parseInt(ctx.pathParam("userId"));
-
-            User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-            Semester sem = new Semester(2023,'F');
-
-            ScheduleKey key = new ScheduleKey(user, sem);
-
+        app.get("/api/schedule/credits/{userId}/{year}/{term}", ctx -> {
             //Gets a current schedule or makes a new one based on ScheduleKey
-            Schedule sch = scheduleRepository.findById(key);
-            if (sch == null) {
-                sch = new Schedule(user, sem);
-                scheduleRepository.save(key, sch);
-            }
+            Schedule sch = getOrAddSchedule(ctx);
 
             ctx.json(sch.currentCredits());
         });
@@ -78,7 +91,7 @@ public class ScheduleController implements Controller {
 
 
         // POST: Add a section to the schedule
-        app.post("/api/schedule/add/{userId}", ctx -> {
+        app.post("/api/schedule/add/{userId}/{year}/{term}", ctx -> {
             
             //force add if over 18 credits
             boolean force = Boolean.parseBoolean(ctx.queryParam("force"));
@@ -86,26 +99,17 @@ public class ScheduleController implements Controller {
             System.out.println("ADD Request received for user: " + ctx.pathParam("userId")); 
 
             try{
-                int userId = Integer.parseInt(ctx.pathParam("userId")); //gets userID from API call
+                Schedule sch = getOrAddSchedule(ctx);
+
                 Section newSection = ctx.bodyAsClass(Section.class);
                 
-                //manual user
-                User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-                Semester sem = new Semester(2023,'F');
-
-                //builds schedule key
-                ScheduleKey key = new ScheduleKey(user, sem);
-
-                // If schedule doesn't exist, exit
-                Schedule sch = scheduleRepository.findById(key);
-                if (sch == null) {
-                    ctx.status(404).result("Schedule not found.");
-                    return;
-                }
                 //adds section to schedule if there is no conflict
                 String result = sch.addSection(newSection);
+                System.out.println("addSection result for " + newSection.getCourse().getDepartment().getCode() + newSection.getCourse().getNumber() + newSection.getSectionLetter() + ": " + result);
                 if (result.equals("ADD") || (result.equals("CREDIT_LIMIT")  && force)) {
-                    scheduleRepository.update(key, sch);
+                    System.out.println("About to update repo for schedule key: " + sch.getKey());
+                    scheduleRepository.update(sch.getKey(), sch);
+                    System.out.println("Repo update complete");
                     ctx.status(201).json(sch);
                 } 
                 else if (result.equals("CONFLICT"))  {
@@ -123,35 +127,27 @@ public class ScheduleController implements Controller {
         });
 
         //DELETE: Delete section from the schedule
-        app.delete("/api/schedule/drop/{userId}", ctx ->{
+        app.delete("/api/schedule/drop/{userId}/{year}/{term}", ctx ->{
 
             System.out.println("DELETE Request received for user: " + ctx.pathParam("userId"));
 
             try{
-                int userId = Integer.parseInt(ctx.pathParam("userId"));
-                Section sectionToDrop = ctx.bodyAsClass(Section.class);
-                
-                //manual user
-                User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-                Semester sem = new Semester(2023,'F');
+                Section fallbackSection = ctx.bodyAsClass(Section.class);
 
-                //builds schedule key
-                ScheduleKey key = new ScheduleKey(user, sem);
+                System.out.println(fallbackSection);
+
+                Section section = sectionRepo.findById(fallbackSection.getKey());
                 
                 // If schedule doesn't exist, exit
-                Schedule sch = scheduleRepository.findById(key);
-                if (sch == null) {
-                    ctx.status(404).result("Schedule not found.");
-                    return;
-                }
+                Schedule sch = getOrAddSchedule(ctx);
 
                 //removes section from schedule
-                if (sch != null && sectionToDrop != null) {
+                if (sch != null && section != null) {
                     // Call the updated method and check the return value
-                    boolean removed = sch.dropSection(sectionToDrop);
+                    boolean removed = sch.dropSection(section);
                     
                     if (removed) {
-                        scheduleRepository.update(key, sch);
+                        scheduleRepository.update(sch.getKey(), sch);
                         ctx.status(200).json(sch); // 200 is more standard for deletion than 201
                     } else {
                         // This triggers if the course exists in sectionRepo but NOT in the user's list
@@ -169,30 +165,3 @@ public class ScheduleController implements Controller {
 
     }
 }
-
-
-
-
-
-// // MANUAL USER SETUP
-//             User user = new User(1, "merrickrw23@gcc.edu", "Ryan Merrick", null);
-//             Semester sem = new Semester(2026, 'S');
-//             Schedule sch = new Schedule(user, sem);
-
-//             //Course 1: Civ Lit
-
-//             Department d1 = new Department("HUMA");
-//             Course c1 = new Course(d1, 204, "CivLit", "History or art and civilization", 3);
-//             Timeslot[] t1 = new Timeslot[] {
-//                 new Timeslot("09:00:00", "10:00:00", 'M'),
-//                 new Timeslot("09:00:00", "10:00:00", 'W'),
-//                 new Timeslot("09:00:00", "10:00:00", 'F')
-//             };
-//             Professor[] p1= new Professor[]{
-//                 new Professor("Dr.Smith"),
-//                 new Professor("Dr. Munson")
-//             };
-//             Semester sem1= new Semester(2026, 'S');
-//             Section s1= new Section(c1,'A',t1,p1,sem1);
-//             sch.addClass(s1);
-//             ctx.json(sch); // Sends schedule object to React as JSON

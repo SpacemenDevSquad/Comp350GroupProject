@@ -1,7 +1,7 @@
 let shown = false;
 
 export default function toggleFilter(forceOff = false) {
-    const filter = document.getElementById("availability_filter");
+    const filter = document.getElementById("filters");
     if (shown || forceOff) {
         shown = false;
         let height = filter.getBoundingClientRect().height;
@@ -20,7 +20,7 @@ export default function toggleFilter(forceOff = false) {
 }
 
 function schedulePlacement() {
-    const filter = document.getElementById("availability_filter");
+    const filter = document.getElementById("filters");
     const searchBar = document.getElementById("searchContainer");
     if (filter !== null && searchBar !== null) {
         const location = searchBar.getBoundingClientRect()
