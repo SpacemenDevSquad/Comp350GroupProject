@@ -19,15 +19,20 @@ public class ScheduleController implements Controller {
     private Repository<Section, SectionKey> sectionRepo;
     private Repository<Department, String> deptRepo;
     private Repository<Course, CourseKey> courseRepo;
-
-    //stores schedule
-    private final Map<ScheduleKey, Schedule> userSchedules = new HashMap<>();
+    private Repository<Schedule, ScheduleKey> scheduleRepository;
     
     //CONSTRUCTOR (used to load the in-memory sectionRepository)
-    public ScheduleController(Repository<Section, SectionKey> sectionRepo, Repository<Department, String> deptRepo, Repository<Course, CourseKey> courseRepo) {
+    public ScheduleController(
+        Repository<Section, SectionKey> sectionRepo,
+        Repository<Department, String> deptRepo,
+        Repository<Course, CourseKey> courseRepo,
+        Repository<Schedule, ScheduleKey> scheduleRepository
+    )
+    {
         this.sectionRepo = sectionRepo;
         this.courseRepo = courseRepo;
         this.deptRepo = deptRepo;
+        this.scheduleRepository = scheduleRepository;
     }
 
     public void registerRoutes(Javalin app){
@@ -42,10 +47,10 @@ public class ScheduleController implements Controller {
             ScheduleKey key = new ScheduleKey(user, sem);
             
             //Gets a current schedule or makes a new one based on ScheduleKey
-            Schedule sch = userSchedules.get(key);
+            Schedule sch = scheduleRepository.findById(key);
             if (sch == null) {
                 sch = new Schedule(user, sem);
-                userSchedules.put(key, sch);
+                scheduleRepository.save(key, sch);
             }
 
             ctx.json(sch);
@@ -72,7 +77,7 @@ public class ScheduleController implements Controller {
                 ScheduleKey key = new ScheduleKey(user, sem);
 
                 // If schedule doesn't exist, exit
-                Schedule sch = userSchedules.get(key);
+                Schedule sch = scheduleRepository.findById(key);
                 if (sch == null) {
                     ctx.status(404).result("Schedule not found.");
                     return;
@@ -80,6 +85,7 @@ public class ScheduleController implements Controller {
                 //adds section to schedule if there is no conflict
                 String result = sch.addSection(newSection);
                 if (result.equals("ADD") || (result.equals("CREDIT_LIMIT")  && force)) {
+                    scheduleRepository.update(key, sch);
                     ctx.status(201).json(sch);
                 } 
                 else if (result.equals("CONFLICT"))  {
@@ -113,7 +119,7 @@ public class ScheduleController implements Controller {
                 ScheduleKey key = new ScheduleKey(user, sem);
                 
                 // If schedule doesn't exist, exit
-                Schedule sch = userSchedules.get(key);
+                Schedule sch = scheduleRepository.findById(key);
                 if (sch == null) {
                     ctx.status(404).result("Schedule not found.");
                     return;
@@ -125,6 +131,7 @@ public class ScheduleController implements Controller {
                     boolean removed = sch.dropSection(sectionToDrop);
                     
                     if (removed) {
+                        scheduleRepository.update(key, sch);
                         ctx.status(200).json(sch); // 200 is more standard for deletion than 201
                     } else {
                         // This triggers if the course exists in sectionRepo but NOT in the user's list
@@ -137,10 +144,7 @@ public class ScheduleController implements Controller {
             }catch (Exception e){
                 e.printStackTrace();
                 ctx.status(500).result("Error: " + e.getMessage());
-
             }
-
-
         });
 
     }
