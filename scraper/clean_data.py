@@ -133,12 +133,12 @@ def transform_course_data(raw_data):
 
 # --- Execution ---
 if __name__ == "__main__":
-    with open("scraped_courses_f26.json", "r") as f:
+    with open("out/scraped_courses_f26.json", "r") as f:
         raw_json = json.load(f)
 
     formatted_data = transform_course_data(raw_json)
 
-    with open("formatted_courses.json", "w") as f:
+    with open("out/formatted_courses.json", "w") as f:
         json.dump(formatted_data, f, indent=4)
         
     print(f"Successfully formatted {len(formatted_data['classes'])} courses.")

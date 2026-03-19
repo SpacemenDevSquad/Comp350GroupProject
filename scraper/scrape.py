@@ -79,9 +79,9 @@ try:
     print(f"Successfully extracted {len(all_courses)} course records.")
 
     # Structuring the scraped output as JSON makes it trivial to ingest into the backend of your course scheduling application.
-    with open("scraped_courses.json", "w") as f:
+    with open("out/scraped_courses.json", "w") as f:
         json.dump(all_courses, f, indent=4)
-    print("Data saved to scraped_courses.json")
+    print("Data saved to out/scraped_courses.json")
 
 finally:
     # Ensure the browser closes even if an error occurs
