@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const DAYS_OF_WEEK = ['M', 'T', 'W', 'R', 'F'];
 
-function Filters({ availability, setAvailability }) {
+function Filters({ availability, setAvailability, triggerSearch }) {
   const [daysToggled, setDaysToggled] = useState([]);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -30,19 +30,23 @@ function Filters({ availability, setAvailability }) {
       endTime: endTime,
     };
 
-    setAvailability([...availability, newAvailabilityBlock]);
+    const updatedAvailability = [...availability, newAvailabilityBlock];
+    setAvailability(updatedAvailability);
 
     setDaysToggled([]);
     setStartTime("");
     setEndTime("");
+
+    const currentSearchText = document.getElementById("searchBar").value;
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability);
   };
 
-  // NEW: Function to handle removing an item by its index
   const handleRemove = (indexToRemove) => {
-    setAvailability((prevAvailability) => {
-      // Return a new array containing all items EXCEPT the one at the targeted index
-      return prevAvailability.filter((_, index) => index !== indexToRemove);
-    });
+    const updatedAvailability = availability.filter((_, index) => index !== indexToRemove);
+    setAvailability(updatedAvailability);
+
+    const currentSearchText = document.getElementById("searchBar").value;
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability);
   };
 
   return (

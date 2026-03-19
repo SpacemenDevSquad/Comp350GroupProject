@@ -1,7 +1,6 @@
-export default async function OnHitEnter(e, availability = []) {
+export default async function OnHitEnter(searchText, availability = []) {
   console.log("Searching for courses...")
   
-  const searchQuery = e.target.value;
   let courseResults = [];
 
   // Transform availability to backend JSON format
@@ -18,7 +17,7 @@ export default async function OnHitEnter(e, availability = []) {
   });
   const availabilityJson = JSON.stringify(availMap);
   console.log("Sending search JSON:", JSON.stringify({ 
-    searchText: searchQuery, 
+    searchText: searchText, 
     availabilityJson: availabilityJson 
   }));
 
@@ -29,7 +28,7 @@ export default async function OnHitEnter(e, availability = []) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ 
-        searchText: searchQuery, 
+        searchText: searchText, 
         availabilityJson: availabilityJson 
       })
     });
