@@ -1,5 +1,5 @@
 // TODO unhardcode
-const year = 2026
+const year = 2023
 const term = 'F'
 
 export default async function OnHitEnter(searchText, availability = [], credits = 0) {
