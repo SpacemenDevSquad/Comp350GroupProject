@@ -1,4 +1,4 @@
-export default async function OnHitEnter(searchText, availability = []) {
+export default async function OnHitEnter(searchText, availability = [], credits = 0) {
   console.log("Searching for courses...")
   
   let courseResults = [];
@@ -18,7 +18,8 @@ export default async function OnHitEnter(searchText, availability = []) {
   const availabilityJson = JSON.stringify(availMap);
   console.log("Sending search JSON:", JSON.stringify({ 
     searchText: searchText, 
-    availabilityJson: availabilityJson 
+    availabilityJson: availabilityJson,
+    credits: credits
   }));
 
   try{
@@ -29,7 +30,8 @@ export default async function OnHitEnter(searchText, availability = []) {
       },
       body: JSON.stringify({ 
         searchText: searchText, 
-        availabilityJson: availabilityJson 
+        availabilityJson: availabilityJson,
+        credits: credits
       })
     });
     if (!response.ok) {

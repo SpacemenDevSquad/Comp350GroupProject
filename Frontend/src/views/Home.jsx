@@ -12,30 +12,20 @@ function Home() {
   const [sections, setSections] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [availability, setAvailability] = useState([]);
+  const [credits, setCredits] = useState(0);
 
   // A reusable search function!
-  const executeSearch = async (searchText, currentAvailability) => {
+  const executeSearch = async (searchText, currentAvailability, credits) => {
     // 1. Hide the dropdown
     setSuggestions([]); 
     
     // 2. NO MORE FAKE EVENT! Just pass the text and filters straight through
-    const fetchedSections = await OnHitEnter(searchText, currentAvailability);
+    const fetchedSections = await OnHitEnter(searchText, currentAvailability, credits);
     
     // 3. Update the UI
     setSections(fetchedSections || []); 
     goToSearch();
   };
-  
-  // useEffect(() => {
-  //   if (addedListener === false) {
-  //     addedListener = true;
-  //     window.addEventListener("popstate", () => {
-  //       console.log("Hey");
-  //       const fetchedSections = OnHitEnter(document.getElementById("searchBar"), availability);
-  //       setSections(fetchedSections || []); 
-  //     });
-  //   }
-  // })
 
   useEffect(() => {
     const searchInput = document.getElementById("searchBar");
@@ -81,7 +71,7 @@ function Home() {
           autoComplete='off'
           onKeyDown={async (e) => {
             if (e.key !== "Enter") return;
-            executeSearch(e.target.value, availability);
+            executeSearch(e.target.value, availability, credits);
           }}></input>
 
           {/* The Autocomplete Dropdown UI sits neatly inside the container */}
@@ -94,7 +84,7 @@ function Home() {
                       // 1. Fill the search bar
                       document.getElementById("searchBar").value = suggestion;
                       // 2. Execute the search with the current filters
-                      executeSearch(suggestion, availability);
+                      executeSearch(suggestion, availability, credits);
                   }}
                 >
                   {suggestion}
@@ -114,6 +104,8 @@ function Home() {
       <Filters
         availability={availability} 
         setAvailability={setAvailability}
+        credits={credits}
+        setCredits={setCredits}
         triggerSearch={executeSearch}
       />
 

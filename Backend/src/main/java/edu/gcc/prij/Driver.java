@@ -67,14 +67,16 @@ public class Driver {
         /* ---------- CREATE REPOSITORIES ---------- */
 
         /* ---------- PARSE JSON FILE ---------- */
-        List<String> jsonFiles = List.of(
-            "/data_wolfe.json",
-            "/courses_2026_fall.json",
-            "/courses_2027_spring.json"
-        );
-        
-        for (String jsonFile : jsonFiles){
-            new CustomJsonParser(jsonFile, sectionRepository, departmentRepository, courseRepository, professorRepository, semesterRepository).parse();
+        if(true){
+            List<String> jsonFiles = List.of(
+                "/data_wolfe.json",
+                "/courses_2026_fall.json",
+                "/courses_2027_spring.json"
+            );
+            
+            for (String jsonFile : jsonFiles){
+                new CustomJsonParser(jsonFile, sectionRepository, departmentRepository, courseRepository, professorRepository, semesterRepository).parse();
+            }
         }
         /* ---------- PARSE JSON FILE ---------- */
 

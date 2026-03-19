@@ -50,7 +50,7 @@ public class Search {
         // 3. Isaiah's job: Apply the filters to the results
         List<Filter> filters = new ArrayList<>();
 
-        if (query.getCredits() != null) { 
+        if (query.getCredits() != null && query.getCredits() != 0) { 
             filters.add(new CreditFilter(query.getCredits())); 
         }
         

@@ -1,9 +1,9 @@
 import '../css/Filters.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const DAYS_OF_WEEK = ['M', 'T', 'W', 'R', 'F'];
 
-function Filters({ availability, setAvailability, triggerSearch }) {
+function Filters({ availability, setAvailability, credits, setCredits, triggerSearch }) {
   const [daysToggled, setDaysToggled] = useState([]);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -38,7 +38,7 @@ function Filters({ availability, setAvailability, triggerSearch }) {
     setEndTime("");
 
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability);
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
   };
 
   const handleRemove = (indexToRemove) => {
@@ -46,68 +46,91 @@ function Filters({ availability, setAvailability, triggerSearch }) {
     setAvailability(updatedAvailability);
 
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability);
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
   };
 
+
+
   return (
-    <div id='availability_filter'>
-      <h1 id="filterTitle">Available:</h1>
+    <div id='filters'>
+      <div id='availability_filter'>
+        <h1 id="filterTitle">Available:</h1>
 
-      <button id="addButton" onClick={handleAdd}>Add</button>
-      
-      <div id='availability_container'>
-        <div id='availability_time_selectors'>
-          <div id='filter_availability_times'>
-            <input 
-              type="time" 
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)} 
-              className='time_availability_input'
-            />
-            <p>to</p>
-            <input 
-              type="time" 
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)} 
-              className='time_availability_input'
-            />
+        <button id="addButton" onClick={handleAdd}>Add</button>
+        
+        <div id='availability_container'>
+          <div id='availability_time_selectors'>
+            <div id='filter_availability_times'>
+              <input 
+                type="time" 
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)} 
+                className='time_availability_input'
+              />
+              <p>to</p>
+              <input 
+                type="time" 
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)} 
+                className='time_availability_input'
+              />
+            </div>
+
+            <div id='filter_availability_days'>
+              {DAYS_OF_WEEK.map((day) => {
+                const isToggled = daysToggled.includes(day);
+                return (
+                  <div 
+                    key={day}
+                    className={`filter_availability_day ${isToggled ? "toggled" : ""}`} 
+                    onClick={() => toggleDayAvailability(day)}
+                  >
+                    {day}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <div id='filter_availability_days'>
-            {DAYS_OF_WEEK.map((day) => {
-              const isToggled = daysToggled.includes(day);
-              return (
-                <div 
-                  key={day}
-                  className={`filter_availability_day ${isToggled ? "toggled" : ""}`} 
-                  onClick={() => toggleDayAvailability(day)}
-                >
-                  {day}
-                </div>
-              );
-            })}
-          </div>
         </div>
+        
 
+        <div>
+          <ul>
+            {availability.map((block, index) => (
+              <li key={index} class="filterItem">
+                {block.days} {block.startTime} - {block.endTime}
+                {/* NEW: Remove button added next to the text */}
+                <button 
+                  class = "filterRemoveButton"
+                  onClick={() => handleRemove(index)}
+                  style={{ marginLeft: "10px" }} // Added a little margin for spacing
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      
-
       <div>
-        <ul>
-          {availability.map((block, index) => (
-            <li key={index} class="filterItem">
-              {block.days} {block.startTime} - {block.endTime}
-              {/* NEW: Remove button added next to the text */}
-              <button 
-                class = "filterRemoveButton"
-                onClick={() => handleRemove(index)}
-                style={{ marginLeft: "10px" }} // Added a little margin for spacing
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <span>Credits:</span>
+        <select name="credit_filter" id="credit_filter" value={credits} onChange={(e) => {
+            const newCredits = parseInt(e.target.value);
+            setCredits(newCredits);
+            const currentSearchText = document.getElementById("searchBar").value;
+            if (triggerSearch && currentSearchText) {
+              triggerSearch(currentSearchText, availability, credits);
+            }
+          }}>
+            <option value="0">Any</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
       </div>
     </div>
   );
