@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import '../css/section.css'
-import '../js/createAlert.jsx'
 import { createAlert } from '../js/createAlert.jsx';
 
 function Section({ data }) {
