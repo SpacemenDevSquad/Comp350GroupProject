@@ -46,8 +46,8 @@ public class SearchController implements Controller {
       /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" in the title
       masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
-                    .filter(section -> (section.getSemester().getTerm() == 'F' && section.getSemester().getYear() == 2023)) // Filter out Fall 2023 sections
-                    .filter(section -> !section.getCourse().getTitle().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
+                    .filter(section -> (section.getSemester().getTerm() == 'F' && section.getSemester().getYear() == 2023)) // Filter out  everything butFall 2023 sections
+                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
                     .collect(Collectors.toList());
 
       // C. Hand the ticket and the data to your stateless engine
@@ -76,7 +76,7 @@ public class SearchController implements Controller {
     masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
                     .filter(section -> (section.getSemester().getTerm() == 'F' && section.getSemester().getYear() == 2023)) // Filter out Fall 2023 sections
-                    .filter(section -> !section.getCourse().getTitle().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
+                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
                     .collect(Collectors.toList());
 
     // Use a Stream to quickly filter and extract the names
