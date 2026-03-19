@@ -2,7 +2,9 @@ package edu.gcc.prij.objects.search;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Comparator;
 
 import edu.gcc.prij.filters.CreditFilter;
 import edu.gcc.prij.filters.Filter;
@@ -70,6 +72,12 @@ public class Search {
         for (Filter f : filters){
             finalResults = f.filter(finalResults);
         }
+
+        // Sorts by Department (ACCT, COMP, MATH) -> Then by Number (101, 201, 301)
+        finalResults.sort(
+            Comparator.comparing((Section section) -> section.getCourse().getDepartment().getCode())
+                      .thenComparingInt(section -> section.getCourse().getNumber())
+        );
 
         return finalResults;
     }
