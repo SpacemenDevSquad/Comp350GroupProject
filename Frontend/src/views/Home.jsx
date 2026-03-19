@@ -91,15 +91,16 @@ function Home() {
 
           </div>
 
-          <button id="filterButton" onClick={toggleFilter}>☰</button>
+          <button id="filterButton" onClick={()=>{toggleFilter(false)}}>☰</button>
 
         </div>
-        {/* Filters */}
-        <Filters
-          availability={availability} 
-          setAvailability={setAvailability}
-        />
       </div>
+
+      {/* Filters */}
+      <Filters
+        availability={availability} 
+        setAvailability={setAvailability}
+      />
 
       {/* Courses */}
       <div id='courseContainer'>

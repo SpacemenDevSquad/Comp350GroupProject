@@ -2,12 +2,15 @@
 #availability_filter {
     display: none;
     flex-direction: column;
-    position: relative;
+    position: fixed;
     height: auto;
     width: 40vw;
-    margin-top: 25px;
     padding: 5px;
-    z-index: -50;
+    z-index: 50;
+    top: 500px;
+    margin-left: 29vw;
+    transition: 0.3s ease;
+    overflow: hidden;
 
     pointer-events: all;
     user-select: none;
