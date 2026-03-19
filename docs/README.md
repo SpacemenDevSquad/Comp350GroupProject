@@ -9,7 +9,7 @@ Enter the project directory by running `cd Comp350GroupProject`
 From the `.../Comp350GroupProject` directory, run `cd Backend`, then `gradlew build run`
 
 ## 3. Run the Frontend
-From the `.../Comp350GroupProject` directory, run `cd Frontend`, then `npm run dev`
+From the `.../Comp350GroupProject` directory, run `cd Frontend`, `npm install`, then `npm run dev`
 
 ## 4. Visit Site
 At this point, you should be able to visit and interact with the site, which runs at [http://localhost:5173/](http://localhost:5173/)
