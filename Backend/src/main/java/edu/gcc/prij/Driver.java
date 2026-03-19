@@ -19,6 +19,7 @@ import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.semester.SemesterKey;
 import edu.gcc.prij.objects.user.UserController;
+import edu.gcc.prij.objects.user.User;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.CustomJsonParser;
 import edu.gcc.prij.utils.InMemoryRepository;
@@ -45,6 +46,7 @@ public class Driver {
         Repository<Rating, Integer> ratingRepository;
         Repository<Schedule, ScheduleKey> scheduleRepository;
         Repository<Semester, SemesterKey> semesterRepository;
+        Repository<User, Integer> userRepository;
         
         if(true){
             sectionRepository = new SQLiteRepository<>(Section.class);
@@ -54,6 +56,7 @@ public class Driver {
             ratingRepository = new SQLiteRepository<>(Rating.class);
             scheduleRepository = new SQLiteRepository<>(Schedule.class);
             semesterRepository = new SQLiteRepository<>(Semester.class);
+            userRepository = new SQLiteRepository<>(User.class);
         }
         if(false){
             sectionRepository = new InMemoryRepository<>();
@@ -63,11 +66,12 @@ public class Driver {
             ratingRepository = new InMemoryRepository<>();
             scheduleRepository = new InMemoryRepository<>();
             semesterRepository = new InMemoryRepository<>();
+            userRepository = new InMemoryRepository<>();
         }
         /* ---------- CREATE REPOSITORIES ---------- */
 
         /* ---------- PARSE JSON FILE ---------- */
-        if(true){
+        if(false){
             List<String> jsonFiles = List.of(
                 "/data_wolfe.json",
                 "/courses_2026_fall.json",
@@ -97,7 +101,7 @@ public class Driver {
             new UserController(),
             new SectionController(sectionRepository, departmentRepository, courseRepository),
             new SearchController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository),
+            new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository, semesterRepository, userRepository),
             new RatingController(ratingRepository)
         );
 

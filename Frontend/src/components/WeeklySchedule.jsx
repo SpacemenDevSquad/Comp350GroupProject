@@ -2,6 +2,9 @@ import '../css/weeklySchedule.css'
 import React, { useState, useEffect } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
 
+const year = 2023;
+const term = 'F';
+
 function WeeklySchedule(){
     //state that holds the schedule from backend
     const [schedule, setSchedule] = useState(null);
@@ -14,8 +17,8 @@ function WeeklySchedule(){
     async function fetchSchedule(){
         try {
             //fetch for manual user 1
-            const response = await fetch('http://localhost:8096/api/schedule/1');
-            const creds = await (await fetch('http://localhost:8096/api/schedule/credits/1')).json()
+            const response = await fetch(`http://localhost:8096/api/schedule/1/${year}/${term}`);
+            const creds = await (await fetch(`http://localhost:8096/api/schedule/credits/1/${year}/${term}`)).json()
             const data = await response.json();
             setSchedule(data);
             setCreds(creds);
@@ -90,7 +93,7 @@ function WeeklySchedule(){
     }
 
     async function dropSection(courseData) {
-        const response = await fetch("http://localhost:8096/api/schedule/drop/1", {
+        const response = await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(courseData),
