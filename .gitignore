@@ -64,3 +64,6 @@ bin/
 
 ### Logs ###
 *.log
+
+### DB ###
+/Backend/sqlite

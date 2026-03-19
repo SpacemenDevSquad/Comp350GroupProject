@@ -42,7 +42,7 @@ public class SectionController implements Controller {
             SectionKey sectionKey = new SectionKey(course, sectionLetter, semester);
             Section fallbackSection = new Section(course, sectionLetter, null, null, semester);
 
-            ctx.json(sectionRepository.getOrAdd(sectionKey, fallbackSection));
+            ctx.json(sectionRepository.upsert(sectionKey, fallbackSection));
         });
 
         app.get("/api/sections", ctx -> {
