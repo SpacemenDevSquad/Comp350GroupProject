@@ -5,22 +5,23 @@ import OnHitEnter, { OnType } from '../js/searchBar.js'
 import Section from '../components/Section.jsx';
 import Filters from '../components/Filters.jsx';
 import toggleFilter from '../js/toggleFilter.js';
+import UpdateSemester from '../components/UpdateSemester.jsx';
 
 let addedListener = false;
 
-function Home() {
+function Home({year, setYear, term, setTerm}) {
   const [sections, setSections] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [availability, setAvailability] = useState([]);
   const [credits, setCredits] = useState(0);
 
   // A reusable search function!
-  const executeSearch = async (searchText, currentAvailability, credits) => {
+  const executeSearch = async (searchText, year, term, currentAvailability, credits) => {
     // 1. Hide the dropdown
     setSuggestions([]); 
     
     // 2. NO MORE FAKE EVENT! Just pass the text and filters straight through
-    const fetchedSections = await OnHitEnter(searchText, currentAvailability, credits);
+    const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits);
     
     // 3. Update the UI
     setSections(fetchedSections || []); 
@@ -71,7 +72,7 @@ function Home() {
           autoComplete='off'
           onKeyDown={async (e) => {
             if (e.key !== "Enter") return;
-            executeSearch(e.target.value, availability, credits);
+            executeSearch(e.target.value, year, term, availability, credits);
           }}></input>
 
           {/* The Autocomplete Dropdown UI sits neatly inside the container */}
@@ -84,7 +85,7 @@ function Home() {
                       // 1. Fill the search bar
                       document.getElementById("searchBar").value = suggestion;
                       // 2. Execute the search with the current filters
-                      executeSearch(suggestion, availability, credits);
+                      executeSearch(suggestion, year, term, availability, credits);
                   }}
                 >
                   {suggestion}
@@ -109,11 +110,18 @@ function Home() {
         triggerSearch={executeSearch}
       />
 
+      <UpdateSemester
+        year={year}
+        setYear={setYear}
+        term={term}
+        setTerm={setTerm}
+      />
+
       {/* Courses */}
       <div id='courseContainer'>
         {sections.length > 0 ? (
           sections.map((section, index) => {
-            return <Section key={index} data={section} />;
+            return <Section key={index} data={section} year={year} term={term} />;
           })
         ) : null}
       </div>

@@ -12,9 +12,15 @@ public class User implements RepositoryObject<Integer> {
     private String email;
     private String name;
 
-    public String getName(){
-        return name;
-    }
+    public User() {};
+
+    private void setId(int id){ this.id = id; }
+    private void setEmail(String email){ this.email = email; }
+    private void setName(String name){ this.name = name; }
+
+    public String getName(){ return name; }
+    public String getEmail(){ return email; }
+    public int getId(){ return id; }
 
     public User(int id, String email, String name){
         this.id = id;

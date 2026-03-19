@@ -1,8 +1,14 @@
 package edu.gcc.prij.objects.schedule;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.gcc.prij.objects.course.Course;
+import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.user.User;
@@ -13,14 +19,14 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     // SCHEDULE VARIABLES
     private User user;
     private Semester semester;
-    private ArrayList<Section> sections;
+    private Map<SectionKey, Section> sections;
 
     // SCHEDULE CONSTRUCTOR
     
     public Schedule(User user, Semester semester){
         this.semester = semester;
         this.user = user;
-        this.sections= new ArrayList<>();
+        this.sections= new HashMap<>();
     }
 
     public Schedule(){}
@@ -35,13 +41,14 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
             return "CREDIT_LIMIT";
         }
 
-        sections.add(newSection);
+        sections.put(newSection.getKey(), newSection);
         return "ADD";
     }
     
     public boolean dropSection(Section section){ 
-        if (sections.contains(section)) { //contains uses custom equals method here
-            sections.remove(section);
+        if (hasOverlap(section))
+        { //contains uses custom equals method here
+            sections.remove(section.getKey());
             return true;
         }
         return false;
@@ -50,24 +57,25 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     
     public boolean hasOverlap(Section newSection){
         //loop through section in the schedules
-        for (Section existingSection: sections) {
-            //loop through the TIMESLOTS in the new section
-            for (Timeslot newSlot: newSection.getTimeslots()) {
-                //loop through TIMESLOT of existing section
-                for (Timeslot existingSlot: existingSection.getTimeslots()) {
-                    //check if on same day
-                    if (newSlot.getDay() == existingSlot.getDay()) {
-                        //check for overlap
-                        if (newSlot.getStartTime() < existingSlot.getEndTime() && existingSlot.getStartTime() < newSlot.getEndTime()) {
-                            return true;
-                        }
-                    }
+        return sections.containsKey(newSection.getKey());
+        // for (Section existingSection: sections) {
+        //     //loop through the TIMESLOTS in the new section
+        //     for (Timeslot newSlot: newSection.getTimeslots()) {
+        //         //loop through TIMESLOT of existing section
+        //         for (Timeslot existingSlot: existingSection.getTimeslots()) {
+        //             //check if on same day
+        //             if (newSlot.getDay() == existingSlot.getDay()) {
+        //                 //check for overlap
+        //                 if (newSlot.getStartTime() < existingSlot.getEndTime() && existingSlot.getStartTime() < newSlot.getEndTime()) {
+        //                     return true;
+        //                 }
+        //             }
                     
-                }
-            }
-        }
+        //         }
+        //     }
+        // }
 
-        return false;       
+        // return false;       
     }
 
     public boolean exceedsCredits(int addCredits){
@@ -83,7 +91,7 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     
     public int currentCredits(){
         int currCredits=0;
-        for (Section section:sections){
+        for (Section section : sections.values()){
             Course currCourse= section.getCourse();
             currCredits += currCourse.getCredits();
         }
@@ -91,10 +99,14 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
             
     }
 
-    public ArrayList<Section> getSections(){
+    @JsonIgnore
+    public Map<SectionKey, Section> getSectionsMap(){
         return sections;
     }
 
+    public Collection<Section> getSections(){
+        return sections.values();
+    }
 
     public User getUser() { 
         return user; 

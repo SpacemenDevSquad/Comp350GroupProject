@@ -129,19 +129,19 @@ public class ScheduleController implements Controller {
             System.out.println("DELETE Request received for user: " + ctx.pathParam("userId"));
 
             try{
-                Section sectionToDrop = ctx.bodyAsClass(Section.class);
+                Section fallbackSection = ctx.bodyAsClass(Section.class);
+
+                System.out.println(fallbackSection);
+
+                Section section = sectionRepo.findById(fallbackSection.getKey());
                 
                 // If schedule doesn't exist, exit
                 Schedule sch = getOrAddSchedule(ctx);
-                if (sch == null) {
-                    ctx.status(404).result("Schedule not found.");
-                    return;
-                }
 
                 //removes section from schedule
-                if (sch != null && sectionToDrop != null) {
+                if (sch != null && section != null) {
                     // Call the updated method and check the return value
-                    boolean removed = sch.dropSection(sectionToDrop);
+                    boolean removed = sch.dropSection(section);
                     
                     if (removed) {
                         scheduleRepository.update(sch.getKey(), sch);

@@ -1,9 +1,5 @@
-// TODO unhardcode
-const year = 2023
-const term = 'F'
-
-export default async function OnHitEnter(searchText, availability = [], credits = 0) {
-  console.log("Searching for courses...")
+export default async function OnHitEnter(searchText, year, term, availability = [], credits = 0) {
+  console.log("Searching for courses...", searchText, year, term, availability, credits)
   
   let courseResults = [];
 
@@ -27,7 +23,9 @@ export default async function OnHitEnter(searchText, availability = [], credits 
   }));
 
   try{
-    const response = await fetch(`http://localhost:8096/api/search/${year}/${term}`, {
+    const url = `http://localhost:8096/api/search/${year}/${term}`
+    console.log(url)
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -58,7 +56,7 @@ function parseTime(timeStr) {
 }
 
 // Change 'e' to 'text'
-export async function OnType(text, availability, credits=0) {
+export async function OnType(text, year, term, availability, credits=0) {
   if (!text || text.trim().length < 2) {
     return []; 
   }

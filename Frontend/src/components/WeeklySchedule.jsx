@@ -2,10 +2,7 @@ import '../css/weeklySchedule.css'
 import React, { useState, useEffect } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
 
-const year = 2023;
-const term = 'F';
-
-function WeeklySchedule(){
+function WeeklySchedule({ year, term }){
     //state that holds the schedule from backend
     const [schedule, setSchedule] = useState(null);
 
@@ -111,10 +108,14 @@ function WeeklySchedule(){
     const dayEntries = Object.entries(scheduleMap); //converts map into array of [key,value]
     const currSemester= schedule.currSemester;
     const hours = [ "", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM"];
+    const termMap = {
+        "F": "Fall",
+        "S": "Spring"
+    }
     
     return (
     <div className="schedule-container">
-        <h2 className="schedule-header">Weekly View - Fall 2023</h2>
+        <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
         <p id="totalCredLabel">Total Credits: {totalCreds}</p>
         
         <div className="weekly-grid">
