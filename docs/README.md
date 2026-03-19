@@ -6,7 +6,7 @@ In the directory you want to pull to, run the command `git clone https://github.
 Enter the project directory by running `cd Comp350GroupProject`
 
 ## 2. Run the Backend
-From the `Comp350GroupProject` directory, run `cd fackend`, then `gradlew build run`
+From the `Comp350GroupProject` directory, run `cd backend`, then `gradlew build run`
 
 ## 3. Run the Frontend
 From the `Comp350GroupProject` directory, run `cd frontend`, `npm install`, then `npm run dev`
