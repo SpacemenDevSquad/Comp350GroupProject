@@ -51,6 +51,10 @@ public class CustomJsonParser {
 
             JsonNode classes = rootNode.get("classes");
 
+            int numClasses = classes.size();
+
+            System.out.println("Parsing "+numClasses+" classes from "+path+"...");
+
             for (JsonNode c : classes){
                 String subject = c.get("subject").asText();
                 Department dept = departmentRepository.getOrAdd(subject, new Department(subject));
@@ -118,6 +122,7 @@ public class CustomJsonParser {
                 sectionRepository.upsert(sectionKey, section);
             }
 
+            System.out.println("Parsed "+numClasses+" classes from "+path+".");
         } catch (IOException e) {
             e.printStackTrace();
         }
