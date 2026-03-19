@@ -46,14 +46,14 @@ public class CustomJsonParser {
 
             for (JsonNode c : classes){
                 String subject = c.get("subject").asText();
-                Department dept = departmentRepository.getOrAdd(subject, new Department(subject));
+                Department dept = departmentRepository.upsert(subject, new Department(subject));
                 int number = c.get("number").asInt();
                 String title = c.get("name").asText();
                 int credits = c.get("credits").asInt();
             
                 CourseKey courseKey = new CourseKey(dept, number);
                 Course fallbackCourse = new Course(dept, number, title, null, credits);
-                Course course = courseRepository.getOrAdd(courseKey, fallbackCourse);
+                Course course = courseRepository.upsert(courseKey, fallbackCourse);
 
                 char sectionLetter = c.get("section").asText().charAt(0);
                 String semesterString = c.get("semester").asText();
@@ -63,7 +63,7 @@ public class CustomJsonParser {
                 JsonNode professors = c.get("faculty");
 
                 for (JsonNode p : professors){
-                    Professor professor = professorRepository.getOrAdd(p.asText(), new Professor(p.asText()));
+                    Professor professor = professorRepository.upsert(p.asText(), new Professor(p.asText()));
                     profs.add(professor);
                 }
 
@@ -84,7 +84,7 @@ public class CustomJsonParser {
                 SectionKey sectionKey = new SectionKey(course, sectionLetter, semester);
                 Section section = new Section(course, sectionLetter, times.toArray(new Timeslot[0]), profs.toArray(new Professor[0]), semester);
 
-                sectionRepository.getOrAdd(sectionKey, section);
+                sectionRepository.upsert(sectionKey, section);
             }
 
         } catch (IOException e) {

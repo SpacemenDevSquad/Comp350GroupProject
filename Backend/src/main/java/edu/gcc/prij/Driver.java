@@ -9,7 +9,9 @@ import edu.gcc.prij.objects.department.Department;
 import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.rating.Rating;
 import edu.gcc.prij.objects.rating.RatingController;
+import edu.gcc.prij.objects.schedule.Schedule;
 import edu.gcc.prij.objects.schedule.ScheduleController;
+import edu.gcc.prij.objects.schedule.ScheduleKey;
 import edu.gcc.prij.objects.search.SearchController;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionController;
@@ -19,7 +21,7 @@ import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.CustomJsonParser;
 import edu.gcc.prij.utils.InMemoryRepository;
 import edu.gcc.prij.utils.Repository;
-
+import edu.gcc.prij.utils.SQLiteRepository;
 import io.javalin.Javalin;
 
 /**
@@ -33,11 +35,30 @@ public class Driver {
     public static void main(String[] args) {
         /* ---------- CREATE REPOSITORIES ---------- */
         // Repository<Type, KeyType> name = new InMemoryRepository<>();
-        Repository<Section, SectionKey> sectionRepository = new InMemoryRepository<>();
-        Repository<Course, CourseKey> courseRepository = new InMemoryRepository<>();
-        Repository<Department, String> departmentRepository = new InMemoryRepository<>();
-        Repository<Professor, String> professorRepository = new InMemoryRepository<>();
-        Repository<Rating, Integer> ratingRepository = new InMemoryRepository<>();
+
+        Repository<Section, SectionKey> sectionRepository;
+        Repository<Course, CourseKey> courseRepository;
+        Repository<Department, String> departmentRepository;
+        Repository<Professor, String> professorRepository;
+        Repository<Rating, Integer> ratingRepository;
+        Repository<Schedule, ScheduleKey> scheduleRepository;
+        
+        if(true){
+            sectionRepository = new SQLiteRepository<>(Section.class);
+            courseRepository = new SQLiteRepository<>(Course.class);
+            departmentRepository = new SQLiteRepository<>(Department.class);
+            professorRepository = new SQLiteRepository<>(Professor.class);
+            ratingRepository = new SQLiteRepository<>(Rating.class);
+            scheduleRepository = new SQLiteRepository<>(Schedule.class);
+        }
+        if(false){
+            sectionRepository = new InMemoryRepository<>();
+            courseRepository = new InMemoryRepository<>();
+            departmentRepository = new InMemoryRepository<>();
+            professorRepository = new InMemoryRepository<>();
+            ratingRepository = new InMemoryRepository<>();
+            scheduleRepository = new InMemoryRepository<>();
+        }
         /* ---------- CREATE REPOSITORIES ---------- */
 
         /* ---------- PARSE JSON FILE ---------- */
@@ -62,13 +83,11 @@ public class Driver {
             new UserController(),
             new SectionController(sectionRepository, departmentRepository, courseRepository),
             new SearchController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(sectionRepository, departmentRepository, courseRepository),
+            new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository),
             new RatingController(ratingRepository)
         );
 
         controllers.forEach(c -> c.registerRoutes(app));
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
-
-        
     }
 }

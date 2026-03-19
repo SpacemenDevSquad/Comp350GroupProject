@@ -38,7 +38,7 @@ public class InMemoryRepository<T extends RepositoryObject<ID>, ID> implements R
     }
 
     @Override
-    public T getOrAdd(ID id, T fallbackEntity) {
+    public T upsert(ID id, T fallbackEntity) {
       if (database.containsKey(id)) {
         // It exists! Return the one from the database.
         return database.get(id);
