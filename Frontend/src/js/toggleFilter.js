@@ -2,7 +2,6 @@ let shown = false;
 
 export default function toggleFilter(forceOff = false) {
     const filter = document.getElementById("availability_filter");
-    console.log(forceOff);
     if (shown || forceOff) {
         shown = false;
         let height = filter.getBoundingClientRect().height;

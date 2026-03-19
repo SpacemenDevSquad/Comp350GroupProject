@@ -8,13 +8,17 @@ function WeeklySchedule(){
 
     const [loading, setLoading] = useState(null);
 
+    const [totalCreds, setCreds] = useState(null);
+
     //FETCH SCHEDULE
     async function fetchSchedule(){
         try {
             //fetch for manual user 1
             const response = await fetch('http://localhost:8096/api/schedule/1');
+            const creds = await (await fetch('http://localhost:8096/api/schedule/credits/1')).json()
             const data = await response.json();
             setSchedule(data);
+            setCreds(creds);
             setLoading(false);
 
         } catch (error) {
@@ -108,6 +112,7 @@ function WeeklySchedule(){
     return (
     <div className="schedule-container">
         <h2 className="schedule-header">Weekly View - Fall 2023</h2>
+        <p id="totalCredLabel">Total Credits: {totalCreds}</p>
         
         <div className="weekly-grid">
             {/* Time Gutter */}

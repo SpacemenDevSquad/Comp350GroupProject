@@ -8,7 +8,8 @@
     padding-left: min(2%, 20px);
     padding-right: min(2%, 20px);
 
-    display:flex;
+    position: relative;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -128,6 +129,18 @@
     text-align: center;
     font-style: italic;
     text-shadow: .7px .7px rgb(57, 57, 57);
+}
+
+#totalCredLabel {
+    position: absolute;
+    top: 0px;
+    right: 45px;
+    user-select: none;
+
+    color: white;
+    font-size: 20px;
+    font-family: 'Roboto Slab';
+    text-shadow: 2px 2px rgb(0, 0, 0);
 }
 
 /* Calendar Card */
