@@ -47,28 +47,26 @@ function Filters({ availability, setAvailability }) {
 
   return (
     <div id='availability_filter'>
-      <div>Available:</div>
+      <h1 id="filterTitle">Available:</h1>
+
+      <button id="addButton" onClick={handleAdd}>Add</button>
       
       <div id='availability_container'>
         <div id='availability_time_selectors'>
           <div id='filter_availability_times'>
-            <div>
-              <input 
-                type="time" 
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)} 
-                className='time_availability_input'
-              />
-            </div>
-            <div>to</div>
-            <div>
-              <input 
-                type="time" 
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)} 
-                className='time_availability_input'
-              />
-            </div>
+            <input 
+              type="time" 
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)} 
+              className='time_availability_input'
+            />
+            <p>to</p>
+            <input 
+              type="time" 
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)} 
+              className='time_availability_input'
+            />
           </div>
 
           <div id='filter_availability_days'>
@@ -87,23 +85,21 @@ function Filters({ availability, setAvailability }) {
           </div>
         </div>
 
-        <div className='add_button_container'>
-          <button onClick={handleAdd}>add</button>
-        </div>
       </div>
       
 
       <div>
         <ul>
           {availability.map((block, index) => (
-            <li key={index}>
+            <li key={index} class="filterItem">
               {block.days} {block.startTime} - {block.endTime}
               {/* NEW: Remove button added next to the text */}
               <button 
+                class = "filterRemoveButton"
                 onClick={() => handleRemove(index)}
                 style={{ marginLeft: "10px" }} // Added a little margin for spacing
               >
-                remove
+                Remove
               </button>
             </li>
           ))}
