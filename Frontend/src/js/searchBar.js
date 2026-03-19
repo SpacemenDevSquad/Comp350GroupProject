@@ -1,3 +1,7 @@
+// TODO unhardcode
+const year = 2026
+const term = 'F'
+
 export default async function OnHitEnter(searchText, availability = [], credits = 0) {
   console.log("Searching for courses...")
   
@@ -23,7 +27,7 @@ export default async function OnHitEnter(searchText, availability = [], credits 
   }));
 
   try{
-    const response = await fetch("http://localhost:8096/api/search", {
+    const response = await fetch(`http://localhost:8096/api/search/${year}/${term}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -54,13 +58,13 @@ function parseTime(timeStr) {
 }
 
 // Change 'e' to 'text'
-export async function OnType(text, availability) {
+export async function OnType(text, availability, credits=0) {
   if (!text || text.trim().length < 2) {
     return []; 
   }
 
   try {
-    const response = await fetch(`http://localhost:8096/api/autocomplete?q=${encodeURIComponent(text)}`);
+    const response = await fetch(`http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`);
     if (!response.ok) {
       throw new Error("Autocomplete API call failed");
     }
