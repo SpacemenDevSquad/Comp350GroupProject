@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, use} from 'react'
 import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'
@@ -6,10 +6,24 @@ import Section from '../components/Section.jsx';
 import Filters from '../components/Filters.jsx';
 import toggleFilter from '../js/toggleFilter.js';
 
+let addedListener = false;
+
 function Home() {
   const [sections, setSections] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [availability, setAvailability] = useState([]);
+  
+  // useEffect(() => {
+  //   if (addedListener === false) {
+  //     addedListener = true;
+  //     window.addEventListener("popstate", () => {
+  //       console.log("Hey");
+  //       const fetchedSections = OnHitEnter(document.getElementById("searchBar"), availability);
+  //       setSections(fetchedSections || []); 
+  //     });
+  //   }
+  // })
+
   useEffect(() => {
     const searchInput = document.getElementById("searchBar");
     

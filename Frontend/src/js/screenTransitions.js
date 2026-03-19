@@ -44,14 +44,13 @@ function gotToCalendar() {
 
 export function goToSearch() {
     catchMissingElements();
-    history.pushState({}, "", "/search#"+searchBar.value);
+    history.pushState({}, "", "/search?"+searchBar.value);
     renderPage();
 }
 
 
 
 // Page rendering code
-
 async function renderPage() {
     catchMissingElements();
     if (location.pathname === '/schedule') Calendar();
@@ -105,7 +104,7 @@ async function Home() {
 // Transition to search view
 async function Search() {
     catchMissingElements();
-    searchBar.value = decodeURIComponent(location.hash.substring(1));
+    searchBar.value = decodeURIComponent(location.search.substring(1));
 
     titleText.style.opacity = '0%';
     titleText.style.fontSize = '0vw';
