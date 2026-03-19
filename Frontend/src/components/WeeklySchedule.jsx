@@ -112,6 +112,7 @@ function WeeklySchedule(){
     return (
     <div className="schedule-container">
         <h2 className="schedule-header">Weekly View - Fall 2023</h2>
+        <p id="totalCredLabel">Total Credits: {totalCreds}</p>
         
         <div className="weekly-grid">
             {/* Time Gutter */}
