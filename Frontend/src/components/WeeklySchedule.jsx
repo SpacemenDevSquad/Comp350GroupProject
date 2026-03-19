@@ -1,6 +1,7 @@
 import '../css/weeklySchedule.css'
 import React, { useState, useEffect } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
+import { fetchModule } from 'vite';
 
 function WeeklySchedule(){
     //state that holds the schedule from backend
@@ -8,13 +9,18 @@ function WeeklySchedule(){
 
     const [loading, setLoading] = useState(null);
 
+    // const [totalCreds, setCreds] = useState(null);
+
     //FETCH SCHEDULE
     async function fetchSchedule(){
         try {
             //fetch for manual user 1
             const response = await fetch('http://localhost:8096/api/schedule/1');
+            // const creds = await (await fetch('http://localhost:8096/api/schedule/credits/1')).json()
             const data = await response.json();
             setSchedule(data);
+            // setCreds(creds);
+            // console.log(creds);
             setLoading(false);
 
         } catch (error) {

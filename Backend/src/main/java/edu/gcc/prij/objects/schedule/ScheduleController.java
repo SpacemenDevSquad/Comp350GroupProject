@@ -56,6 +56,26 @@ public class ScheduleController implements Controller {
             ctx.json(sch);
         });
 
+        // GET: Retrieves total credits
+        app.get("/api/schedule/credits/{userId}", ctx -> {
+            int userId = Integer.parseInt(ctx.pathParam("userId"));
+
+            User user = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick", null);
+            Semester sem = new Semester(2023,'F');
+
+            ScheduleKey key = new ScheduleKey(user, sem);
+
+            //Gets a current schedule or makes a new one based on ScheduleKey
+            Schedule sch = scheduleRepository.findById(key);
+            if (sch == null) {
+                sch = new Schedule(user, sem);
+                scheduleRepository.save(key, sch);
+            }
+
+            ctx.json(sch.currentCredits());
+        });
+
+
 
         // POST: Add a section to the schedule
         app.post("/api/schedule/add/{userId}", ctx -> {
