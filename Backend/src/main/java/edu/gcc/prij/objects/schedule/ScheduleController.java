@@ -105,8 +105,11 @@ public class ScheduleController implements Controller {
                 
                 //adds section to schedule if there is no conflict
                 String result = sch.addSection(newSection);
+                System.out.println("addSection result for " + newSection.getCourse().getDepartment().getCode() + newSection.getCourse().getNumber() + newSection.getSectionLetter() + ": " + result);
                 if (result.equals("ADD") || (result.equals("CREDIT_LIMIT")  && force)) {
+                    System.out.println("About to update repo for schedule key: " + sch.getKey());
                     scheduleRepository.update(sch.getKey(), sch);
+                    System.out.println("Repo update complete");
                     ctx.status(201).json(sch);
                 } 
                 else if (result.equals("CONFLICT"))  {

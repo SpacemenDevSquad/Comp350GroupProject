@@ -12,6 +12,7 @@ function WeeklySchedule({ year, term }){
 
     //FETCH SCHEDULE
     async function fetchSchedule(){
+        console.log(year, term)
         try {
             //fetch for manual user 1
             const response = await fetch(`http://localhost:8096/api/schedule/1/${year}/${term}`);
@@ -27,13 +28,18 @@ function WeeklySchedule({ year, term }){
         }
     };
     
-    //runs automatically when page opens
+    //runs automatically when props/semester change or add/drop event
     useEffect(() => {
         fetchSchedule();
-        //refreshes every 3000 ms
-        const interval = setInterval(fetchSchedule, 3000); 
-        return () => clearInterval(interval);
-    }, []);
+    }, [year, term]);
+
+    // Listen for add/drop refresh
+    useEffect(() => {
+        const handler = () => fetchSchedule();
+        window.addEventListener('scheduleRefresh', handler);
+        return () => window.removeEventListener('scheduleRefresh', handler);
+    }, [year, term]);
+
 
     if (!schedule) {
         return <div className="schedule-box">Loading your schedule...</div>;
@@ -115,8 +121,10 @@ function WeeklySchedule({ year, term }){
     
     return (
     <div className="schedule-container">
+
         <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
         <p id="totalCredLabel">Total Credits: {totalCreds}</p>
+
         
         <div className="weekly-grid">
             {/* Time Gutter */}

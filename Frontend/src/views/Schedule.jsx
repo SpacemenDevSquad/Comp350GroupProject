@@ -8,6 +8,7 @@ function Schedule({ year, term }){
       <button id="backArrow" onClick={calendarTransition}></button>
       <h1 id="scheduleTitle">Current Course Schedule</h1>
       <WeeklySchedule
+        key={`${year}-${term}`}
         year={year}
         term={term}
       />
@@ -16,3 +17,4 @@ function Schedule({ year, term }){
 }
 
 export default Schedule;
+

@@ -88,6 +88,7 @@ function Section({ data, year, term }) {
     }
 
     createAlert("Added Course", "Check schedule for details", "green");
+    window.dispatchEvent(new CustomEvent('scheduleRefresh'));
   }
 
   async function dropSection() {
@@ -104,6 +105,7 @@ function Section({ data, year, term }) {
       return;
     }
     createAlert("Course Dropped", "Check schedule for details", "green");
+    window.dispatchEvent(new CustomEvent('scheduleRefresh'));
   }
 
 
@@ -137,3 +139,4 @@ function Section({ data, year, term }) {
 }
 
 export default Section;
+

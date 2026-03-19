@@ -35,7 +35,7 @@ function Home({year, setYear, term, setTerm}) {
       const text = e.target.value;
       console.log("Typing detected:", text);
       
-      const results = await OnType(text, availability);
+      const results = await OnType(text, year, term, availability, credits);
       setSuggestions(results || []);
     };
 

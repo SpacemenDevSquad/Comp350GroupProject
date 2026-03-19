@@ -62,7 +62,9 @@ export async function OnType(text, year, term, availability, credits=0) {
   }
 
   try {
-    const response = await fetch(`http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`);
+    const url = `http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`
+    console.log(url)
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error("Autocomplete API call failed");
     }
