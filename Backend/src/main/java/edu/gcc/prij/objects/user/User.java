@@ -29,6 +29,21 @@ public class User implements RepositoryObject<Integer> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User that = (User) o;
+        return this.id == that.id &&
+            this.email.equals(that.getEmail()) &&
+            this.name.equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(this.id, this.email, this.name);
+    }
+
+    @Override
     public Integer getKey() {
         return id;
     }

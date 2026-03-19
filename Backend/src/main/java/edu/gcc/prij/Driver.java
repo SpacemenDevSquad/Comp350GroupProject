@@ -71,7 +71,7 @@ public class Driver {
         /* ---------- CREATE REPOSITORIES ---------- */
 
         /* ---------- PARSE JSON FILE ---------- */
-        if(true){
+        if(false){
             List<String> jsonFiles = List.of(
                 "/data_wolfe.json",
                 "/courses_2026_fall.json",

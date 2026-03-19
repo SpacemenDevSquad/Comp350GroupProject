@@ -3,6 +3,7 @@ package edu.gcc.prij.objects.schedule;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -104,8 +105,8 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return sections;
     }
 
-    public Collection<Section> getSections(){
-        return sections.values();
+    public List<Section> getSections(){
+        return (List<Section>) sections.values();
     }
 
     public User getUser() { 
