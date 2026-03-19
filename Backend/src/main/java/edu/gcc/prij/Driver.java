@@ -16,6 +16,8 @@ import edu.gcc.prij.objects.search.SearchController;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionController;
 import edu.gcc.prij.objects.section.SectionKey;
+import edu.gcc.prij.objects.semester.Semester;
+import edu.gcc.prij.objects.semester.SemesterKey;
 import edu.gcc.prij.objects.user.UserController;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.CustomJsonParser;
@@ -42,6 +44,7 @@ public class Driver {
         Repository<Professor, String> professorRepository;
         Repository<Rating, Integer> ratingRepository;
         Repository<Schedule, ScheduleKey> scheduleRepository;
+        Repository<Semester, SemesterKey> semesterRepository;
         
         if(true){
             sectionRepository = new SQLiteRepository<>(Section.class);
@@ -50,6 +53,7 @@ public class Driver {
             professorRepository = new SQLiteRepository<>(Professor.class);
             ratingRepository = new SQLiteRepository<>(Rating.class);
             scheduleRepository = new SQLiteRepository<>(Schedule.class);
+            semesterRepository = new SQLiteRepository<>(Semester.class);
         }
         if(false){
             sectionRepository = new InMemoryRepository<>();
@@ -58,12 +62,20 @@ public class Driver {
             professorRepository = new InMemoryRepository<>();
             ratingRepository = new InMemoryRepository<>();
             scheduleRepository = new InMemoryRepository<>();
+            semesterRepository = new InMemoryRepository<>();
         }
         /* ---------- CREATE REPOSITORIES ---------- */
 
         /* ---------- PARSE JSON FILE ---------- */
-        CustomJsonParser customJsonParser = new CustomJsonParser(sectionRepository, departmentRepository, courseRepository, professorRepository);
-        customJsonParser.parse();
+        List<String> jsonFiles = List.of(
+            "/data_wolfe.json",
+            "/courses_2026_fall.json",
+            "/courses_2027_spring.json"
+        );
+        
+        for (String jsonFile : jsonFiles){
+            new CustomJsonParser(jsonFile, sectionRepository, departmentRepository, courseRepository, professorRepository, semesterRepository).parse();
+        }
         /* ---------- PARSE JSON FILE ---------- */
 
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */

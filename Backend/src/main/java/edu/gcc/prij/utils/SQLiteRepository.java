@@ -111,12 +111,22 @@ public class SQLiteRepository<T extends RepositoryObject<ID>, ID> implements Rep
     }
 
     @Override
-    public T upsert(ID id, T fallbackEntity) {
+    public T getOrAdd(ID id, T fallbackEntity) {
       T existing = findById(id);
       if (existing != null) {
         return existing;
       } else {
         return save(id, fallbackEntity);
       }
+    }
+
+    @Override
+    public void upsert(ID id, T entity) {
+        T existing = findById(id);
+        if (existing != null) {
+            update(id, entity);
+        }else{
+            save(id, entity);
+        }
     }
 }

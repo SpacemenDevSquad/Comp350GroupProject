@@ -38,14 +38,23 @@ public class InMemoryRepository<T extends RepositoryObject<ID>, ID> implements R
     }
 
     @Override
-    public T upsert(ID id, T fallbackEntity) {
-      if (database.containsKey(id)) {
-        // It exists! Return the one from the database.
-        return database.get(id);
-      } else {
-        // It doesn't exist. Save the fallback one and return it.
-        database.put(id, fallbackEntity);
-        return fallbackEntity;
-      }
-  }
+    public T getOrAdd(ID id, T fallbackEntity) {
+        if (database.containsKey(id)) {
+            // It exists! Return the one from the database.
+            return database.get(id);
+        } else {
+            // It doesn't exist. Save the fallback one and return it.
+            database.put(id, fallbackEntity);
+            return fallbackEntity;
+        }
+    }
+
+    @Override
+    public void upsert(ID id, T entity) {
+        if(database.containsKey(id)){
+            update(id, entity);
+        }else{
+            save(id, entity);
+        }
+    }
 }
