@@ -1,9 +1,10 @@
 import '../css/Filters.css';
 import { useState, useEffect } from 'react';
+import UpdateSemester from './UpdateSemester';
 
 const DAYS_OF_WEEK = ['M', 'T', 'W', 'R', 'F'];
 
-function Filters({ availability, setAvailability, credits, setCredits, triggerSearch }) {
+function Filters({ availability, setAvailability, credits, setCredits, triggerSearch, year, setYear, term, setTerm }) {
   const [daysToggled, setDaysToggled] = useState([]);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -134,6 +135,12 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
           </select>
         </div>
       </div>
+      <UpdateSemester
+        year={year}
+        setYear={setYear}
+        term={term}
+        setTerm={setTerm}
+      />
     </div>
   );
 }

@@ -15,7 +15,6 @@ function UpdateSemester({ year, setYear, term, setTerm }){
         <option value="F">Fall</option>
         <option value="S">Spring</option>
       </select>
-      {year + term}
     </div>
   )
 }
