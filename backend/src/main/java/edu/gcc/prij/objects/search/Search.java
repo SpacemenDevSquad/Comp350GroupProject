@@ -14,7 +14,7 @@ import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.utils.Availability;
 
 public class Search {
-    // The single public method the rest of your app will call
+    // Public method that returns a list of sections that match the search/filter query
     public ArrayList<Section> executeSearch(SearchQuery query, Collection<Section> masterCatalog) {
 
         // Start with an empty list
@@ -22,7 +22,7 @@ public class Search {
 
         String searchText = query.getSearchText();
         if (searchText == null || searchText.trim().isEmpty()) {
-            // If the search bar is empty, everything matches initially!
+            // If the search bar is empty, then everything matches
             textMatchResults.addAll(masterCatalog);
         } else {
             // Split the input into words
@@ -32,7 +32,7 @@ public class Search {
                 // Build the super-string (subject + number + name + faculty)
                 String superString = buildSuperString(section);
 
-                // Check if EVERY token is inside the super-string
+                // Check if every token is inside the super-string
                 boolean matchesAllTokens = true;
                 for (String token : tokens) {
                     if (!superString.contains(token)) {
@@ -73,7 +73,7 @@ public class Search {
             finalResults = f.filter(finalResults);
         }
 
-        // Sorts by Department (ACCT, COMP, MATH) -> Then by Number (101, 201, 301)
+        // Sorts by department (ACCT, COMP, MATH) then by number (101, 201, 301), so number takes precedence
         finalResults.sort(
             Comparator.comparing((Section section) -> section.getCourse().getDepartment().getCode())
                       .thenComparingInt(section -> section.getCourse().getNumber())
