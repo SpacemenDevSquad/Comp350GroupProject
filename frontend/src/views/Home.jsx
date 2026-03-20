@@ -108,9 +108,6 @@ function Home({year, setYear, term, setTerm}) {
         credits={credits}
         setCredits={setCredits}
         triggerSearch={executeSearch}
-      />
-
-      <UpdateSemester
         year={year}
         setYear={setYear}
         term={term}
