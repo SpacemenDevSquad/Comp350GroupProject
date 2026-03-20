@@ -3,18 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
 
 function WeeklySchedule({ year, term }){
-    //state that holds the schedule from backend
+    // ----STATE MANAGEMENT----
+    // Tracks the schedule object, loading status, and total credits from the backend
     const [schedule, setSchedule] = useState(null);
 
     const [loading, setLoading] = useState(null);
 
     const [totalCreds, setCreds] = useState(null);
 
-    //FETCH SCHEDULE
+    // ----DATA FETCHING----
+    //pull the latest schedule and credit totals for the current user/semester
     async function fetchSchedule(){
         console.log(year, term)
         try {
-            //fetch for manual user 1
             const response = await fetch(`http://localhost:8096/api/schedule/1/${year}/${term}`);
             const creds = await (await fetch(`http://localhost:8096/api/schedule/credits/1/${year}/${term}`)).json()
             const data = await response.json();
@@ -33,7 +34,7 @@ function WeeklySchedule({ year, term }){
         fetchSchedule();
     }, [year, term]);
 
-    // Listen for add/drop refresh
+    // Listen for add/drop refresh to do another fetch
     useEffect(() => {
         const handler = () => fetchSchedule();
         window.addEventListener('scheduleRefresh', handler);
@@ -45,6 +46,8 @@ function WeeklySchedule({ year, term }){
         return <div className="schedule-box">Loading your schedule...</div>;
     }
 
+    // ----DATA TRANSFORMATION----
+    // maps the list of sections by day char
     const scheduleMap= {
         'M': [],
         'T': [],
@@ -67,6 +70,7 @@ function WeeklySchedule({ year, term }){
         }
     }
 
+    // ----HELPER FUNCTIONS----
     // Converts char's to full Day names
     function getDayName(day) {
         const names = { 
@@ -95,6 +99,8 @@ function WeeklySchedule({ year, term }){
         return `${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`;
     }
 
+    // ----ACTION HANDLERS----
+    // Calls java delete endpoint to remove section
     async function dropSection(courseData) {
         const response = await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
             method: 'DELETE',
@@ -110,7 +116,7 @@ function WeeklySchedule({ year, term }){
         fetchSchedule();
     }
 
-    //variables
+    // ----COMPONENT VARIABLES FOR JSX----
     const dayEntries = Object.entries(scheduleMap); //converts map into array of [key,value]
     const currSemester= schedule.currSemester;
     const hours = [ "", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM"];
@@ -127,7 +133,7 @@ function WeeklySchedule({ year, term }){
 
         
         <div className="weekly-grid">
-            {/* Time Gutter */}
+            {/* TIME COLUMN */}
             <div className="time-gutter">
                 <div className="day-label" style={{border: "0px", margin: "1px"}}>Time</div>
                 <div className="hours-container">
@@ -139,8 +145,7 @@ function WeeklySchedule({ year, term }){
                 </div>
             </div>
             
-            {/* Day columns*/}
-
+            {/* DAY COLUMNS*/}
             {dayEntries.map(([day, courses]) => (
                 
                 <div key={day} className="day-column">
@@ -151,11 +156,9 @@ function WeeklySchedule({ year, term }){
                         {courses.map((course, index) => {
                             const startOffset = 420; // 7 AM
                             const pixelsPerMinute = 80 / 60; // 1.333 pixels per minute
-                            const labelHeight = 40; // The height of your .day-label in CSS
+                            const labelHeight = 40; // height of .day-label in CSS
 
-                        
                             const topPosition = Math.round(((course.start - startOffset) * pixelsPerMinute) + labelHeight);
-
                             const blockHeight = Math.round((course.end - course.start) * pixelsPerMinute);
 
                             return (
@@ -168,7 +171,6 @@ function WeeklySchedule({ year, term }){
                                         height: `${blockHeight-10}px`
                                     }}>
 
-                                    
                                     <span className="card-dept">{course.dept} {course.num}</span>
                                     <p className="card-title">{course.title}</p>
                                     

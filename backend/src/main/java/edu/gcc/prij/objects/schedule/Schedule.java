@@ -16,23 +16,26 @@ import edu.gcc.prij.objects.user.User;
 import edu.gcc.prij.utils.RepositoryObject;
 import edu.gcc.prij.utils.time.Timeslot;
 
+
+//  SCHEDULE CLASS: Represents a student's course schedule for a specific semester. Handles course conflicts and credit limits.
 public class Schedule implements RepositoryObject<ScheduleKey> {
-    // SCHEDULE VARIABLES
+    // ----SCHEDULE VARIABLES----
     private User user;
     private Semester semester;
     private Map<SectionKey, Section> sections;
 
-    // SCHEDULE CONSTRUCTOR
-    
+    // ----SCHEDULE CONSTRUCTORS----
+    // standard constructor (initizlzies User,Semester, Sections)
     public Schedule(User user, Semester semester){
         this.semester = semester;
         this.user = user;
         this.sections = new HashMap<>();
     }
-
+    // default empty constructor (helps with the JSON initialization when building schedule)
     public Schedule(){}
 
-    // SCHEDULE METHODS
+    // ----SCHEDULE METHODS----
+    // adds a section if it passes time conflict and credit limits, returns error as specific string otherwise
     public String addSection(Section newSection){
         int numCredits = newSection.getCourse().getCredits();
         if(hasOverlap(newSection)){
@@ -41,11 +44,10 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         if(exceedsCredits(numCredits)){
             return "CREDIT_LIMIT";
         }
-
         sections.put(newSection.getKey(), newSection);
         return "ADD";
     }
-    
+    // drops section from schedule if it is in the schedule
     public boolean dropSection(Section section){ 
         SectionKey key = section.getKey();
         if (sections.containsKey(key)) {
@@ -54,7 +56,7 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         }
         return false;
     }
-
+    //Helper method to check for overlap in classes
     public boolean hasOverlap(Section newSection){
         for (Section existingSection : sections.values()) {
             for (Timeslot newSlot : newSection.getTimeslots()) {
@@ -69,7 +71,8 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         }
         return false;       
     }
-
+    
+    // Helper method to ensure adding a class doesn't exceed 18-credit limit
     public boolean exceedsCredits(int addCredits){
         int currCredits = currentCredits();
         if(currCredits + addCredits > 18){
@@ -78,6 +81,7 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return false;
     }
 
+    //helper method to calculate total credits of currently enrolled sections
     public int currentCredits(){
         int currCredits = 0;
         if (sections != null) {
@@ -90,12 +94,16 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return currCredits;
     }
 
+    // ----JSON, GETTERS/SETTERS----
+
+    // Cnverts the the section map into a list (easier for react components) 
     @JsonProperty("sections")
     public Collection<Section> getSections() {
         if (sections == null) return new ArrayList<>();
         return new ArrayList<>(sections.values());
     }
 
+    // Rebuilds the internal Map from a JSON collection.
     @JsonProperty("sections")
     public void setSections(Collection<Section> newSections) {
         if (newSections == null) {
@@ -122,6 +130,7 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return semester; 
     }
 
+    // Generates a composite key used by the Repository to identify this schedule.
     @Override
     public ScheduleKey getKey() {
         return new ScheduleKey(user, semester);
