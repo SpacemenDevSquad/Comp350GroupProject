@@ -65,7 +65,7 @@ public class SearchController implements Controller {
         ctx.json(new ArrayList<>());
         return;
     }
-
+    String lowerQuery = query.toLowerCase();
     // Get all the sections 
     Collection<Section> masterCatalog = sectionRepository.findAll();
 
@@ -79,6 +79,8 @@ public class SearchController implements Controller {
     // Filter and extract the names
     List<String> suggestions = masterCatalog.stream()
             .map(section -> section.getCourse().getTitle()) // Get just the course names
+            .filter(title -> title != null && title.toLowerCase().contains(lowerQuery)) // Match the text
+            .distinct() // Remove duplicates
             .sorted() // Sort alphabetically
             .limit(5) // Only send the top 5 matches back to the frontend
             .collect(Collectors.toList());
