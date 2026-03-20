@@ -37,6 +37,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
     setStartTime("");
     setEndTime("");
 
+    // After adding a new availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
     if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
   };
@@ -45,6 +46,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
     const updatedAvailability = availability.filter((_, index) => index !== indexToRemove);
     setAvailability(updatedAvailability);
 
+    // After removing an availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
     if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
   };

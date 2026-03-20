@@ -22,6 +22,7 @@ export default async function OnHitEnter(searchText, year, term, availability = 
     credits: credits
   }));
 
+  // Get the search results from the backend
   try{
     const url = `http://localhost:8096/api/search/${year}/${term}`
     console.log(url)
@@ -55,12 +56,13 @@ function parseTime(timeStr) {
   return hours * 60 + minutes;
 }
 
-// Change 'e' to 'text'
+// Get the autocomplete suggestions from the backend as the user types
 export async function OnType(text, year, term, availability, credits=0) {
   if (!text || text.trim().length < 2) {
     return []; 
   }
 
+  // No body needed since all info is in the query params
   try {
     const url = `http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`
     console.log(url)

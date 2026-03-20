@@ -27,7 +27,6 @@ public class SearchController implements Controller {
     Repository<Course, CourseKey> courseRepository
   ){
     this.searchEngine = new Search();
-
     this.sectionRepository = sectionRepository;
     this.departmentRepository = departmentRepository;
     this.courseRepository = courseRepository;
@@ -37,55 +36,51 @@ public class SearchController implements Controller {
   public void registerRoutes(Javalin app) {
     app.post("/api/search/{year}/{term}", ctx -> {
             
-      // A. Catch the JSON from React and turn it into a SearchQuery object
+      // Catch the JSON from React and turn it into a SearchQuery object
       SearchQuery userTicket = ctx.bodyAsClass(SearchQuery.class);
 
-      // B. Grab the master list from your awesome repository pattern
+      // Get the complete list of sections from the repository
       Collection<Section> masterCatalog = sectionRepository.findAll();
 
-      /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" in the title
+      /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" as the department
       masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
                     .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
-                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
+                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with dept = "zload"
                     .collect(Collectors.toList());
 
-      // C. Hand the ticket and the data to your stateless engine
+      // Pass the search query and the complete section list to the search engine
       List<Section> results = searchEngine.executeSearch(userTicket, masterCatalog);
 
-      // D. Package the exact matches back into JSON and send them to the frontend
+      // Put the section results into a JSON and send them to the frontend
       ctx.json(results);
     });
 
     app.get("/api/autocomplete/{year}/{term}", ctx -> {
-    // Grab the text the user is currently typing (e.g., ?q=soft)
+    // Grab the text the user is currently typing
     String query = ctx.queryParam("q");
     
     if (query == null || query.trim().length() < 2) {
-        // Return an empty list if they haven't typed much yet
+        // Return an empty list if they haven't typed much
         ctx.json(new ArrayList<>());
         return;
     }
 
-    String lowerQuery = query.toLowerCase();
-
-    // Grab your data (using the repository we saw earlier)
+    // Get all the sections 
     Collection<Section> masterCatalog = sectionRepository.findAll();
 
-    /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" in the title
+    /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" as the department
     masterCatalog = masterCatalog.stream()
                     .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
                     .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
-                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" in the title
+                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" as the department
                     .collect(Collectors.toList());
 
-    // Use a Stream to quickly filter and extract the names
+    // Filter and extract the names
     List<String> suggestions = masterCatalog.stream()
-            .map(section -> section.getCourse().getTitle()) // Pluck out just the course name
-            .filter(title -> title != null && title.toLowerCase().contains(lowerQuery)) // Match the text
-            .distinct() // Remove duplicates
-            .sorted() // Alphabetize them
-            .limit(5) // Only send the top 5 matches back to React
+            .map(section -> section.getCourse().getTitle()) // Get just the course names
+            .sorted() // Sort alphabetically
+            .limit(5) // Only send the top 5 matches back to the frontend
             .collect(Collectors.toList());
 
     ctx.json(suggestions);

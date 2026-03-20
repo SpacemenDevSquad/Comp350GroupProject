@@ -15,15 +15,15 @@ function Home({year, setYear, term, setTerm}) {
   const [availability, setAvailability] = useState([]);
   const [credits, setCredits] = useState(0);
 
-  // A reusable search function!
+  // Reusable seaerch function to avoid duplicated logic
   const executeSearch = async (searchText, year, term, currentAvailability, credits) => {
-    // 1. Hide the dropdown
+    // Hide the autocomplete dropdown
     setSuggestions([]); 
     
-    // 2. NO MORE FAKE EVENT! Just pass the text and filters straight through
+    // Pass the text and filters straight through to searchController.java and get the results
     const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits);
     
-    // 3. Update the UI
+    // Update the UI
     setSections(fetchedSections || []); 
     goToSearch();
   };
@@ -35,6 +35,7 @@ function Home({year, setYear, term, setTerm}) {
       const text = e.target.value;
       console.log("Typing detected:", text);
       
+      // Get autocomplete suggestions based on the current input
       const results = await OnType(text, year, term, availability, credits);
       setSuggestions(results || []);
     };
@@ -63,7 +64,6 @@ function Home({year, setYear, term, setTerm}) {
       <div id='content'>
         <h1 id='title'>GCC Course Search</h1>
         
-        {/* THE FIX: Put position: relative back on the main container, no extra wrappers! */}
         <div id="searchContainer">
           <div style={{ position: 'relative', width: 'fit-content', height: 'fit-content' }}>
           
@@ -72,19 +72,19 @@ function Home({year, setYear, term, setTerm}) {
           autoComplete='off'
           onKeyDown={async (e) => {
             if (e.key !== "Enter") return;
+            // Call the frontend executeSearch function (which is not the same as the backend executeSearch)
             executeSearch(e.target.value, year, term, availability, credits);
           }}></input>
 
-          {/* The Autocomplete Dropdown UI sits neatly inside the container */}
           {suggestions.length > 0 && (
             <ul id="autocompleteDropdown">
               {suggestions.map((suggestion, index) => (
                 <li 
                   key={index} 
                   onClick={async () => {
-                      // 1. Fill the search bar
+                      // Fill the search bar
                       document.getElementById("searchBar").value = suggestion;
-                      // 2. Execute the search with the current filters
+                      // Execute the search with the current filters
                       executeSearch(suggestion, year, term, availability, credits);
                   }}
                 >
