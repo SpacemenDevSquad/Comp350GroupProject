@@ -18,6 +18,7 @@ import edu.gcc.prij.objects.section.SectionController;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.semester.SemesterKey;
+import edu.gcc.prij.objects.statussheet.StatusSheetController;
 import edu.gcc.prij.objects.user.UserController;
 import edu.gcc.prij.objects.user.User;
 import edu.gcc.prij.utils.Controller;
@@ -103,7 +104,8 @@ public class Driver {
             new SectionController(sectionRepository, departmentRepository, courseRepository),
             new SearchController(sectionRepository, departmentRepository, courseRepository),
             new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository, semesterRepository, userRepository),
-            new RatingController(ratingRepository)
+            new RatingController(ratingRepository),
+            new StatusSheetController()
         );
 
         controllers.forEach(c -> c.registerRoutes(app));
