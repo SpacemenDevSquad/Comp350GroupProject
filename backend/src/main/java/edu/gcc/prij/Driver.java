@@ -74,7 +74,8 @@ public class Driver {
         /* ---------- PARSE JSON FILE ---------- */
         if(true){
             List<String> jsonFiles = List.of(
-                "/data_wolfe.json",
+                "/courses_2025_fall.json",
+                "/courses_2026_spring.json",
                 "/courses_2026_fall.json",
                 "/courses_2027_spring.json"
             );

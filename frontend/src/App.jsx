@@ -5,7 +5,7 @@ import TopBar from './components/TopBar';
 import {useState} from 'react'
 
 function App() {
-  const [year, setYear] = useState(2023)
+  const [year, setYear] = useState(2025)
   const [term, setTerm] = useState('F')
 
   return (

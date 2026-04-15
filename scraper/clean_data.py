@@ -133,7 +133,7 @@ def transform_course_data(raw_data):
 
 # --- Execution ---
 if __name__ == "__main__":
-    with open("out/scraped_courses_f26.json", "r") as f:
+    with open("out/scraped_courses.json", "r") as f:
         raw_json = json.load(f)
 
     formatted_data = transform_course_data(raw_json)
