@@ -50,7 +50,7 @@ function Home({year, setYear, term, setTerm}) {
         searchInput.removeEventListener('input', handleInput);
       }
     };
-  }, []); // Empty array means this only wires up once when the page loads
+  }, [year, term]);
 
   return (
     <div>
