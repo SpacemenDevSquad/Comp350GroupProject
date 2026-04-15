@@ -4,7 +4,7 @@ function UpdateSemester({ year, setYear, term, setTerm }){
   return (
     <div>
       Update Semester
-      <select name="semester_year_selector" id="semester_year_selector" onChange={(e) => setYear(parseInt(e.target.value))} defaultValue={"2023"}>
+      <select name="semester_year_selector" id="semester_year_selector" onChange={(e) => setYear(parseInt(e.target.value))} defaultValue={"2026"}>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
         <option value="2025">2025</option>
