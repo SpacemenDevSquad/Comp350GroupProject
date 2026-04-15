@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Course from './Course';
 import '../css/Requirements.css';
 
 function RequirementGroup({ groupData }) {
+
+    const [completedCourses, setCompletedCourses] = useState([]);
+    const handleCourseToggle = (courseCode, isChecking) => {
+        if (isChecking) {
+            setCompletedCourses((prev) => [...prev, courseCode]);
+        } else {
+            setCompletedCourses((prev) => prev.filter((code) => code !== courseCode));
+        }
+    };
     
-    // Translates your backend ruleTypes into human-readable instructions
     const getRuleText = () => {
         switch(groupData.ruleType) {
             case 'ALL_REQUIRED':
@@ -38,7 +46,10 @@ function RequirementGroup({ groupData }) {
                             key={index} 
                             code={courseObj.code} 
                             name={courseObj.name} 
-                            credits={courseObj.credits} 
+                            credits={courseObj.credits}
+
+                            isChecked={completedCourses.includes(courseObj.code)}
+                            onToggle={(isChecked) => handleCourseToggle(courseObj.code, isChecked)}
                         />
                     ))
                 ) : groupData.options ? (
@@ -52,6 +63,9 @@ function RequirementGroup({ groupData }) {
                                         code={courseObj.code} 
                                         name={courseObj.name} 
                                         credits={courseObj.credits} 
+
+                                        isChecked={completedCourses.includes(courseObj.code)}
+                                        onToggle={(isChecked) => handleCourseToggle(courseObj.code, isChecked)}
                                     />
                                 ))}
                             </div>
