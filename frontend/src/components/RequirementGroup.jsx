@@ -2,16 +2,9 @@ import React, { useState } from 'react';
 import Course from './Course';
 import '../css/Requirements.css';
 
-function RequirementGroup({ groupData }) {
+function RequirementGroup({ groupData, completedCourses, onToggle }) {
 
-    const [completedCourses, setCompletedCourses] = useState([]);
-    const handleCourseToggle = (courseCode, isChecking) => {
-        if (isChecking) {
-            setCompletedCourses((prev) => [...prev, courseCode]);
-        } else {
-            setCompletedCourses((prev) => prev.filter((code) => code !== courseCode));
-        }
-    };
+
     
     const getRuleText = () => {
         switch(groupData.ruleType) {
@@ -49,7 +42,7 @@ function RequirementGroup({ groupData }) {
                             credits={courseObj.credits}
 
                             isChecked={completedCourses.includes(courseObj.code)}
-                            onToggle={(isChecked) => handleCourseToggle(courseObj.code, isChecked)}
+                            onToggle={(isChecked) => onToggle(courseObj.code, isChecked)}
                         />
                     ))
                 ) : groupData.options ? (
@@ -65,7 +58,7 @@ function RequirementGroup({ groupData }) {
                                         credits={courseObj.credits} 
 
                                         isChecked={completedCourses.includes(courseObj.code)}
-                                        onToggle={(isChecked) => handleCourseToggle(courseObj.code, isChecked)}
+                                        onToggle={(isChecked) => onToggle(courseObj.code, isChecked)}
                                     />
                                 ))}
                             </div>

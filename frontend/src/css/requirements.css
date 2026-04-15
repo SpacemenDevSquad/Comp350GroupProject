@@ -197,3 +197,17 @@
     height: 16px;
     accent-color: rgb(160, 0, 0);
 }
+
+/* When a course is checked off, fade it into the background */
+.courseCard.completed {
+    opacity: 0.75;
+    filter: grayscale(100%);
+    border-color: rgba(255, 255, 255, 0.05); /* Dims the border */
+    background-color: grey; /* Removes any highlight background */
+}
+
+/* Ensure the checkbox itself stays fully opaque and clickable so they can uncheck it! */
+.courseCard.completed .checkboxLabel {
+    opacity: 1; 
+    filter: none;
+}

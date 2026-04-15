@@ -3,7 +3,7 @@ import '../css/Requirements.css'
 
 function Course({ code, name, credits, isChecked, onToggle }) {
     return (
-        <div className="courseCard">
+        <div className={`courseCard ${isChecked ? 'completed' : ''}`}>
             <p className="courseCode">{code}</p>
             <p className="courseTitle">{name}</p>
             <div className="courseFooter">
