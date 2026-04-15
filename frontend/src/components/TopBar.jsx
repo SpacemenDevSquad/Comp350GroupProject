@@ -1,13 +1,29 @@
 import '../css/TopBar.css'
 import logoImage from '../images/logo.png'
-import calendarTransition from '../js/screenTransitions.js'
+import calendarTransition, { statusSheetTransition } from '../js/screenTransitions.js'
 import toggleFilter from '../js/toggleFilter.js'
 
 function Base() {
   return (
     <div id='background'>
-      <img id="logo" src={logoImage}></img>
-      <button id="calendarBtn" onClick={() => {calendarTransition(); toggleFilter(true)}}></button>
+      <img id="logo" src={logoImage} alt="App Logo" />
+      
+        <div id="topBarButtons" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+        
+        <button 
+          id="statusSheetBtn" 
+          onClick={() => { statusSheetTransition(); toggleFilter(true); }}
+        >
+          My Major
+        </button>
+
+        <button 
+          id="calendarBtn" 
+          onClick={() => { calendarTransition(); toggleFilter(true); }}
+        >
+        </button>
+
+      </div>
     </div>
   )
 }

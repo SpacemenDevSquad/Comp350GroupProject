@@ -1,0 +1,151 @@
+{
+  "majorCode": "COMP",
+  "degreeType": "B.S.",
+  "title": "Computer Science",
+  "catalogYear": "2027",
+  "totalCreditsRequired": 128,
+  "requirementGroups": [
+    {
+      "groupId": "cs_core",
+      "title": "Computer Science Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "COMP 141", "name": "Computer Programming I", "credits": 3 },
+        { "code": "COMP 155", "name": "Introduction to Computer Science", "credits": 3 },
+        { "code": "COMP 220", "name": "Computer Programming II", "credits": 3 },
+        { "code": "COMP 222", "name": "Intro. to Data Structures & Algorithms", "credits": 3 },
+        { "code": "COMP 230", "name": "Advanced Programming", "credits": 3 },
+        { "code": "COMP 244", "name": "Database Management Systems", "credits": 3 },
+        { "code": "COMP 314", "name": "Automata Theory", "credits": 3 },
+        { "code": "COMP 325", "name": "Computer Architecture & Organization", "credits": 3 },
+        { "code": "COMP 342", "name": "Data Communication & Networking", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "cs_adv_core",
+      "title": "Advanced Computer Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "COMP 205", "name": "Ethics, Faith, and the Conscious Mind", "credits": 3 },
+        { "code": "COMP 340", "name": "Operating Systems", "credits": 3 },
+        { "code": "COMP 350", "name": "Software Engineering", "credits": 3 },
+        { "code": "COMP 422", "name": "Theory of Algorithms", "credits": 3 },
+        { "code": "COMP 424", "name": "Parallel and Distributed Computing", "credits": 3 },
+        { "code": "COMP 448", "name": "Computer Security", "credits": 3 },
+        { "code": "COMP 451", "name": "Senior Project I", "credits": 2 },
+        { "code": "COMP 452", "name": "Senior Project II", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "cs_electives",
+      "title": "Computer Science Electives",
+      "description": "Choose fifteen hours from the following courses",
+      "ruleType": "CREDIT_MIN_FROM_LIST",
+      "minCredits": 15,
+      "courses": [
+        { "code": "COMP 390", "name": "Topics in Computer Science", "credits": 3 },
+        { "code": "COMP 401", "name": "Principles of iOS Programming", "credits": 3 },
+        { "code": "COMP 402", "name": "Principles of Android Programming", "credits": 3 },
+        { "code": "COMP 435", "name": "Intro to Machine Learning", "credits": 3 },
+        { "code": "COMP 441", "name": "2D Game Design/Development", "credits": 3 },
+        { "code": "COMP 442", "name": "Web Programming Technologies", "credits": 3 },
+        { "code": "COMP 445", "name": "Intro to Artificial Intelligence", "credits": 3 },
+        { "code": "COMP 446", "name": "3D Game Design/Development", "credits": 3 },
+        { "code": "COMP 447", "name": "Networked Game Design and Development", "credits": 3 },
+        { "code": "COMP 475", "name": "Advanced Security", "credits": 3 },
+        { "code": "DSCI 431", "name": "Intro to Big Data", "credits": 3 },
+        { "code": "DSCI 450", "name": "Applied Modeling and Visualization", "credits": 3 },
+        { "code": "ROBO 302", "name": "Mobile Robotics", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "math_core",
+      "title": "Mathematics Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "MATH 161", "name": "Calculus I", "credits": 4 },
+        { "code": "MATH 162", "name": "Calculus II", "credits": 4 },
+        { "code": "MATH 213", "name": "Discrete Mathematics for Comp. Science", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "math_path",
+      "title": "Applied Math Requirement",
+      "description": "Take either MATH 214 OR both MATH 222 and STAT 331",
+      "ruleType": "CHOOSE_ONE_GROUP",
+      "options": [
+        [
+          { "code": "MATH 214", "name": "Applied Probability and Linear Algebra", "credits": 4 }
+        ],
+        [
+          { "code": "MATH 222", "name": "Linear Algebra", "credits": 4 },
+          { "code": "STAT 331", "name": "Theory of Statistics I", "credits": 3 }
+        ]
+      ]
+    },
+    {
+      "groupId": "science_core",
+      "title": "Natural Sciences",
+      "description": "Choose eight credits from approved science courses with labs.",
+      "ruleType": "CREDIT_MIN_FROM_LIST",
+      "minCredits": 8,
+      "courses": [
+        { "code": "PHYS 101", "name": "General Physics I", "credits": 4 },
+        { "code": "PHYS 102", "name": "General Physics II", "credits": 4 },
+        { "code": "CHEM 105", "name": "Chemistry for Engineers", "credits": 4 },
+        { "code": "CHEM 111", "name": "General Chemistry I", "credits": 3 },
+        { "code": "CHEM 113", "name": "General Chemistry I Lab", "credits": 1 },
+        { "code": "CHEM 112", "name": "General Chemistry II", "credits": 3 },
+        { "code": "CHEM 114", "name": "General Chemistry II Lab", "credits": 1 },
+        { "code": "BIOL 101", "name": "General Biology I", "credits": 4 },
+        { "code": "BIOL 102", "name": "General Biology II", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_huma",
+      "title": "Humanities Core",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "HUMA 102", "name": "Civ and the Biblical Revelation", "credits": 3 },
+        { "code": "HUMA 200", "name": "Western Civilization", "credits": 3 },
+        { "code": "HUMA 202", "name": "Civilization and Literature", "credits": 3 },
+        { "code": "HUMA 301", "name": "Civilization and the Arts", "credits": 3 },
+        { "code": "HUMA 303", "name": "Christianity and Civilization", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_soc_sci",
+      "title": "Foundations of the Social Sciences",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "ECON 120", "name": "Foundations of Economics", "credits": 3 },
+        { "code": "HIST 120", "name": "Foundations of History", "credits": 3 },
+        { "code": "HIST 141", "name": "World Geography", "credits": 3 },
+        { "code": "HIST 204", "name": "Hist/Phil Foundations of Education", "credits": 3 },
+        { "code": "POLS 101", "name": "Foundations of Political Science", "credits": 3 },
+        { "code": "PSYC 101", "name": "Foundations of Psychology", "credits": 3 },
+        { "code": "PSYC 200", "name": "Cross-Cultural Psychology", "credits": 3 },
+        { "code": "SOCI 101", "name": "Foundations of Sociology", "credits": 3 },
+        { "code": "SOCI 103", "name": "Found. of Cultural Anthr.", "credits": 3 },
+        { "code": "SOCW 101", "name": "Found. of Social Work", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_writ",
+      "title": "Writing Requirement",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "WRIT 101", "name": "Foundations of Academic Discourse", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_phye",
+      "title": "Physical Education",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "PHYE 100", "name": "Healthful Living", "credits": 1 }
+      ]
+    }
+  ]
+}

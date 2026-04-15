@@ -1,0 +1,156 @@
+/* =========================================
+   1. MAIN BLOCK & CONTROLS
+   ========================================= */
+#statusSheetBlock {
+    height: calc(100% - 50px);
+    width: 100%;
+
+    top: 50px;
+    left: 100vw;
+    position: fixed;
+    transition: transform 0.4s ease;
+
+    /* Allows you to scroll down if the requirements list gets really long */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
+    background-color: rgb(160, 0, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#statusBackArrow {
+    height: 45px;
+    width: 45px;
+    border: 0px;
+    cursor: pointer;
+    opacity: 0%;
+
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('../images/backArrow.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    top: 15px;
+    left: 15px;
+    position: fixed;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 100;
+}
+
+/* =========================================
+   2. THE EMPTY STATE (Select Major)
+   ========================================= */
+#majorSelectionOverlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; /* Keeps it perfectly centered vertically */
+    width: 100%;
+    gap: 25px;
+    color: white;
+}
+
+#majorSelectionOverlay h2 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 4vw;
+    margin: 0;
+    text-shadow: 3px 3px rgb(0, 0, 0);
+}
+
+/* Universal Select Styling */
+select {
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-family: 'Roboto Slab', serif;
+    border-radius: 8px;
+    border: 2px solid white;
+    background-color: rgb(130, 0, 0);
+    color: white;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+select option {
+    background-color: rgb(160, 0, 0);
+}
+
+#letsGoBtn {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    background-color: white;
+    color: rgb(160, 0, 0);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 3px 3px 0px black;
+}
+
+#letsGoBtn:disabled {
+    background-color: #ccc;
+    color: #888;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#letsGoBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 5px 5px 0px black;
+}
+
+#letsGoBtn:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 1px 1px 0px black;
+}
+
+
+/* =========================================
+   3. THE ACTIVE STATE (Requirements Grid)
+   ========================================= */
+#statusSheetContent {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+
+#statusSheetHeader {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+#scheduleTitle {
+    margin: 0px;
+    user-select: none;
+    color: white;
+    font-size: 3vw; /* Slightly smaller than before to leave room for the dropdown */
+    font-family: 'Roboto Slab';
+    text-shadow: 3px 3px rgb(0, 0, 0);
+}
+
+#cornerDropdown {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background-color: rgb(160, 0, 0);
+}
+
+#requirementsGrid {
+    width: 100%;
+    margin-top: 30px;
+    /* We will convert this to display: grid when you have your Javalin data ready! */
+}

@@ -1,5 +1,6 @@
 import Home from './views/Home';
 import Schedule from './views/Schedule';
+import StatusSheet from './views/StatusSheet';
 import TopBar from './components/TopBar';
 import {useState} from 'react'
 
@@ -20,6 +21,8 @@ function App() {
         year={year}
         term={term}
       />
+
+      <StatusSheet />
     </div>
   );
 }
