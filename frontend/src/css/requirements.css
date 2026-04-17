@@ -154,13 +154,89 @@
     font-weight: 500;
 }
 
-.courseCredits {
-    font-size: 0.8rem;
+/* =========================================
+   COURSE CARD FOOTER (Credits & Checkbox)
+   ========================================= */
+
+/* The container holding both items */
+.courseFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Pushes credits left, checkbox right */
+    align-items: center; /* Vertically centers them */
+    width: 100%; /* Ensures it takes up the full bottom width */
+    margin-top: 15px; 
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Optional: adds a subtle dividing line */
+}
+
+/* Force the credits paragraph to behave */
+.courseFooter .courseCredits {
+    margin: 0; 
+    padding: 0;
+    width: auto; /* Prevents it from taking 100% of the row */
     font-weight: bold;
-    color: #666666;
-    background-color: #f0f0f0;
-    padding: 4px 10px;
-    border-radius: 12px;
-    align-self: flex-start; 
-    margin-top: auto;
+    color: #000000; /* Matches your project's color scheme */
+}
+
+/* Force the label to behave */
+.courseFooter .checkboxLabel {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Puts a little space between the square and the word "Completed" */
+    font-size: 0.9rem;
+    color: #000000;
+    cursor: pointer;
+}
+
+/* Optional UX boost: makes the checkbox slightly larger and easier to click */
+.courseFooter .checkboxLabel input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    accent-color: rgb(160, 0, 0);
+}
+
+/* When a course is checked off, fade it into the background */
+.courseCard.completed {
+    opacity: 0.75;
+    filter: grayscale(100%);
+    border-color: rgba(255, 255, 255, 0.05); /* Dims the border */
+    background-color: grey; /* Removes any highlight background */
+}
+
+/* Ensure the checkbox itself stays fully opaque and clickable so they can uncheck it! */
+.courseCard.completed .checkboxLabel {
+    opacity: 1; 
+    filter: none;
+}
+
+/* 1. Target the base element */
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 12px;
+    border: none; /* Remove default border */
+}
+
+/* 2. Target the background (The "empty" part) */
+progress::-webkit-progress-bar {
+    background-color: #333; /* Dark background */
+    border-radius: 10px;
+}
+
+/* 3. Target the fill (The "green" part) */
+/* Webkit (Chrome, Safari, Edge) */
+progress::-webkit-progress-value {
+    background-color: #2ecc71 !important; /* Force green */
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+    background-color: #2ecc71 !important;
+    border-radius: 10px;
 }
