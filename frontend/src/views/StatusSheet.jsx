@@ -16,6 +16,25 @@ function StatusSheet(){
     const [pendingMajor, setPendingMajor] = useState('');
     const [degreeData, setDegreeData] = useState(null); 
     const [isLoading, setIsLoading] = useState(false);
+
+    const [completedCourses, setCompletedCourses] = useState([]);
+    const handleCourseToggle = (courseCode, isChecking) => {
+        if (isChecking) {
+            setCompletedCourses((prev) => [...prev, courseCode]);
+        } else {
+            setCompletedCourses((prev) => prev.filter((code) => code !== courseCode));
+        }
+    };
+
+    // ==========================================
+    // 2. GLOBAL MATH
+    // ==========================================
+    const totalCreditsEarned = degreeData?.requirementGroups?.reduce((acc, group) => {
+        const groupSum = group.courses?.filter(c => completedCourses.includes(c.code))
+                         .reduce((sum, c) => sum + c.credits, 0) || 0;
+        return acc + groupSum;
+    }, 0) || 0;
+
     useEffect(() => {
         if (!selectedMajor) return; 
         setDegreeData(null); // Clear previous data when switching majors
@@ -91,6 +110,21 @@ function StatusSheet(){
                         </select>
                     </div>
 
+                    {/* 3. GLOBAL PROGRESS BAR AREA */}
+                    {degreeData && (
+                        <div className="globalProgressContainer">
+                            <div className="progressLabel">
+                                <span>Overall Progress</span>
+                                <span>{totalCreditsEarned} / {degreeData.totalCreditsRequired || 128} Credits</span>
+                            </div>
+                            <progress 
+                                className="globalProgressBar"
+                                value={totalCreditsEarned} 
+                                max={degreeData.totalCreditsRequired || 128}
+                            ></progress>
+                        </div>
+                    )}
+
                     {/* THIS IS THE UPDATED RENDER LOGIC */}
                     <div id="requirementsGrid">
                         {isLoading ? (
@@ -100,7 +134,12 @@ function StatusSheet(){
                         ) : degreeData ? (
                             <div style={{ width: '100%', textAlign: 'left', marginTop: '20px' }}>
                                 {degreeData.requirementGroups.map((group) => (
-                                    <RequirementGroup key={group.groupId} groupData={group} />
+                                    <RequirementGroup 
+                                        key={group.groupId} 
+                                        groupData={group} 
+                                        completedCourses={completedCourses}
+                                        onToggle={handleCourseToggle}
+                                    />
                                 ))}
                             </div>
                         ) : (
