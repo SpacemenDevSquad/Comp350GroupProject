@@ -116,7 +116,6 @@ public class Driver {
 
         /* ---------- INITIALIZE FIREBASE ---------- */
 
-
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
         Javalin app = Javalin.create(config -> {
             //Frontend access allowed

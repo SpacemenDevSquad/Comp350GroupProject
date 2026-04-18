@@ -3,25 +3,30 @@ import logoImage from '../images/logo.png'
 import calendarTransition, { statusSheetTransition } from '../js/screenTransitions.js'
 import toggleFilter from '../js/toggleFilter.js'
 
-function TopBar({ user, onLoginClick }) {
+function TopBar({ user, onLoginClick, onLogout }) {
   return (
     <div id='background'>
-      <img id="logo" src={logoImage} alt="App Logo" />
+      <img id="logo" src={logoImage}/>
       
         <div id="topBarButtons" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         
 
-        {/* Login/User button*/}
+        {/* Login/User section */}
         {user ? (
-          <button id="userProfileBtn" className="profileButton">
-            Hi, {user.name}
-          </button>
+          
+          <button 
+            id="logoutBtn" 
+            onClick={onLogout} className="logoutBtn"
+            >
+              Logout
+            </button>
+          
         ) : (
-          <button id="loginBtn" className="profileButton" onClick={onLoginClick}>
+          <button id="loginBtn" onClick={onLoginClick}>
             Login / Signup
           </button>
         )}
-        
+
         {/* Status Sheet Button */}
         <button 
           id="statusSheetBtn" 
