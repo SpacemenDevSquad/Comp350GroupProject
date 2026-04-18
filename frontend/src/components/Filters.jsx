@@ -4,7 +4,7 @@ import UpdateSemester from './UpdateSemester';
 
 const DAYS_OF_WEEK = ['M', 'T', 'W', 'R', 'F'];
 
-function Filters({ availability, setAvailability, credits, setCredits, triggerSearch, year, setYear, term, setTerm }) {
+function Filters({ availability, setAvailability, credits, setCredits, triggerSearch, year, setYear, term, setTerm, noTimeSections, setNoTimeSections }) {
   const [daysToggled, setDaysToggled] = useState([]);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
@@ -40,7 +40,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
 
     // After adding a new availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits, noTimeSections);
   };
 
   const handleRemove = (indexToRemove) => {
@@ -49,7 +49,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
 
     // After removing an availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits);
+    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits, noTimeSections);
   };
 
 
@@ -124,7 +124,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
             setCredits(newCredits);
             const currentSearchText = document.getElementById("searchBar").value;
             if (triggerSearch && currentSearchText) {
-              triggerSearch(currentSearchText, availability, credits);
+              triggerSearch(currentSearchText, availability, credits, noTimeSections);
             }
           }}>
             <option value="0">Any</option>
@@ -135,6 +135,33 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
           </select>
         </div>
       </div>
+
+      <div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex', alignItems: 'center', position: 'relative', zIndex: 10, minHeight: '24px' }}>
+        <input 
+          type="checkbox" 
+          id="noTimeCheckbox"
+          checked={noTimeSections} 
+          onChange={(e) => {
+            const isChecked = e.target.checked;
+            setNoTimeSections(isChecked);
+            
+            const currentSearchText = document.getElementById("searchBar").value;
+            if (triggerSearch) {
+               triggerSearch(currentSearchText, year, term, availability, credits, isChecked);
+            }
+          }} 
+          style={{ marginRight: '8px', cursor: 'pointer' }}
+        />
+        <label htmlFor="noTimeCheckbox" style={{ 
+            cursor: 'pointer', 
+            fontSize: '18px', 
+            color: '#000000',
+            fontWeight: '500' 
+          }}>
+          Display courses with no time slots
+        </label>
+      </div>
+
       <UpdateSemester
         year={year}
         setYear={setYear}
