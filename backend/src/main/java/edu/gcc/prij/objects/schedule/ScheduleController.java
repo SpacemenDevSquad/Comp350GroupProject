@@ -131,6 +131,9 @@ public class ScheduleController implements Controller {
                 else if (result.equals("CONFLICT"))  {
                     ctx.status(409).result("Conflict detected!");
                 }
+                else if (result.equals("DUPLICATE")) {
+                    ctx.status(409).result("This course is already in your schedule.");
+                }
                 // If hit credit limit (403= access denied)
                 else{
                     ctx.status(403).result("CREDIT_LIMIT");
