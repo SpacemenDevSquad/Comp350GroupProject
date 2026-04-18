@@ -44,6 +44,9 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         if(exceedsCredits(numCredits)){
             return "CREDIT_LIMIT";
         }
+        if(duplicateCourse(newSection)){
+            return "DUPLICATE";
+        }
         sections.put(newSection.getKey(), newSection);
         return "ADD";
     }
@@ -92,6 +95,16 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
             }
         }
         return currCredits;
+    }
+
+    // Helper method to check if the course is already in the schedule
+    public boolean duplicateCourse(Section newSection){
+        for (Section existingSection : sections.values()) {
+            if (existingSection.getCourse().equals(newSection.getCourse())) {
+                return true;
+            }
+        }
+        return false;       
     }
 
     // ----JSON, GETTERS/SETTERS----

@@ -1,4 +1,4 @@
-export default async function OnHitEnter(searchText, year, term, availability = [], credits = 0) {
+export default async function OnHitEnter(searchText, year, term, availability = [], credits = 0, noTimeSections = false) {
   console.log("Searching for courses...", searchText, year, term, availability, credits)
   
   let courseResults = [];
@@ -34,7 +34,8 @@ export default async function OnHitEnter(searchText, year, term, availability = 
       body: JSON.stringify({ 
         searchText: searchText, 
         availabilityJson: availabilityJson,
-        credits: credits
+        credits: credits,
+        noTimeSections: noTimeSections
       })
     });
     if (!response.ok) {

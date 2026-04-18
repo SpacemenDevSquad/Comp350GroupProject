@@ -14,14 +14,15 @@ function Home({year, setYear, term, setTerm}) {
   const [suggestions, setSuggestions] = useState([]);
   const [availability, setAvailability] = useState([]);
   const [credits, setCredits] = useState(0);
+  const [noTimeSections, setNoTimeSections] = useState(false);
 
   // Reusable seaerch function to avoid duplicated logic
-  const executeSearch = async (searchText, year, term, currentAvailability, credits) => {
+  const executeSearch = async (searchText, year, term, currentAvailability, credits, noTimeSections) => {
     // Hide the autocomplete dropdown
     setSuggestions([]); 
     
     // Pass the text and filters straight through to searchController.java and get the results
-    const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits);
+    const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits, noTimeSections);
     
     // Update the UI
     setSections(fetchedSections || []); 
@@ -36,7 +37,7 @@ function Home({year, setYear, term, setTerm}) {
       console.log("Typing detected:", text);
       
       // Get autocomplete suggestions based on the current input
-      const results = await OnType(text, year, term, availability, credits);
+      const results = await OnType(text, year, term, availability, credits, noTimeSections);
       setSuggestions(results || []);
     };
 
@@ -73,7 +74,7 @@ function Home({year, setYear, term, setTerm}) {
           onKeyDown={async (e) => {
             if (e.key !== "Enter") return;
             // Call the frontend executeSearch function (which is not the same as the backend executeSearch)
-            executeSearch(e.target.value, year, term, availability, credits);
+            executeSearch(e.target.value, year, term, availability, credits, noTimeSections);
           }}></input>
 
           {suggestions.length > 0 && (
@@ -85,7 +86,7 @@ function Home({year, setYear, term, setTerm}) {
                       // Fill the search bar
                       document.getElementById("searchBar").value = suggestion;
                       // Execute the search with the current filters
-                      executeSearch(suggestion, year, term, availability, credits);
+                      executeSearch(suggestion, year, term, availability, credits, noTimeSections);
                   }}
                 >
                   {suggestion}
@@ -112,6 +113,8 @@ function Home({year, setYear, term, setTerm}) {
         setYear={setYear}
         term={term}
         setTerm={setTerm}
+        noTimeSections={noTimeSections}
+        setNoTimeSections={setNoTimeSections}
       />
 
       {/* Courses */}

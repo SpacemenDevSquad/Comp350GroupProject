@@ -1,0 +1,135 @@
+{
+  "majorCode": "STAT",
+  "degreeType": "B.S.",
+  "title": "Applied Statistics",
+  "catalogYear": "2027",
+  "totalCreditsRequired": 128,
+  "requirementGroups": [
+    {
+      "groupId": "math_core",
+      "title": "Mathematics Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "MATH 125", "name": "Mathematical Computing", "credits": 3 },
+        { "code": "MATH 162", "name": "Calculus II", "credits": 4 },
+        { "code": "MATH 222", "name": "Linear Algebra", "credits": 4 },
+        { "code": "MATH 261", "name": "Calculus III", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "math_discrete",
+      "title": "Discrete Mathematics Requirement",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "MATH 210", "name": "Combinatorics", "credits": 3 },
+        { "code": "MATH 213", "name": "Discrete Mathematics for Computer Science", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "stat_core",
+      "title": "Statistics Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "STAT 131", "name": "Statistical Methods", "credits": 3 },
+        { "code": "STAT 132", "name": "Advanced Statistical Methods", "credits": 3 },
+        { "code": "STAT 331", "name": "Theory of Statistics I", "credits": 3 },
+        { "code": "STAT 332", "name": "Theory of Statistics II", "credits": 3 },
+        { "code": "STAT 412", "name": "Data Analysis Research Methods", "credits": 3 },
+        { "code": "STAT 414", "name": "Advanced Analytical Methods", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "cs_core",
+      "title": "Computer Science Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "COMP 141", "name": "Computer Programming I", "credits": 3 },
+        { "code": "COMP 220", "name": "Computer Programming II", "credits": 3 },
+        { "code": "COMP 244", "name": "Database Management Systems", "credits": 3 },
+        { "code": "DSCI 431", "name": "Introduction to Big Data", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "math_elective",
+      "title": "Math Elective",
+      "description": "Choose one MATH course 300 or higher excluding 305, 306, 307 and MATH 488.",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "MATH 303", "name": "College Geometry", "credits": 3 },
+        { "code": "MATH 331", "name": "Theory of Statistics I", "credits": 3 },
+        { "code": "MATH 365", "name": "Ordinary Differential Equations", "credits": 3 },
+        { "code": "MATH 421", "name": "Abstract Algebra", "credits": 3 },
+        { "code": "MATH 422", "name": "Number Theory", "credits": 3 },
+        { "code": "MATH 465", "name": "Classical Analysis", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "app_concentration",
+      "title": "Application Concentration (Biology, Chemistry, CS, Exercise Science, Physics, Political Science, Psychology, Social Work, or Sociology)",
+      "description": "Refer to the College Bulletin for specific courses required for your chosen 15-18 credit concentration.",
+      "ruleType": "CREDIT_MIN_FROM_LIST",
+      "minCredits": 15,
+      "courses": []
+    },
+    {
+      "groupId": "gen_ed_huma",
+      "title": "Humanities Core",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "HUMA 102", "name": "Civ and the Biblical Revelation", "credits": 3 },
+        { "code": "HUMA 200", "name": "Western Civilization", "credits": 3 },
+        { "code": "HUMA 202", "name": "Civilization and Literature", "credits": 3 },
+        { "code": "HUMA 301", "name": "Civilization and the Arts", "credits": 3 },
+        { "code": "HUMA 303", "name": "Christianity and Civilization", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_soc_sci",
+      "title": "Foundations of the Social Sciences",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "ECON 120", "name": "Foundations of Economics", "credits": 3 },
+        { "code": "HIST 120", "name": "Foundations of History", "credits": 3 },
+        { "code": "HIST 141", "name": "World Geography", "credits": 3 },
+        { "code": "HIST 204", "name": "Hist/Phil Foundations of Education", "credits": 3 },
+        { "code": "POLS 101", "name": "Foundations of Political Science", "credits": 3 },
+        { "code": "PSYC 101", "name": "Foundations of Psychology", "credits": 3 },
+        { "code": "PSYC 200", "name": "Cross-Cultural Psychology", "credits": 3 },
+        { "code": "SOCI 101", "name": "Foundations of Sociology", "credits": 3 },
+        { "code": "SOCI 103", "name": "Found. of Cultural Anthr.", "credits": 3 },
+        { "code": "SOCW 101", "name": "Found. of Social Work", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_science",
+      "title": "Natural Sciences (with labs)",
+      "ruleType": "CREDIT_MIN_FROM_LIST",
+      "minCredits": 8,
+      "courses": [
+        { "code": "PHYS 101", "name": "General Physics I", "credits": 4 },
+        { "code": "PHYS 102", "name": "General Physics II", "credits": 4 },
+        { "code": "BIOL 101", "name": "General Biology I", "credits": 4 },
+        { "code": "BIOL 102", "name": "General Biology II", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_writ",
+      "title": "Writing Requirement",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "WRIT 101", "name": "Foundations of Academic Discourse", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_phye",
+      "title": "Physical Education",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "PHYE 100", "name": "Healthful Living", "credits": 1 }
+      ]
+    }
+  ]
+}

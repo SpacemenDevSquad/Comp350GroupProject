@@ -68,9 +68,16 @@ public class Search {
             }
         }
 
+
+
         ArrayList<Section> finalResults = textMatchResults;
         for (Filter f : filters){
             finalResults = f.filter(finalResults);
+        }
+
+        if (!(query.getNoTimeSections() != null && query.getNoTimeSections())) {
+            // Remove if timeslots is null OR if the length is 0
+            finalResults.removeIf(section -> section.getTimeslots() == null || section.getTimeslots().length == 0);
         }
 
         // Sorts by department (ACCT, COMP, MATH) then by number (101, 201, 301), so number takes precedence
