@@ -1,0 +1,148 @@
+{
+  "majorCode": "MATH",
+  "degreeType": "B.S.",
+  "title": "Mathematics",
+  "catalogYear": "2027",
+  "totalCreditsRequired": 128,
+  "requirementGroups": [
+    {
+      "groupId": "math_core",
+      "title": "Mathematics Core Requirements",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "MATH 125", "name": "Mathematical Computing", "credits": 3 },
+        { "code": "MATH 162", "name": "Calculus II", "credits": 4 },
+        { "code": "MATH 222", "name": "Linear Algebra", "credits": 4 },
+        { "code": "MATH 261", "name": "Calculus III", "credits": 4 },
+        { "code": "MATH 421", "name": "Abstract Algebra", "credits": 3 },
+        { "code": "MATH 465", "name": "Classical Analysis", "credits": 3 },
+        { "code": "MATH 488", "name": "Seminar in Mathematics", "credits": 2 }
+      ]
+    },
+    {
+      "groupId": "math_discrete",
+      "title": "Combinatorics or Discrete Math",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "MATH 210", "name": "Combinatorics", "credits": 3 },
+        { "code": "MATH 213", "name": "Discrete Mathematics for Computer Science", "credits": 4 }
+      ]
+    },
+    {
+      "groupId": "math_electives_group1",
+      "title": "Math Electives (Group 1)",
+      "description": "Choose three courses from STAT 331, 332, MATH 303, 365, 422, 466, and 467. Note: One course must be STAT 332, MATH 422, 466, or 467.",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 3,
+      "courses": [
+        { "code": "STAT 331", "name": "Theory of Statistics I", "credits": 3 },
+        { "code": "STAT 332", "name": "Theory of Statistics II", "credits": 3 },
+        { "code": "MATH 303", "name": "College Geometry", "credits": 3 },
+        { "code": "MATH 365", "name": "Complex Variables", "credits": 3 },
+        { "code": "MATH 422", "name": "Number Theory", "credits": 3 },
+        { "code": "MATH 466", "name": "Intermediate Analysis", "credits": 3 },
+        { "code": "MATH 467", "name": "Topology", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "math_electives_group2",
+      "title": "Math Electives (Group 2)",
+      "description": "Choose one course from STAT 331, 332, MATH 232, 262, 303, 365, 422, 466, and 467.",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "MATH 232", "name": "Calculus for Business/Economics", "credits": 3 },
+        { "code": "MATH 262", "name": "Differential Equations", "credits": 3 },
+        { "code": "STAT 331", "name": "Theory of Statistics I", "credits": 3 },
+        { "code": "STAT 332", "name": "Theory of Statistics II", "credits": 3 },
+        { "code": "MATH 303", "name": "College Geometry", "credits": 3 },
+        { "code": "MATH 365", "name": "Complex Variables", "credits": 3 },
+        { "code": "MATH 422", "name": "Number Theory", "credits": 3 },
+        { "code": "MATH 466", "name": "Intermediate Analysis", "credits": 3 },
+        { "code": "MATH 467", "name": "Topology", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "major_related_phys",
+      "title": "Major-Related: Physics Requirement",
+      "description": "Take General Physics I OR the College Physics sequence.",
+      "ruleType": "CHOOSE_ONE_GROUP",
+      "options": [
+        [
+          { "code": "PHYS 101", "name": "General Physics I", "credits": 4 }
+        ],
+        [
+          { "code": "PHYS 121", "name": "College Physics I", "credits": 4 },
+          { "code": "PHYS 122", "name": "College Physics II", "credits": 4 }
+        ]
+      ]
+    },
+    {
+      "groupId": "major_related_comp",
+      "title": "Major-Related: Computer Science",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "COMP 141", "name": "Computer Programming I", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_huma",
+      "title": "Humanities Core",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "HUMA 102", "name": "Civ and the Biblical Revelation", "credits": 3 },
+        { "code": "HUMA 200", "name": "Western Civilization", "credits": 3 },
+        { "code": "HUMA 202", "name": "Civilization and Literature", "credits": 3 },
+        { "code": "HUMA 301", "name": "Civilization and the Arts", "credits": 3 },
+        { "code": "HUMA 303", "name": "Christianity and Civilization", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_writ",
+      "title": "Writing Requirement",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "WRIT 101", "name": "Foundations of Academic Discourse", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_ssft",
+      "title": "Science, Faith, & Technology",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "COMP 205", "name": "Ethics, Faith, and the Conscious Mind", "credits": 2 },
+        { "code": "PHIL 243", "name": "Science and the Human: Inquiry, Design, & the Person", "credits": 2 },
+        { "code": "SSFT 210", "name": "Science & Religion", "credits": 2 },
+        { "code": "SSFT 212", "name": "Science, Faith, Technology, & Origins", "credits": 2 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_soc_sci",
+      "title": "Foundations of the Social Sciences",
+      "ruleType": "CHOOSE_EXACTLY",
+      "amount": 1,
+      "courses": [
+        { "code": "ECON 120", "name": "Foundations of Economics", "credits": 3 },
+        { "code": "HIST 120", "name": "Foundations of History", "credits": 3 },
+        { "code": "HIST 141", "name": "World Geography", "credits": 3 },
+        { "code": "HIST 204", "name": "Hist/Phil Foundations of Education", "credits": 3 },
+        { "code": "POLS 101", "name": "Foundations of Political Science", "credits": 3 },
+        { "code": "PSYC 101", "name": "Foundations of Psychology", "credits": 3 },
+        { "code": "PSYC 200", "name": "Cross-Cultural Psychology", "credits": 3 },
+        { "code": "SOCI 101", "name": "Foundations of Sociology", "credits": 3 },
+        { "code": "SOCI 103", "name": "Found. of Cultural Anthr.", "credits": 3 },
+        { "code": "SOCW 101", "name": "Found. of Social Work", "credits": 3 }
+      ]
+    },
+    {
+      "groupId": "gen_ed_phye",
+      "title": "Physical Education",
+      "ruleType": "ALL_REQUIRED",
+      "courses": [
+        { "code": "PHYE 100", "name": "Healthful Living", "credits": 1 }
+      ]
+    }
+  ]
+}

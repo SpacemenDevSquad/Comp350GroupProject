@@ -114,7 +114,7 @@ function StatusSheet(){
                     {degreeData && (
                         <div className="globalProgressContainer">
                             <div className="progressLabel">
-                                <span>Overall Progress</span>
+                                <span>Overall Progress: </span>
                                 <span>{totalCreditsEarned} / {degreeData.totalCreditsRequired || 128} Credits</span>
                             </div>
                             <progress 
