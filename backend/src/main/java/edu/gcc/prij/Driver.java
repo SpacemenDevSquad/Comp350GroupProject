@@ -28,6 +28,13 @@ import edu.gcc.prij.utils.Repository;
 import edu.gcc.prij.utils.SQLiteRepository;
 import io.javalin.Javalin;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * @author James Yoho
  * @author Ryan Merrick
@@ -85,6 +92,29 @@ public class Driver {
             }
         }
         /* ---------- PARSE JSON FILE ---------- */
+
+        /* ---------- INITIALIZE FIREBASE ---------- */
+   
+        try {
+            // finds the firebase JSON key file
+            InputStream serviceAccount = Driver.class.getClassLoader()
+                    .getResourceAsStream("prijproject-firebase-adminsdk-fbsvc-03123a40d9.json");
+
+            if (serviceAccount == null) {
+                System.err.println("!! CRITICAL: Firebase JSON key not found in src/main/resources !!");
+            } else {
+                FirebaseOptions options = FirebaseOptions.builder()
+                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                        .build();
+
+                FirebaseApp.initializeApp(options);
+                System.out.println("Firebase Admin SDK initialized successfully.");
+            }
+        } catch (IOException e) {
+            System.err.println("Firebase Init Error: " + e.getMessage());
+        }
+
+        /* ---------- INITIALIZE FIREBASE ---------- */
 
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
         Javalin app = Javalin.create(config -> {

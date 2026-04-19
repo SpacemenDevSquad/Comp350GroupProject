@@ -3,13 +3,31 @@ import logoImage from '../images/logo.png'
 import calendarTransition, { statusSheetTransition } from '../js/screenTransitions.js'
 import toggleFilter from '../js/toggleFilter.js'
 
-function Base() {
+function TopBar({ user, onLoginClick, onLogout }) {
   return (
     <div id='background'>
-      <img id="logo" src={logoImage} alt="App Logo" />
+      <img id="logo" src={logoImage}/>
       
         <div id="topBarButtons" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         
+
+        {/* Login/User section */}
+        {user ? (
+          
+          <button 
+            id="logoutBtn" 
+            onClick={onLogout} className="logoutBtn"
+            >
+              Logout
+            </button>
+          
+        ) : (
+          <button id="loginBtn" onClick={onLoginClick}>
+            Login / Signup
+          </button>
+        )}
+
+        {/* Status Sheet Button */}
         <button 
           id="statusSheetBtn" 
           onClick={() => { statusSheetTransition(); toggleFilter(true); }}
@@ -17,6 +35,7 @@ function Base() {
           My Major
         </button>
 
+        {/* Weekly Schedule Button */}
         <button 
           id="calendarBtn" 
           onClick={() => { calendarTransition(); toggleFilter(true); }}
@@ -28,4 +47,4 @@ function Base() {
   )
 }
 
-export default Base
+export default TopBar
