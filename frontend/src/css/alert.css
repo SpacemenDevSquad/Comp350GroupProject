@@ -9,7 +9,7 @@
 /* Global Alert CSS */
 #alertBox {
     width: 250px;
-    height: 70px;
+    height: fit-content;
     position: fixed;
     top: 65px;
     right: -200px;
