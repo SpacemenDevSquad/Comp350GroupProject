@@ -64,7 +64,7 @@ function Section({ data, year, term }) {
   //ADD/DROP LOGIC
   async function addSection(force=false) {
     //make api call
-    const response= await fetch(`http://localhost:8096/api/schedule/add/1/${year}/${term}?force=${force}`, {
+    const response= await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/add/1/${year}/${term}?force=${force}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -93,7 +93,7 @@ function Section({ data, year, term }) {
 
   async function dropSection() {
     //make api call
-    const response= await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
+    const response= await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/1/${year}/${term}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

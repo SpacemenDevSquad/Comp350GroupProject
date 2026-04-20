@@ -16,8 +16,8 @@ function WeeklySchedule({ year, term }){
     async function fetchSchedule(){
         console.log(year, term)
         try {
-            const response = await fetch(`http://localhost:8096/api/schedule/1/${year}/${term}`);
-            const creds = await (await fetch(`http://localhost:8096/api/schedule/credits/1/${year}/${term}`)).json()
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/1/${year}/${term}`);
+            const creds = await (await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/credits/1/${year}/${term}`)).json()
             const data = await response.json();
             setSchedule(data);
             setCreds(creds);

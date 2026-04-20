@@ -1,5 +1,5 @@
 import React from "react";
-import '../css/Requirements.css'
+import '../css/requirements.css'
 
 function Course({ code, name, credits, isChecked, onToggle }) {
     return (

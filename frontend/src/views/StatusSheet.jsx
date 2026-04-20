@@ -41,7 +41,7 @@ function StatusSheet(){
         const fetchStatusSheetData = async () => {
             setIsLoading(true);
             try{
-                const response = await fetch(`http://localhost:8096/api/status-sheet/${selectedMajor}`);
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/status-sheet/${selectedMajor}`);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
