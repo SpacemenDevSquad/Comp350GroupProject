@@ -6,7 +6,7 @@ There are 2 ways to run this project:
 # Docker Instructions
 
 ## 1. Verify Docker/Docker-Compose Installation
-This can be done by running the command `docker run hello-world` through the command line. If this fails, reinstall docker: [https://www.docker.com/](Docker Website)
+This can be done by running the command `docker run hello-world` through the command line. If this fails, reinstall docker: [https://www.docker.com/] (Docker Website)
 
 ## 2. Pull the Repository
 In the directory you want to pull to, run the command `git clone https://github.com/SpacemenDevSquad/Comp350GroupProject.git`
