@@ -94,6 +94,9 @@ public class SQLiteRepository<T extends RepositoryObject<ID>, ID> implements Rep
     @Override
     public boolean update(ID id, T entity) {
         // Use save as idempotent update
+        if(findById(id) == null) {
+            return false; // Can't update non-existent entity
+        }
         save(id, entity);
         return true;
     }

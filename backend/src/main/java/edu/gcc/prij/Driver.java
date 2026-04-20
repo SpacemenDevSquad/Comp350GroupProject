@@ -1,5 +1,6 @@
 package edu.gcc.prij;
 
+import java.util.Comparator;
 import java.util.List;
 
 import edu.gcc.prij.objects.course.Course;
@@ -24,6 +25,7 @@ import edu.gcc.prij.objects.user.User;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.CustomJsonParser;
 import edu.gcc.prij.utils.InMemoryRepository;
+import edu.gcc.prij.utils.RMPParser;
 import edu.gcc.prij.utils.Repository;
 import edu.gcc.prij.utils.SQLiteRepository;
 import io.javalin.Javalin;
@@ -32,8 +34,16 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 
 /**
  * @author James Yoho
@@ -42,11 +52,26 @@ import java.io.InputStream;
  * @author Peter Brumbach
 */
 
-public class Driver {
-    public static void main(String[] args) {
-        /* ---------- CREATE REPOSITORIES ---------- */
-        // Repository<Type, KeyType> name = new InMemoryRepository<>();
+@Command(name = "CourseSchedulingApp", mixinStandardHelpOptions = true)
+public class Driver implements Runnable {
+    @Option(names = "--read-courses", description = "Enable reading courses")
+    private boolean readCourses = false;
 
+    @Option(names = "--read-rmp", description = "Enable reading RMP")
+    private boolean readRmp = false;
+
+    // String flag with a default value
+    @Option(names = "--db-type", description = "Type of database to use")
+    private String dbType = "inmemory";
+
+    public static void main(String[] args) {
+        // Picocli automatically parses the args and populates the variables
+        new CommandLine(new Driver()).execute(args);
+    }
+
+    @Override
+    public void run() {
+        /* ---------- CREATE REPOSITORIES ---------- */
         Repository<Section, SectionKey> sectionRepository;
         Repository<Course, CourseKey> courseRepository;
         Repository<Department, String> departmentRepository;
@@ -56,7 +81,9 @@ public class Driver {
         Repository<Semester, SemesterKey> semesterRepository;
         Repository<User, Integer> userRepository;
         
-        if(true){
+        if(dbType.equals("sqlite")){
+            deleteDatabaseFolder("sqlite");
+
             sectionRepository = new SQLiteRepository<>(Section.class);
             courseRepository = new SQLiteRepository<>(Course.class);
             departmentRepository = new SQLiteRepository<>(Department.class);
@@ -66,7 +93,7 @@ public class Driver {
             semesterRepository = new SQLiteRepository<>(Semester.class);
             userRepository = new SQLiteRepository<>(User.class);
         }
-        if(false){
+        else if(dbType.equals("inmemory")){
             sectionRepository = new InMemoryRepository<>();
             courseRepository = new InMemoryRepository<>();
             departmentRepository = new InMemoryRepository<>();
@@ -76,10 +103,14 @@ public class Driver {
             semesterRepository = new InMemoryRepository<>();
             userRepository = new InMemoryRepository<>();
         }
+        else {
+            System.err.println("Invalid Storage Type!");
+            return;
+        }
         /* ---------- CREATE REPOSITORIES ---------- */
 
-        /* ---------- PARSE JSON FILE ---------- */
-        if(true){
+        /* ---------- PARSE COURSE JSON FILES ---------- */
+        if(readCourses){
             List<String> jsonFiles = List.of(
                 "/courses_2025_fall.json",
                 "/courses_2026_spring.json",
@@ -91,10 +122,32 @@ public class Driver {
                 new CustomJsonParser(jsonFile, sectionRepository, departmentRepository, courseRepository, professorRepository, semesterRepository).parse();
             }
         }
-        /* ---------- PARSE JSON FILE ---------- */
+        /* ---------- PARSE COURSE JSON FILES ---------- */
+
+        /* ---------- PARSE RMP JSON FILE ---------- */
+        if(readRmp){
+            new RMPParser("/professors_clean.json", professorRepository).parse();
+            
+            // After RMP data is loaded, update all sections with fresh professor data from repository
+            System.out.println("\n--- Updating sections with fresh professor data from RMP ---");
+            for (Section section : sectionRepository.findAll()) {
+                if (section.getFaculty() != null && section.getFaculty().length > 0) {
+                    Professor[] updatedFaculty = new Professor[section.getFaculty().length];
+                    for (int i = 0; i < section.getFaculty().length; i++) {
+                        String profName = section.getFaculty()[i].getName();
+                        // Get the fresh professor from repository (which now has RMP data)
+                        Professor freshProfessor = professorRepository.findById(profName);
+                        updatedFaculty[i] = (freshProfessor != null) ? freshProfessor : section.getFaculty()[i];
+                    }
+                    section.setFaculty(updatedFaculty);
+                    sectionRepository.save(section.getKey(), section);
+                }
+            }
+            System.out.println("--- Section update complete ---\n");
+        }
+        /* ---------- PARSE RMP JSON FILE ---------- */
 
         /* ---------- INITIALIZE FIREBASE ---------- */
-   
         try {
             // finds the firebase JSON key file
             InputStream serviceAccount = Driver.class.getClassLoader()
@@ -113,7 +166,6 @@ public class Driver {
         } catch (IOException e) {
             System.err.println("Firebase Init Error: " + e.getMessage());
         }
-
         /* ---------- INITIALIZE FIREBASE ---------- */
 
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
@@ -140,5 +192,21 @@ public class Driver {
 
         controllers.forEach(c -> c.registerRoutes(app));
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
+    }
+
+    private void deleteDatabaseFolder(String folderPath) {
+        Path path = Paths.get(folderPath);
+        if (Files.exists(path)) {
+            try {
+                // Walk the folder, sort in reverse (files first, then directories), and delete
+                Files.walk(path)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+                System.out.println("Successfully wiped old SQLite folder: " + folderPath);
+            } catch (IOException e) {
+                System.err.println("Failed to delete SQLite folder: " + e.getMessage());
+            }
+        }
     }
 }
