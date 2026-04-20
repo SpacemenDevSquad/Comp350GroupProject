@@ -1,8 +1,34 @@
 import { useEffect } from 'react';
 import '../css/section.css'
 import { createAlert } from '../js/createAlert.jsx';
+import { useState } from 'react';
+
+const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, difficulty, rmpId, onClose }) => {
+  return (
+    // The backdrop catches clicks outside the modal to close it
+    <div className="modal-backdrop" onClick={onClose} style={backdropStyle}>
+      {/* Stop propagation so clicking inside the modal doesn't close it */}
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={modalStyle}>
+        <h2>Professor {name}</h2>
+        <h3>
+          <a
+            href={`https://www.ratemyprofessors.com/professor/${rmpId}`} target='_blank' rel='noopener noreferrer'
+            style={{ color: '#82b8fe', textDecoration: 'none' }}>
+            RateMyProfessors Entry 🛈
+          </a></h3>
+        <ul>
+          <li>Quality: {qualityRating}/5 ({numRatings} ratings)</li>
+          <li>{wouldTakeAgain*100}% would take again</li>
+          <li>Difficulty: {difficulty}/5</li>
+        </ul>
+        <button onClick={onClose} className='closeProfessorModal'>Close</button>
+      </div>
+    </div>
+  );
+};
 
 function Section({ data, year, term }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Gets the title of the course and formats it with proper capitalization
   let rawTitle = data.course?.title || "Null";
@@ -108,8 +134,6 @@ function Section({ data, year, term }) {
     window.dispatchEvent(new CustomEvent('scheduleRefresh'));
   }
 
-
-
   // Safely grab the details from the Java Section object you passed in
   const deptCode = data.course?.department?.code || data.course?.department?.id || "N/A";
   const courseNum = data.course?.number || "000";
@@ -121,22 +145,58 @@ function Section({ data, year, term }) {
   const sectionTerm = data.semester?.term || "Null";
   const sectionYear = data.semester?.year || "Null";
   const profName = data.faculty[0]?.name || "Null";
-  
-  
+  const profQualityRating = data.faculty[0]?.quality_rating || "Null";
+  const profNumRatings = data.faculty[0]?.rating_count || "Null";
+  const profWouldTakeAgain = data.faculty[0]?.would_take_again || "Null";
+  const profDifficulty = data.faculty[0]?.difficulty || "Null";
+  const profRMPId = data.faculty[0]?.id || "Null";
 
   return (
     <div className="sectionCard">
       <p className="sectionTitle">{title}</p>
       <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
-      <p className="sectionProf">{"Professor: "+profName}</p>
+      <p className="sectionProf">
+        Professor:{' '}
+        {/* Note: It's better for accessibility to use a button styled as text than a span */}
+        <button
+          onClick={() => setIsModalOpen(true)}
+          style={{ background: 'none', border: 'none', color: 'inherit', textDecoration: 'none', cursor: 'pointer', padding: 0, fontFamily: 'inherit', fontSize: 'inherit', 'text-shadow': '2px 2px black'}}
+        >
+          {profName} 🛈
+        </button>
+      </p>
       <p className="sectionTerm">{"Semester: "+sectionYear+" "+sectionTerm}</p>
       <p className="sectionTime">{timeSlots}</p>
       <p className="sectionCreds">Credits: {credits}</p>
       <button onClick={addSection} className="addButton">Add</button>
       <button onClick={dropSection} className="dropButton">Drop</button>
+
+      {isModalOpen && (
+        <ProfessorModal 
+          name={profName}
+          qualityRating={profQualityRating}
+          numRatings={profNumRatings}
+          wouldTakeAgain={profWouldTakeAgain}
+          difficulty={profDifficulty}
+          rmpId={profRMPId}
+          onClose={() => setIsModalOpen(false)} 
+        />
+      )}
     </div>
   );
 }
 
 export default Section;
 
+// Quick inline styles just for the example to work visually
+const backdropStyle = {
+  position: 'fixed', top: '30vh', left: '30vw', width: '40vw', height: '40vh',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', 
+  justifyContent: 'center', alignItems: 'center', zIndex: 1000
+};
+
+const modalStyle = {
+  backgroundColor: 'rgb(160,0,0)', padding: '20px', borderRadius: '8px', 
+  minWidth: '300px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '4px solid rgb(255, 255, 255)',
+  'text-shadow': '2px 2px black'
+};
