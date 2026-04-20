@@ -1,0 +1,3282 @@
+[
+    {
+        "id": 77723,
+        "name": "Gary Welton",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 2.5,
+        "rating_count": 50,
+        "would_take_again": 0.39,
+        "difficulty": 3.7
+    },
+    {
+        "id": 2860230,
+        "name": "Lucian Conway",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 9,
+        "would_take_again": 0.89,
+        "difficulty": 2.4
+    },
+    {
+        "id": 3086563,
+        "name": "Ryan Kelley",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 2.6
+    },
+    {
+        "id": 268865,
+        "name": "Jason Edwards",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 95,
+        "would_take_again": 0.58,
+        "difficulty": 4.2
+    },
+    {
+        "id": 615367,
+        "name": "Kristin Homan",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 29,
+        "would_take_again": 0.4,
+        "difficulty": 3.1
+    },
+    {
+        "id": 2212900,
+        "name": "Ryan West",
+        "department": "Philosophy",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 22,
+        "would_take_again": 0.5,
+        "difficulty": 4.1
+    },
+    {
+        "id": 2842353,
+        "name": "Quiyan Li",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 2.2,
+        "rating_count": 5,
+        "would_take_again": 0.4,
+        "difficulty": 2.6
+    },
+    {
+        "id": 3106190,
+        "name": "Louise (Jessie) McCray",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 2.3
+    },
+    {
+        "id": 3070321,
+        "name": "Christopher Ansberry",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 3153464,
+        "name": "Ryan Miller",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 2,
+        "would_take_again": 0.5,
+        "difficulty": 3.0
+    },
+    {
+        "id": 3020427,
+        "name": "Virginia Rawl",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 5.0
+    },
+    {
+        "id": 2123449,
+        "name": "Katherine Mueller",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 4,
+        "would_take_again": 1.0,
+        "difficulty": 1.5
+    },
+    {
+        "id": 56873,
+        "name": "Michael Coulter",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 3.4,
+        "rating_count": 85,
+        "would_take_again": 0.85,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1835607,
+        "name": "Laura Havrilla",
+        "department": "Marketing",
+        "school": "Grove City College",
+        "quality_rating": 3.2,
+        "rating_count": 30,
+        "would_take_again": 0.64,
+        "difficulty": 2.7
+    },
+    {
+        "id": 3150839,
+        "name": "Charles Cotherman",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 1.0
+    },
+    {
+        "id": 389510,
+        "name": "Jan Dudt",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 34,
+        "would_take_again": 0.25,
+        "difficulty": 3.7
+    },
+    {
+        "id": 1950674,
+        "name": "Caleb Verbois",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 32,
+        "would_take_again": 0.44,
+        "difficulty": 4.2
+    },
+    {
+        "id": 1044455,
+        "name": "Andrew Harvey",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 27,
+        "would_take_again": 0.79,
+        "difficulty": 2.2
+    },
+    {
+        "id": 58441,
+        "name": "Scott Powell",
+        "department": "Marketing",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 58,
+        "would_take_again": 0.95,
+        "difficulty": 4.0
+    },
+    {
+        "id": 2049978,
+        "name": "Joshua Mayo",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 25,
+        "would_take_again": 0.86,
+        "difficulty": 2.9
+    },
+    {
+        "id": 2992066,
+        "name": "Josiah Hall",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 6,
+        "would_take_again": 1.0,
+        "difficulty": 4.2
+    },
+    {
+        "id": 2992063,
+        "name": "Alden McCray",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 719474,
+        "name": "Julie Moeller",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 33,
+        "would_take_again": 0.85,
+        "difficulty": 2.9
+    },
+    {
+        "id": 3148264,
+        "name": "David Beevers",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 2,
+        "would_take_again": 0.0,
+        "difficulty": 4.5
+    },
+    {
+        "id": 20837,
+        "name": "Joseph Augspurger",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 35,
+        "would_take_again": 0.43,
+        "difficulty": 3.3
+    },
+    {
+        "id": 1616404,
+        "name": "Eric Bancroft",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 26,
+        "would_take_again": 0.55,
+        "difficulty": 3.3
+    },
+    {
+        "id": 905031,
+        "name": "Sam Stanton",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 26,
+        "would_take_again": 0.46,
+        "difficulty": 3.9
+    },
+    {
+        "id": 66174,
+        "name": "Michele Clauss",
+        "department": "Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 29,
+        "would_take_again": 0.5,
+        "difficulty": 3.6
+    },
+    {
+        "id": 3157957,
+        "name": "Logan Gwynn",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 3157080,
+        "name": "Duffy Robbins",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 3157081,
+        "name": "Cara Papay",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 1003933,
+        "name": "Michael Jackson",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 51,
+        "would_take_again": 0.42,
+        "difficulty": 4.2
+    },
+    {
+        "id": 1765608,
+        "name": "Robert Clemm",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 3.2,
+        "rating_count": 20,
+        "would_take_again": 0.5,
+        "difficulty": 3.6
+    },
+    {
+        "id": 1178717,
+        "name": "Andrew Mitchell",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 69,
+        "would_take_again": 0.66,
+        "difficulty": 4.4
+    },
+    {
+        "id": 2422549,
+        "name": "Kristina Pazehoski",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 25,
+        "would_take_again": 0.96,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2972116,
+        "name": "Peter Foster",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 17,
+        "would_take_again": 0.59,
+        "difficulty": 4.0
+    },
+    {
+        "id": 2295521,
+        "name": "Samantha Fecich",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 14,
+        "would_take_again": 0.36,
+        "difficulty": 2.4
+    },
+    {
+        "id": 20800,
+        "name": "Shane Brower",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 52,
+        "would_take_again": 1.0,
+        "difficulty": 3.9
+    },
+    {
+        "id": 2103471,
+        "name": "Adam Loretto",
+        "department": "Writing",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 16,
+        "would_take_again": 0.87,
+        "difficulty": 2.3
+    },
+    {
+        "id": 2798033,
+        "name": "Lisa Hosack",
+        "department": "Social Work",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1187461,
+        "name": "Tim Sweet",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 29,
+        "would_take_again": 1.0,
+        "difficulty": 1.6
+    },
+    {
+        "id": 2001883,
+        "name": "Nate Mucha",
+        "department": "Fine Arts",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 10,
+        "would_take_again": 0.78,
+        "difficulty": 2.7
+    },
+    {
+        "id": 2781931,
+        "name": "Micheal Rawl",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 2.1,
+        "rating_count": 14,
+        "would_take_again": 0.15,
+        "difficulty": 3.8
+    },
+    {
+        "id": 2622091,
+        "name": "Remi Drai",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 11,
+        "would_take_again": 0.82,
+        "difficulty": 2.4
+    },
+    {
+        "id": 3061174,
+        "name": "Annie Shepherd",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 4,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 907648,
+        "name": "Erik Anderson",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 49,
+        "would_take_again": 0.23,
+        "difficulty": 3.9
+    },
+    {
+        "id": 2312268,
+        "name": "Steven Flanders",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 25,
+        "would_take_again": 0.6,
+        "difficulty": 3.7
+    },
+    {
+        "id": 2375964,
+        "name": "Caleb Fuller",
+        "department": "Economics",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 24,
+        "would_take_again": 0.96,
+        "difficulty": 3.3
+    },
+    {
+        "id": 2003327,
+        "name": "Christopher Franklin",
+        "department": "Philosophy",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 20,
+        "would_take_again": 0.67,
+        "difficulty": 3.6
+    },
+    {
+        "id": 2523765,
+        "name": "Kelsey Madsen",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 6,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1622033,
+        "name": "Jeffrey Tedford",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 2.2
+    },
+    {
+        "id": 20814,
+        "name": "Jeffrey Herbener",
+        "department": "Economics",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 119,
+        "would_take_again": 0.31,
+        "difficulty": 3.8
+    },
+    {
+        "id": 3150758,
+        "name": "Jeffrey Hubbard",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2746553,
+        "name": "Melissa Carruth",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 27,
+        "would_take_again": 0.71,
+        "difficulty": 3.3
+    },
+    {
+        "id": 3020426,
+        "name": "Russell Kosits",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 3.5
+    },
+    {
+        "id": 77235,
+        "name": "Joseph Horton",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 3.2,
+        "rating_count": 88,
+        "would_take_again": 0.52,
+        "difficulty": 3.4
+    },
+    {
+        "id": 2190050,
+        "name": "Martin Bright",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 21,
+        "would_take_again": 1.0,
+        "difficulty": 1.9
+    },
+    {
+        "id": 918196,
+        "name": "Susan Dreves",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 4.9,
+        "rating_count": 10,
+        "would_take_again": 1.0,
+        "difficulty": 2.4
+    },
+    {
+        "id": 2909727,
+        "name": "Christopher Ansberry",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 3102774,
+        "name": "Jeff Richter",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2464141,
+        "name": "Jennifer Hollenberger",
+        "department": "Social Work",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 7,
+        "would_take_again": 0.58,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2454531,
+        "name": "Gregory Bandy",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 5,
+        "would_take_again": 0.8,
+        "difficulty": 3.2
+    },
+    {
+        "id": 2253394,
+        "name": "Dana Ault",
+        "department": "Exercise Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 1.8
+    },
+    {
+        "id": 2537051,
+        "name": "Kenneth Smith",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 4,
+        "would_take_again": 0.75,
+        "difficulty": 3.5
+    },
+    {
+        "id": 3149223,
+        "name": "Margaret Smith",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1551041,
+        "name": "Richard Kocur",
+        "department": "Marketing",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 7,
+        "would_take_again": 0.5,
+        "difficulty": 2.9
+    },
+    {
+        "id": 1876597,
+        "name": "James Clem",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 17,
+        "would_take_again": 0.64,
+        "difficulty": 3.2
+    },
+    {
+        "id": 20823,
+        "name": "Dale McIntyre",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 52,
+        "would_take_again": 0.75,
+        "difficulty": 2.8
+    },
+    {
+        "id": 3030469,
+        "name": "Matt Henderson",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 6,
+        "would_take_again": 0.84,
+        "difficulty": 2.0
+    },
+    {
+        "id": 1001935,
+        "name": "Michelle McFeaters",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 23,
+        "would_take_again": 0.4,
+        "difficulty": 3.2
+    },
+    {
+        "id": 533012,
+        "name": "Glen Marsch",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 38,
+        "would_take_again": 0.73,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2477984,
+        "name": "Elizabeth Baker",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 13,
+        "would_take_again": 0.24,
+        "difficulty": 4.1
+    },
+    {
+        "id": 1964886,
+        "name": "Nicole Stone",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 2.5,
+        "rating_count": 19,
+        "would_take_again": 0.32,
+        "difficulty": 3.8
+    },
+    {
+        "id": 2894698,
+        "name": "Keith Graybill",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 8,
+        "would_take_again": 0.88,
+        "difficulty": 2.1
+    },
+    {
+        "id": 2435156,
+        "name": "Jonathan Hutchins",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 13,
+        "would_take_again": 0.93,
+        "difficulty": 2.6
+    },
+    {
+        "id": 2339212,
+        "name": "John Dixon",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 12,
+        "would_take_again": 0.67,
+        "difficulty": 3.9
+    },
+    {
+        "id": 20799,
+        "name": "Gary Thompson",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 50,
+        "would_take_again": 0.5,
+        "difficulty": 4.2
+    },
+    {
+        "id": 1711936,
+        "name": "Tracy Farone",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 10,
+        "would_take_again": 0.89,
+        "difficulty": 3.9
+    },
+    {
+        "id": 2725837,
+        "name": "Tricia Shultz",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 2.2,
+        "rating_count": 5,
+        "would_take_again": 0.6,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2426338,
+        "name": "Donald Shepson",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 18,
+        "would_take_again": 0.5,
+        "difficulty": 3.4
+    },
+    {
+        "id": 494675,
+        "name": "Paul Munson",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 64,
+        "would_take_again": 0.58,
+        "difficulty": 3.9
+    },
+    {
+        "id": 50342,
+        "name": "Doris Wagner",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 76,
+        "would_take_again": 0.14,
+        "difficulty": 3.7
+    },
+    {
+        "id": 177172,
+        "name": "Andrew Markley",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 19,
+        "would_take_again": 0.8,
+        "difficulty": 3.2
+    },
+    {
+        "id": 2744287,
+        "name": "Darren Wood",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 4,
+        "would_take_again": 0.5,
+        "difficulty": 3.3
+    },
+    {
+        "id": 97575,
+        "name": "Susan Cramer",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 20,
+        "would_take_again": 0.86,
+        "difficulty": 3.8
+    },
+    {
+        "id": 1709169,
+        "name": "Devin Stauff",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 15,
+        "would_take_again": 1.0,
+        "difficulty": 3.9
+    },
+    {
+        "id": 1552380,
+        "name": "Kristin Barbour",
+        "department": "Theater",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 13,
+        "would_take_again": 0.72,
+        "difficulty": 1.5
+    },
+    {
+        "id": 187641,
+        "name": "Wayne Biddle",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 17,
+        "would_take_again": 0.85,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2793624,
+        "name": "David Butler",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 3.7
+    },
+    {
+        "id": 2228187,
+        "name": "Seulgi Byun",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 25,
+        "would_take_again": 0.96,
+        "difficulty": 3.1
+    },
+    {
+        "id": 2964780,
+        "name": "Ethan Johnson",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 3,
+        "would_take_again": 0.67,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2690707,
+        "name": "Brian Yowler",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.9,
+        "rating_count": 10,
+        "would_take_again": 0.9,
+        "difficulty": 2.9
+    },
+    {
+        "id": 60572,
+        "name": "George Van Campbell",
+        "department": "Social Science",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 81,
+        "would_take_again": 0.66,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1834176,
+        "name": "Brian Dellinger",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 30,
+        "would_take_again": 0.92,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2251835,
+        "name": "Kristen Waha",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 12,
+        "would_take_again": 1.0,
+        "difficulty": 3.1
+    },
+    {
+        "id": 99693,
+        "name": "Warren Throckmorton",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 23,
+        "would_take_again": 0.93,
+        "difficulty": 2.4
+    },
+    {
+        "id": 2899421,
+        "name": "He David Zhang",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 263509,
+        "name": "Michael Falcetta",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 46,
+        "would_take_again": 0.93,
+        "difficulty": 3.6
+    },
+    {
+        "id": 1122520,
+        "name": "RJ Heid",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 6,
+        "would_take_again": 1.0,
+        "difficulty": 3.2
+    },
+    {
+        "id": 20804,
+        "name": "James Thrasher",
+        "department": "Philosophy",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 35,
+        "would_take_again": 1.0,
+        "difficulty": 3.2
+    },
+    {
+        "id": 2581327,
+        "name": "John Smith",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 2.8,
+        "rating_count": 21,
+        "would_take_again": 0.48,
+        "difficulty": 3.5
+    },
+    {
+        "id": 2749413,
+        "name": "April Knupp",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1089162,
+        "name": "Kelleen Bonomo",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 19,
+        "would_take_again": 0.58,
+        "difficulty": 3.1
+    },
+    {
+        "id": 20839,
+        "name": "Gillis Harp",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 100,
+        "would_take_again": 0.77,
+        "difficulty": 3.5
+    },
+    {
+        "id": 58442,
+        "name": "Betsy Craig",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 38,
+        "would_take_again": 0.34,
+        "difficulty": 2.9
+    },
+    {
+        "id": 20833,
+        "name": "Eric Potter",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 42,
+        "would_take_again": 0.89,
+        "difficulty": 3.4
+    },
+    {
+        "id": 101279,
+        "name": "Linda Culbertson",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 24,
+        "would_take_again": 0.89,
+        "difficulty": 3.2
+    },
+    {
+        "id": 76224,
+        "name": "Constance Nichols",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 19,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 20806,
+        "name": "Paul Kengor",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 65,
+        "would_take_again": 1.0,
+        "difficulty": 2.3
+    },
+    {
+        "id": 482489,
+        "name": "Mark Fair",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 15,
+        "would_take_again": 1.0,
+        "difficulty": 3.4
+    },
+    {
+        "id": 1947274,
+        "name": "Lisa Antoszewski",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.9,
+        "rating_count": 11,
+        "would_take_again": 1.0,
+        "difficulty": 2.8
+    },
+    {
+        "id": 20805,
+        "name": "Beverly Carter",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 58,
+        "would_take_again": 0.5,
+        "difficulty": 2.5
+    },
+    {
+        "id": 59643,
+        "name": "Kevin Shaw",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 30,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 2798343,
+        "name": "Ethan Smith",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 6,
+        "would_take_again": 0.67,
+        "difficulty": 4.7
+    },
+    {
+        "id": 2043945,
+        "name": "Cedric Lewis",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 3.2,
+        "rating_count": 5,
+        "would_take_again": 0.6,
+        "difficulty": 4.2
+    },
+    {
+        "id": 2637948,
+        "name": "Yvonne English",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 4,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2727679,
+        "name": "Jason Killam",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 7,
+        "would_take_again": 0.72,
+        "difficulty": 3.4
+    },
+    {
+        "id": 2425052,
+        "name": "James Bibza",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 3,
+        "would_take_again": 0.67,
+        "difficulty": 3.7
+    },
+    {
+        "id": 75598,
+        "name": "Shawn Ritenour",
+        "department": "Economics",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 74,
+        "would_take_again": 0.75,
+        "difficulty": 4.0
+    },
+    {
+        "id": 91614,
+        "name": "Stephen Jenkins",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 39,
+        "would_take_again": 0.6,
+        "difficulty": 2.8
+    },
+    {
+        "id": 320736,
+        "name": "Mark Graham",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 67,
+        "would_take_again": 0.85,
+        "difficulty": 3.7
+    },
+    {
+        "id": 158267,
+        "name": "David Fritz",
+        "department": "Physical Ed",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 14,
+        "would_take_again": 1.0,
+        "difficulty": 2.1
+    },
+    {
+        "id": 49547,
+        "name": "Chuck Kriley",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 85,
+        "would_take_again": 0.91,
+        "difficulty": 3.0
+    },
+    {
+        "id": 20812,
+        "name": "James Bibza",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 83,
+        "would_take_again": 0.95,
+        "difficulty": 3.4
+    },
+    {
+        "id": 78908,
+        "name": "David Ayers",
+        "department": "Social Science",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 45,
+        "would_take_again": 0.8,
+        "difficulty": 3.4
+    },
+    {
+        "id": 419616,
+        "name": "Kimberly Miller",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 35,
+        "would_take_again": 0.82,
+        "difficulty": 2.2
+    },
+    {
+        "id": 1511603,
+        "name": "Todd Gibson",
+        "department": "Exercise & Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 1.0
+    },
+    {
+        "id": 2978276,
+        "name": "Hayden Garhart",
+        "department": "Exercise & Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 952345,
+        "name": "Erik Bardy",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 9,
+        "would_take_again": 0.84,
+        "difficulty": 3.8
+    },
+    {
+        "id": 704024,
+        "name": "Vernon Ulrich",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 8,
+        "would_take_again": 0.0,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1160490,
+        "name": "Myron Bright",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2098876,
+        "name": "Ken Carson",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 13,
+        "would_take_again": 0.75,
+        "difficulty": 2.5
+    },
+    {
+        "id": 2913198,
+        "name": "Dave Butler",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 3,
+        "would_take_again": 0.34,
+        "difficulty": 3.7
+    },
+    {
+        "id": 1483271,
+        "name": "Melva Huebert",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 2.5,
+        "rating_count": 6,
+        "would_take_again": 0.5,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2343554,
+        "name": "Youhui Owen Zhang",
+        "department": "Finance",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 3,
+        "would_take_again": 0.67,
+        "difficulty": 2.7
+    },
+    {
+        "id": 2099453,
+        "name": "Britton Wolfe",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 12,
+        "would_take_again": 0.86,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2719623,
+        "name": "Brian Dickinson",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 10,
+        "would_take_again": 0.9,
+        "difficulty": 2.2
+    },
+    {
+        "id": 44650,
+        "name": "Timothy Homan",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 45,
+        "would_take_again": 1.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 1747353,
+        "name": "Mark Fair",
+        "department": "Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 6,
+        "would_take_again": 0.6,
+        "difficulty": 4.2
+    },
+    {
+        "id": 2453078,
+        "name": "Andrew Erb",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 7,
+        "would_take_again": 1.0,
+        "difficulty": 1.6
+    },
+    {
+        "id": 2618177,
+        "name": "Tracy Jackson",
+        "department": "Writing",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 4,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 2032788,
+        "name": "Rebecca Rine",
+        "department": "Writing",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 8,
+        "would_take_again": 0.8,
+        "difficulty": 3.3
+    },
+    {
+        "id": 2477789,
+        "name": "Jarrett Chapman",
+        "department": "Early Childhood Education",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 7,
+        "would_take_again": 0.86,
+        "difficulty": 1.6
+    },
+    {
+        "id": 2229382,
+        "name": "Vitaly Sukharenko",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 2,
+        "would_take_again": 0.5,
+        "difficulty": 4.0
+    },
+    {
+        "id": 88794,
+        "name": "Richard Grimm",
+        "department": "Finance",
+        "school": "Grove City College",
+        "quality_rating": 3.2,
+        "rating_count": 27,
+        "would_take_again": 0.58,
+        "difficulty": 1.8
+    },
+    {
+        "id": 2740237,
+        "name": "Shannon Barrios",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 6,
+        "would_take_again": 1.0,
+        "difficulty": 1.8
+    },
+    {
+        "id": 20820,
+        "name": "Timothy Mohr",
+        "department": "Engineering",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 17,
+        "would_take_again": 0.75,
+        "difficulty": 4.2
+    },
+    {
+        "id": 2797458,
+        "name": "He Zhang",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 2578547,
+        "name": "Luke Rumbaugh",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 2444856,
+        "name": "Joseph Hasper",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2405836,
+        "name": "Christy Crute",
+        "department": "Management",
+        "school": "Grove City College",
+        "quality_rating": 2.2,
+        "rating_count": 10,
+        "would_take_again": 0.3,
+        "difficulty": 2.7
+    },
+    {
+        "id": 2334533,
+        "name": "Deborah Forteza",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 3.7
+    },
+    {
+        "id": 2259745,
+        "name": "Jeff Buxton",
+        "department": "Exercise Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2753040,
+        "name": "Paul Jackanich",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 72655,
+        "name": "Jeffrey Wolinski",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 64,
+        "would_take_again": 0.67,
+        "difficulty": 3.6
+    },
+    {
+        "id": 2363861,
+        "name": "Ryan Hammond",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 6,
+        "would_take_again": 0.67,
+        "difficulty": 2.3
+    },
+    {
+        "id": 2242087,
+        "name": "Tammi Martin",
+        "department": "Elementary Education",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 4.5
+    },
+    {
+        "id": 886050,
+        "name": "Collin Messer",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 23,
+        "would_take_again": 0.6,
+        "difficulty": 3.3
+    },
+    {
+        "id": 1844946,
+        "name": "Lory Al Moakar",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 21,
+        "would_take_again": 0.5,
+        "difficulty": 2.7
+    },
+    {
+        "id": 2520337,
+        "name": "Holly Guevara",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 12,
+        "would_take_again": 0.59,
+        "difficulty": 3.4
+    },
+    {
+        "id": 1178716,
+        "name": "Stacy Paparone",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 2.7
+    },
+    {
+        "id": 2386863,
+        "name": "Jolene Munson",
+        "department": "Early Childhood Education",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2364189,
+        "name": "Tricia Pritchard",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 6,
+        "would_take_again": 0.84,
+        "difficulty": 2.2
+    },
+    {
+        "id": 1178719,
+        "name": "Jonathan Kolm",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 2.3,
+        "rating_count": 3,
+        "would_take_again": 0.0,
+        "difficulty": 4.3
+    },
+    {
+        "id": 276401,
+        "name": "William Birmingham",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 14,
+        "would_take_again": 0.0,
+        "difficulty": 2.9
+    },
+    {
+        "id": 20809,
+        "name": "Paul Schaefer",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 106,
+        "would_take_again": 0.89,
+        "difficulty": 2.2
+    },
+    {
+        "id": 1722054,
+        "name": "Rebecca Harmon",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 18,
+        "would_take_again": 0.77,
+        "difficulty": 4.1
+    },
+    {
+        "id": 20801,
+        "name": "Janice Brown",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 79,
+        "would_take_again": 0.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 2442907,
+        "name": "David Valentine",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 1.7,
+        "rating_count": 15,
+        "would_take_again": 0.2,
+        "difficulty": 3.4
+    },
+    {
+        "id": 2216596,
+        "name": "Cynthia Marsch",
+        "department": "Writing",
+        "school": "Grove City College",
+        "quality_rating": 1.5,
+        "rating_count": 4,
+        "would_take_again": 0.0,
+        "difficulty": 2.8
+    },
+    {
+        "id": 1665924,
+        "name": "Mike Dreves",
+        "department": "Exercise & Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 1.3
+    },
+    {
+        "id": 1978709,
+        "name": "Jennifer Stone",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 2,
+        "would_take_again": 0.5,
+        "difficulty": 3.5
+    },
+    {
+        "id": 2671187,
+        "name": "Elaine Timko",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 258139,
+        "name": "Andrew Bell",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 21,
+        "would_take_again": 1.0,
+        "difficulty": 2.3
+    },
+    {
+        "id": 2580374,
+        "name": "Jay Cost",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 1.3
+    },
+    {
+        "id": 2543387,
+        "name": "Cynthia Philson",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 5.0
+    },
+    {
+        "id": 1422129,
+        "name": "Mark Archibald",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 12,
+        "would_take_again": 0.75,
+        "difficulty": 4.4
+    },
+    {
+        "id": 65960,
+        "name": "Kevin Seybold",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 21,
+        "would_take_again": 0.67,
+        "difficulty": 3.9
+    },
+    {
+        "id": 2589509,
+        "name": "Richard Savage",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 3,
+        "would_take_again": 0.0,
+        "difficulty": 3.3
+    },
+    {
+        "id": 2263692,
+        "name": "Amy Russin",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 8,
+        "would_take_again": 0.88,
+        "difficulty": 2.9
+    },
+    {
+        "id": 20810,
+        "name": "T. David Gordon",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 30,
+        "would_take_again": 0.34,
+        "difficulty": 2.4
+    },
+    {
+        "id": 1883113,
+        "name": "Jessica Chisholm",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 9,
+        "would_take_again": 1.0,
+        "difficulty": 1.3
+    },
+    {
+        "id": 2607405,
+        "name": "Paul McNulty",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 20838,
+        "name": "Daniel Dean",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 2.8,
+        "rating_count": 84,
+        "would_take_again": 0.5,
+        "difficulty": 4.3
+    },
+    {
+        "id": 2003330,
+        "name": "William Anderson",
+        "department": "Social Work",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 44640,
+        "name": "Phyllis Genareo",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 75,
+        "would_take_again": 0.91,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2508082,
+        "name": "Richard Snyder",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2085215,
+        "name": "David Hogsette",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 4,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 1549306,
+        "name": "William P. Anderson",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 10,
+        "would_take_again": 0.8,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1130698,
+        "name": "Carla Ligo",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 16,
+        "would_take_again": 1.0,
+        "difficulty": 1.8
+    },
+    {
+        "id": 77246,
+        "name": "Dan Brown",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 51,
+        "would_take_again": 0.58,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1377549,
+        "name": "Patricia Scheffler",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 8,
+        "would_take_again": 0.34,
+        "difficulty": 1.8
+    },
+    {
+        "id": 20803,
+        "name": "Dorian Yeager",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 40,
+        "would_take_again": 0.25,
+        "difficulty": 4.5
+    },
+    {
+        "id": 1270504,
+        "name": "George Howley",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 9,
+        "would_take_again": 0.67,
+        "difficulty": 4.0
+    },
+    {
+        "id": 578953,
+        "name": "Joshua Drake",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 46,
+        "would_take_again": 0.86,
+        "difficulty": 3.7
+    },
+    {
+        "id": 1632554,
+        "name": "Erin Bancroft",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 11,
+        "would_take_again": 1.0,
+        "difficulty": 3.5
+    },
+    {
+        "id": 91693,
+        "name": "Fredrick Brenner",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 2.3,
+        "rating_count": 32,
+        "would_take_again": 1.0,
+        "difficulty": 3.1
+    },
+    {
+        "id": 2466063,
+        "name": "Paula Renninger",
+        "department": "Exercise amp Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 1.5,
+        "rating_count": 2,
+        "would_take_again": 0.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 2306532,
+        "name": "Fredrick Brenner",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 59334,
+        "name": "David Baglia",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 45,
+        "would_take_again": 1.0,
+        "difficulty": 3.2
+    },
+    {
+        "id": 2212903,
+        "name": "Jennifer Mobley",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2031205,
+        "name": "Sean Severson",
+        "department": "Exercise Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 5,
+        "would_take_again": 1.0,
+        "difficulty": 1.0
+    },
+    {
+        "id": 1887895,
+        "name": "Lawrence Walker",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 1.1,
+        "rating_count": 11,
+        "would_take_again": 0.0,
+        "difficulty": 4.1
+    },
+    {
+        "id": 72397,
+        "name": "James Dupree",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 64,
+        "would_take_again": 0.0,
+        "difficulty": 4.2
+    },
+    {
+        "id": 321244,
+        "name": "Steve Lamie",
+        "department": "Physical Ed",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 13,
+        "would_take_again": 1.0,
+        "difficulty": 1.7
+    },
+    {
+        "id": 1396215,
+        "name": "David Impellizzeri",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 2.7,
+        "rating_count": 5,
+        "would_take_again": 0.0,
+        "difficulty": 3.8
+    },
+    {
+        "id": 2376191,
+        "name": "Brian Howley",
+        "department": "Law",
+        "school": "Grove City College",
+        "quality_rating": 1.0,
+        "rating_count": 1,
+        "would_take_again": 0.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 589401,
+        "name": "Patricia Tinkey",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 10,
+        "would_take_again": 1.0,
+        "difficulty": 1.9
+    },
+    {
+        "id": 2228253,
+        "name": "Kuan-Lun Chu",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 1873269,
+        "name": "Heather Barton",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 3.4,
+        "rating_count": 10,
+        "would_take_again": 1.0,
+        "difficulty": 4.3
+    },
+    {
+        "id": 494668,
+        "name": "Jim Chinn",
+        "department": "Physical Ed",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 13,
+        "would_take_again": 1.0,
+        "difficulty": 1.0
+    },
+    {
+        "id": 2173702,
+        "name": "Marci Wagner",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 4,
+        "would_take_again": 0.75,
+        "difficulty": 3.3
+    },
+    {
+        "id": 73119,
+        "name": "Paul Kemeny",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 46,
+        "would_take_again": 1.0,
+        "difficulty": 3.1
+    },
+    {
+        "id": 1352551,
+        "name": "Paul Klenowski",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 2120621,
+        "name": "Sarina Moore",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": 1.0,
+        "difficulty": 3.7
+    },
+    {
+        "id": 64342,
+        "name": "Theodore Wentworth",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 2.8,
+        "rating_count": 33,
+        "would_take_again": 0.0,
+        "difficulty": 2.1
+    },
+    {
+        "id": 25877,
+        "name": "Randy Stringer",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 2.8,
+        "rating_count": 123,
+        "would_take_again": 0.25,
+        "difficulty": 2.1
+    },
+    {
+        "id": 1849486,
+        "name": "Kathy Rhoades",
+        "department": "Fine Arts",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 2.5
+    },
+    {
+        "id": 538846,
+        "name": "Jim Paich",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 6,
+        "would_take_again": 1.0,
+        "difficulty": 1.3
+    },
+    {
+        "id": 2279924,
+        "name": "Katy Westra",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 2146884,
+        "name": "Philip Prins",
+        "department": "Exercise Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": 1.0,
+        "difficulty": 4.0
+    },
+    {
+        "id": 44797,
+        "name": "Bruce Ketler",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 28,
+        "would_take_again": 1.0,
+        "difficulty": 2.0
+    },
+    {
+        "id": 76840,
+        "name": "Amy Barber",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 19,
+        "would_take_again": 1.0,
+        "difficulty": 3.0
+    },
+    {
+        "id": 44641,
+        "name": "Joseph Pisano",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 38,
+        "would_take_again": 1.0,
+        "difficulty": 1.6
+    },
+    {
+        "id": 1751208,
+        "name": "Judith Gosnell-Lamb",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 2.1,
+        "rating_count": 5,
+        "would_take_again": 0.0,
+        "difficulty": 3.8
+    },
+    {
+        "id": 1974988,
+        "name": "Cory Boatright",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 7,
+        "would_take_again": 0.0,
+        "difficulty": 3.1
+    },
+    {
+        "id": 826271,
+        "name": "Kathryn Anderson",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 10,
+        "would_take_again": 0.0,
+        "difficulty": 3.4
+    },
+    {
+        "id": 78909,
+        "name": "John Otto",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 39,
+        "would_take_again": 0.0,
+        "difficulty": 1.1
+    },
+    {
+        "id": 79845,
+        "name": "Timothy Mech",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 29,
+        "would_take_again": 0.0,
+        "difficulty": 2.8
+    },
+    {
+        "id": 59775,
+        "name": "C\u00c3\u00a9line L\u00c3\u00a9on",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 24,
+        "would_take_again": 1.0,
+        "difficulty": 2.7
+    },
+    {
+        "id": 1180197,
+        "name": "Suzanne Houk",
+        "department": "Psychology",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 2,
+        "would_take_again": null,
+        "difficulty": 4.0
+    },
+    {
+        "id": 2102166,
+        "name": "Todd Allen",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 86243,
+        "name": "Diane Dixon",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 39,
+        "would_take_again": null,
+        "difficulty": 2.8
+    },
+    {
+        "id": 2083685,
+        "name": "Jie Wu",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 4.0
+    },
+    {
+        "id": 124037,
+        "name": "Stanley Keehlwetter",
+        "department": "Theology",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 35,
+        "would_take_again": null,
+        "difficulty": 2.0
+    },
+    {
+        "id": 1593831,
+        "name": "Lijuan Meng",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 1.8,
+        "rating_count": 11,
+        "would_take_again": null,
+        "difficulty": 1.9
+    },
+    {
+        "id": 389512,
+        "name": "Stacy Birmingham",
+        "department": "Engineering",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 11,
+        "would_take_again": null,
+        "difficulty": 2.2
+    },
+    {
+        "id": 1377555,
+        "name": "Michelle Amodei",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 258123,
+        "name": "William Donnelly",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 13,
+        "would_take_again": null,
+        "difficulty": 3.5
+    },
+    {
+        "id": 321278,
+        "name": "Allison Williams",
+        "department": "Physical Ed",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 34,
+        "would_take_again": null,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1794154,
+        "name": "Jon Blaine",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 3,
+        "would_take_again": null,
+        "difficulty": 2.7
+    },
+    {
+        "id": 1178724,
+        "name": "David Diquattro",
+        "department": "Philosophy",
+        "school": "Grove City College",
+        "quality_rating": 3.1,
+        "rating_count": 10,
+        "would_take_again": null,
+        "difficulty": 2.3
+    },
+    {
+        "id": 952084,
+        "name": "Iain Duguid",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 8,
+        "would_take_again": null,
+        "difficulty": 2.9
+    },
+    {
+        "id": 1035041,
+        "name": "Suzanna Gribble",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 8,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 100361,
+        "name": "William Hinton",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 48,
+        "would_take_again": null,
+        "difficulty": 3.5
+    },
+    {
+        "id": 49542,
+        "name": "Harold Conder",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 18,
+        "would_take_again": null,
+        "difficulty": 4.3
+    },
+    {
+        "id": 44637,
+        "name": "Tracy Miller",
+        "department": "Economics",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 68,
+        "would_take_again": null,
+        "difficulty": 4.3
+    },
+    {
+        "id": 1445483,
+        "name": "Kimberly Trimpey",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 9,
+        "would_take_again": null,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1627730,
+        "name": "Dan Telep",
+        "department": "Marketing",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 2,
+        "would_take_again": null,
+        "difficulty": 2.5
+    },
+    {
+        "id": 59767,
+        "name": "Cynthia Forrester",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 23,
+        "would_take_again": null,
+        "difficulty": 3.8
+    },
+    {
+        "id": 20824,
+        "name": "Frederick Jenny",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.3,
+        "rating_count": 24,
+        "would_take_again": null,
+        "difficulty": 1.9
+    },
+    {
+        "id": 65954,
+        "name": "Ralph Carlson",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 34,
+        "would_take_again": null,
+        "difficulty": 2.7
+    },
+    {
+        "id": 1110741,
+        "name": "Matt Jensen",
+        "department": "Exercise & Sport Science",
+        "school": "Grove City College",
+        "quality_rating": 2.1,
+        "rating_count": 7,
+        "would_take_again": null,
+        "difficulty": 4.0
+    },
+    {
+        "id": 461853,
+        "name": "Steven Jones",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 29,
+        "would_take_again": null,
+        "difficulty": 3.6
+    },
+    {
+        "id": 1109605,
+        "name": "Michelle Kurtz",
+        "department": "Administration",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 1.0
+    },
+    {
+        "id": 20815,
+        "name": "Gary Smith",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 4.3,
+        "rating_count": 42,
+        "would_take_again": null,
+        "difficulty": 3.7
+    },
+    {
+        "id": 44639,
+        "name": "Roger MacKey",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 3.8,
+        "rating_count": 116,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1127306,
+        "name": "Jeremy Dalletezze",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 11,
+        "would_take_again": null,
+        "difficulty": 3.9
+    },
+    {
+        "id": 725685,
+        "name": "David Adams",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 58,
+        "would_take_again": null,
+        "difficulty": 3.3
+    },
+    {
+        "id": 1350681,
+        "name": ". Royster",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 12,
+        "would_take_again": null,
+        "difficulty": 2.2
+    },
+    {
+        "id": 20835,
+        "name": "Donald Lyle",
+        "department": "Physical Ed",
+        "school": "Grove City College",
+        "quality_rating": 1.8,
+        "rating_count": 52,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1422265,
+        "name": "Susan Grimm",
+        "department": "Chemistry",
+        "school": "Grove City College",
+        "quality_rating": 4.6,
+        "rating_count": 4,
+        "would_take_again": null,
+        "difficulty": 1.3
+    },
+    {
+        "id": 1178723,
+        "name": "Guillermo Gonzalez",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": 2.0,
+        "rating_count": 15,
+        "would_take_again": null,
+        "difficulty": 4.2
+    },
+    {
+        "id": 20811,
+        "name": "Richard Trammell",
+        "department": "Philosophy",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 54,
+        "would_take_again": null,
+        "difficulty": 3.7
+    },
+    {
+        "id": 1711531,
+        "name": "Melinda Miller",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 1.8,
+        "rating_count": 2,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1178722,
+        "name": "Christan Adels",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.2,
+        "rating_count": 8,
+        "would_take_again": null,
+        "difficulty": 3.5
+    },
+    {
+        "id": 77509,
+        "name": "John Sparks",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 31,
+        "would_take_again": null,
+        "difficulty": 2.9
+    },
+    {
+        "id": 1575503,
+        "name": "Lisa Seguin",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 2.8,
+        "rating_count": 2,
+        "would_take_again": null,
+        "difficulty": 1.5
+    },
+    {
+        "id": 1044734,
+        "name": "Christian Gribble",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": 3.9,
+        "rating_count": 4,
+        "would_take_again": null,
+        "difficulty": 4.3
+    },
+    {
+        "id": 1690662,
+        "name": "Susan Miller",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": 3.0,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 495649,
+        "name": "Thomas Gregg",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 3,
+        "would_take_again": null,
+        "difficulty": 2.0
+    },
+    {
+        "id": 588575,
+        "name": "Lou Colella",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 5.0,
+        "rating_count": 3,
+        "would_take_again": null,
+        "difficulty": 2.0
+    },
+    {
+        "id": 20808,
+        "name": "Richard Konzen",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 2.1,
+        "rating_count": 19,
+        "would_take_again": null,
+        "difficulty": 3.3
+    },
+    {
+        "id": 1178720,
+        "name": "Jondavid Wyneken",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 21,
+        "would_take_again": null,
+        "difficulty": 3.1
+    },
+    {
+        "id": 44647,
+        "name": "Edwin Arnold",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 26,
+        "would_take_again": null,
+        "difficulty": 1.5
+    },
+    {
+        "id": 20807,
+        "name": "Douglas Browne",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 39,
+        "would_take_again": null,
+        "difficulty": 3.1
+    },
+    {
+        "id": 88365,
+        "name": "J. Harvey Cole",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 3.7,
+        "rating_count": 17,
+        "would_take_again": null,
+        "difficulty": 2.8
+    },
+    {
+        "id": 342236,
+        "name": "Darrell Allgaier",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 25,
+        "would_take_again": null,
+        "difficulty": 3.4
+    },
+    {
+        "id": 1422263,
+        "name": "Craig Columbus",
+        "department": "Business",
+        "school": "Grove City College",
+        "quality_rating": 4.8,
+        "rating_count": 3,
+        "would_take_again": null,
+        "difficulty": 3.0
+    },
+    {
+        "id": 1178718,
+        "name": "Sharon McCathern",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": 4.4,
+        "rating_count": 5,
+        "would_take_again": null,
+        "difficulty": 1.8
+    },
+    {
+        "id": 956399,
+        "name": "Jennifer Scott",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": 4.7,
+        "rating_count": 6,
+        "would_take_again": null,
+        "difficulty": 1.8
+    },
+    {
+        "id": 1178721,
+        "name": "Laurieanne Dent",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": 3.6,
+        "rating_count": 12,
+        "would_take_again": null,
+        "difficulty": 4.8
+    },
+    {
+        "id": 74812,
+        "name": "Larry Fleming",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 21,
+        "would_take_again": null,
+        "difficulty": 3.6
+    },
+    {
+        "id": 77599,
+        "name": "Jeffrey Patterson",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": 2.4,
+        "rating_count": 19,
+        "would_take_again": null,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1046563,
+        "name": "Naoko Toba Rotunno",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 4,
+        "would_take_again": null,
+        "difficulty": 1.8
+    },
+    {
+        "id": 74437,
+        "name": "Carol Yeager",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 2.9,
+        "rating_count": 17,
+        "would_take_again": null,
+        "difficulty": 3.7
+    },
+    {
+        "id": 59768,
+        "name": "Catherine Trammell",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.0,
+        "rating_count": 15,
+        "would_take_again": null,
+        "difficulty": 2.3
+    },
+    {
+        "id": 44651,
+        "name": "Mark Weber",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": 2.6,
+        "rating_count": 36,
+        "would_take_again": null,
+        "difficulty": 4.8
+    },
+    {
+        "id": 45978,
+        "name": "Earl Tilford",
+        "department": "History",
+        "school": "Grove City College",
+        "quality_rating": 4.1,
+        "rating_count": 66,
+        "would_take_again": null,
+        "difficulty": 2.6
+    },
+    {
+        "id": 1197361,
+        "name": "Naoko Rotunno",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": 4.5,
+        "rating_count": 2,
+        "would_take_again": null,
+        "difficulty": 2.5
+    },
+    {
+        "id": 1969934,
+        "name": "Thomas Ball",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": 3.5,
+        "rating_count": 1,
+        "would_take_again": null,
+        "difficulty": 2.0
+    },
+    {
+        "id": 3062649,
+        "name": "Erik Anderson",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3133265,
+        "name": "Ian MacFawn",
+        "department": "Biology",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2786086,
+        "name": "Karastin Henley",
+        "department": "Mechanical Engineering",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2799173,
+        "name": "Carl Trueman",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2906251,
+        "name": "Christopher DelRe",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 1377553,
+        "name": "Deborah Mincey",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2988172,
+        "name": "richard Sabousky",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2543386,
+        "name": "Tyler Crumrine",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2543385,
+        "name": "Sarah Berry",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2458115,
+        "name": "Samuel Stanton",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2004816,
+        "name": "Paul Schaefer",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3112599,
+        "name": "Gustavo Lazcano",
+        "department": "Languages",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3043974,
+        "name": "Virginia Rawl",
+        "department": "Humanities",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3070060,
+        "name": "William Henderson",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3013757,
+        "name": "ethan akin",
+        "department": "Mathematics",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2884431,
+        "name": "Luke Fugate",
+        "department": "Physics",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2892572,
+        "name": "Donald Lyle",
+        "department": "Physical Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2323585,
+        "name": "Sandra Herald",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2349047,
+        "name": "Martin Bright",
+        "department": "Sociology",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 1576537,
+        "name": "Nicole Grewell",
+        "department": "Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 894007,
+        "name": "Deborah Reuber",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2793674,
+        "name": "Sasha Piastro-Tedford",
+        "department": "Music",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2921882,
+        "name": "Joseph Floris",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2859067,
+        "name": "Leah Day",
+        "department": "Graphic Arts",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2469346,
+        "name": "Alan Christman",
+        "department": "Electrical Engineering",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 1722874,
+        "name": "Michelle Bruns",
+        "department": "Physical Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2191884,
+        "name": "David Gordon",
+        "department": "Core Humanities",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3067326,
+        "name": "Michael Pence",
+        "department": "Political Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 3027856,
+        "name": "Darren Warren",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2921883,
+        "name": "Jason Hansford",
+        "department": "Communication",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2913160,
+        "name": "Jacob Jefferis",
+        "department": "Education",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2909088,
+        "name": "Michael Rawl",
+        "department": "English",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2527702,
+        "name": "Young Park",
+        "department": "Accounting",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2925757,
+        "name": "Heriberto Moran",
+        "department": "Engineering",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 2177514,
+        "name": "Patricia Tinkey",
+        "department": "Foreign Languages",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 1924908,
+        "name": "Dorien Yeager",
+        "department": "Computer Science",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    },
+    {
+        "id": 951027,
+        "name": "Chuck Sigler",
+        "department": "Religion",
+        "school": "Grove City College",
+        "quality_rating": null,
+        "rating_count": 0,
+        "would_take_again": null,
+        "difficulty": null
+    }
+]
