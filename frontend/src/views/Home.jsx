@@ -29,6 +29,19 @@ function Home({year, setYear, term, setTerm}) {
     goToSearch();
   };
 
+  // Handle URL query string for search
+  useEffect(() => {
+    if (location.pathname === '/search' && location.search) {
+      const searchQuery = decodeURIComponent(location.search.substring(1));
+      if (searchQuery && searchQuery.trim().length > 0) {
+        // Delay slightly to ensure DOM elements are ready
+        setTimeout(() => {
+          executeSearch(searchQuery, year, term, availability, credits, noTimeSections);
+        }, 100);
+      }
+    }
+  }, [location.pathname, location.search, year, term, availability, credits, noTimeSections]);
+
   useEffect(() => {
     const searchInput = document.getElementById("searchBar");
     
