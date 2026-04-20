@@ -26,9 +26,7 @@ function StatusSheet(){
         }
     };
 
-    // ==========================================
-    // 2. GLOBAL MATH
-    // ==========================================
+    // Calculate total credits earned based on completed courses and degree requirements
     const totalCreditsEarned = degreeData?.requirementGroups?.reduce((acc, group) => {
         const groupSum = group.courses?.filter(c => completedCourses.includes(c.code))
                          .reduce((sum, c) => sum + c.credits, 0) || 0;
@@ -67,7 +65,7 @@ function StatusSheet(){
     return (
         <div id="statusSheetBlock">
             <button id="statusBackArrow" onClick={statusSheetTransition}></button>
-            {/* THE TERNARY FLIP: If no major is selected, show the Empty State */}
+            {/* If no major is selected, show the Empty State */}
             {!selectedMajor ? (
                 <div id="majorSelectionOverlay">
                     <h2>Select Your Major</h2>
@@ -110,7 +108,7 @@ function StatusSheet(){
                         </select>
                     </div>
 
-                    {/* 3. GLOBAL PROGRESS BAR AREA */}
+                    {/* Progress Bar */}
                     {degreeData && (
                         <div className="globalProgressContainer">
                             <div className="progressLabel">
@@ -125,7 +123,6 @@ function StatusSheet(){
                         </div>
                     )}
 
-                    {/* THIS IS THE UPDATED RENDER LOGIC */}
                     <div id="requirementsGrid">
                         {isLoading ? (
                             <p style={{color: 'white', marginTop: '20px'}}>
