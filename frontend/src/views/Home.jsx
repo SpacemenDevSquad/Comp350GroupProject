@@ -16,31 +16,45 @@ function Home({year, setYear, term, setTerm}) {
   const [credits, setCredits] = useState(0);
   const [noTimeSections, setNoTimeSections] = useState(false);
 
-  // Reusable seaerch function to avoid duplicated logic
-  const executeSearch = async (searchText, year, term, currentAvailability, credits, noTimeSections) => {
+  // Reusable search function to avoid duplicated logic
+  const executeSearch = async (searchText, year, term, currentAvailability, credits, noTimeSections, skipNavigation = false) => {
     // Hide the autocomplete dropdown
-    setSuggestions([]); 
+    setSuggestions([]);
     
     // Pass the text and filters straight through to searchController.java and get the results
     const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits, noTimeSections);
     
     // Update the UI
     setSections(fetchedSections || []); 
-    goToSearch();
+    
+    // Only navigate if not skipping navigation (for popstate handling)
+    if (!skipNavigation) {
+      goToSearch();
+    }
   };
 
   // Handle URL query string for search
   useEffect(() => {
-    if (location.pathname === '/search' && location.search) {
-      const searchQuery = decodeURIComponent(location.search.substring(1));
-      if (searchQuery && searchQuery.trim().length > 0) {
-        // Delay slightly to ensure DOM elements are ready
-        setTimeout(() => {
-          executeSearch(searchQuery, year, term, availability, credits, noTimeSections);
-        }, 100);
+    const handlePopState = () => {
+      if (location.pathname === '/search' && location.search) {
+        const searchQuery = decodeURIComponent(location.search.substring(1));
+        if (searchQuery && searchQuery.trim().length > 0) {
+          // Delay slightly to ensure DOM elements are ready
+          setTimeout(() => {
+            executeSearch(searchQuery, year, term, availability, credits, noTimeSections, true);
+          }, 100);
+        }
       }
-    }
-  }, [location.pathname, location.search, year, term, availability, credits, noTimeSections]);
+    };
+
+    // Listen for browser navigation events
+    window.addEventListener('popstate', handlePopState);
+
+    // Also check on initial load
+    handlePopState();
+
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [year, term, availability, credits, noTimeSections]);
 
   useEffect(() => {
     const searchInput = document.getElementById("searchBar");
