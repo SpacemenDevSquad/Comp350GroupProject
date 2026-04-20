@@ -1,7 +1,7 @@
 # Install/Build/Run Instructions
 There are 2 ways to run this project:
-    - Using Docker
-    - Directly
+- Using Docker
+- Directly
 
 # Docker Instructions
 
