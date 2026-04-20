@@ -97,7 +97,11 @@ async function Calendar() {
     if (courseContainer) courseContainer.style.transform = 'translateX(-100vw)';
     
     if (statusSheetBlock) statusSheetBlock.style.transform = '';
-}
+
+    // Hide the status sheet page's back arrow if the screen is transitioning to calendar from "My Major"
+    if (statusSheetBlock) statusSheetBlock.style.transform = ''; 
+    if (statusBackArrow) statusBackArrow.style.opacity = '0%'; // Add this line!
+    }
 
 
 // Transition back to home
