@@ -57,11 +57,6 @@ bin/
 **/venv/
 .pytest_cache/
 
-### Env / secrets ###
-.env
-.env.*
-!.env.example
-
 ### Logs ###
 *.log
 

@@ -117,7 +117,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
         </div>
       </div>
       <div>
-        <div>
+        <div id="creditFilter">
           <span>Credits:</span>
         <select name="credit_filter" id="credit_filter" value={credits} onChange={(e) => {
             const newCredits = parseInt(e.target.value);
@@ -137,6 +137,14 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
       </div>
 
       <div style={{ marginTop: '20px', marginBottom: '20px', display: 'flex', alignItems: 'center', position: 'relative', zIndex: 10, minHeight: '24px' }}>
+        <label htmlFor="noTimeCheckbox" style={{ 
+            cursor: 'pointer', 
+            fontSize: '18px', 
+            color: '#000000',
+            fontWeight: '500' 
+          }}>
+          Display courses with no time slots:
+        </label>
         <input 
           type="checkbox" 
           id="noTimeCheckbox"
@@ -152,14 +160,6 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
           }} 
           style={{ marginRight: '8px', cursor: 'pointer' }}
         />
-        <label htmlFor="noTimeCheckbox" style={{ 
-            cursor: 'pointer', 
-            fontSize: '18px', 
-            color: '#000000',
-            fontWeight: '500' 
-          }}>
-          Display courses with no time slots
-        </label>
       </div>
 
       <UpdateSemester

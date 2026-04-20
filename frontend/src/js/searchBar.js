@@ -24,7 +24,7 @@ export default async function OnHitEnter(searchText, year, term, availability = 
 
   // Get the search results from the backend
   try{
-    const url = `http://localhost:8096/api/search/${year}/${term}`
+    const url = `${import.meta.env.VITE_API_URL}/api/search/${year}/${term}`
     console.log(url)
     const response = await fetch(url, {
       method: "POST",
@@ -65,7 +65,7 @@ export async function OnType(text, year, term, availability, credits=0) {
 
   // No body needed since all info is in the query params
   try {
-    const url = `http://localhost:8096/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`
+    const url = `${import.meta.env.VITE_API_URL}/api/autocomplete/${year}/${term}?q=${encodeURIComponent(text)}`
     console.log(url)
     const response = await fetch(url);
     if (!response.ok) {

@@ -2,6 +2,7 @@ import Home from './views/Home';
 import Schedule from './views/Schedule';
 import StatusSheet from './views/StatusSheet';
 import TopBar from './components/TopBar';
+import './css/login.css'
 import {useState} from 'react'
 import './css/App.css'
 import { auth } from "./js/firebase.js"
@@ -92,7 +93,7 @@ function App() {
       <StatusSheet />
 
       {showLogin && (
-        <div className="loginModal">
+        <div className="loginModel">
           <div className="loginContent">
             <h2 className="loginTitle">{isSignup ? "Create Account" : "Sign In"}</h2>
 

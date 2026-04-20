@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Course from './Course';
-import '../css/Requirements.css';
+import '../css/requirements.css';
 
 function RequirementGroup({ groupData, completedCourses, onToggle }) {
 
