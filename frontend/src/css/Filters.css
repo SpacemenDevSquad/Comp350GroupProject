@@ -12,7 +12,7 @@
     z-index: 50;
     transition: 0.3s ease;
     width: 40vw;
-    padding: 5px;
+    padding: 15px;
     margin-left: 29vw;
     height: auto;
 
@@ -23,6 +23,7 @@
     background-color: rgb(255, 255, 255);
 
     flex-direction: column;
+    font-family: 'Roboto Slab';
 }
 
 #availability_container {
@@ -111,12 +112,21 @@
 /* Add & Remove Button */
 
 #addButton {
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
     position: absolute;
+    transition: 0.3s;
+    color: black;
+    font-family: 'Roboto Slab';
+    border-radius: 5px;
+    background-color: white;
+    border: 3px solid rgb(50, 50, 50);
+    padding: 2.5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-#addButton, .filterRemoveButton {
+.filterRemoveButton {
     transition: 0.3s;
     color: black;
     font-family: 'Roboto Slab';
@@ -126,14 +136,12 @@
 }
 
 #addButton:hover, .filterRemoveButton:hover {
-    border: 2px solid rgb(116, 116, 116);
     box-shadow: 0px 0px 5px rgb(116, 116, 116);
 }
 
 #addButton:active, .filterRemoveButton:active {
     color: white;
     background-color: rgb(195, 0, 0);
-    border: 2px solid rgb(116, 116, 116);
 }
 
 /* Filter List */
@@ -141,4 +149,25 @@
     margin: 8px;
     color: black;
     font-family: 'Roboto Slab';
+}
+
+#creditFilter {
+    font-size: 17px;
+}
+
+#credit_filter, #semester_year_selector, #semester_term_selector {
+    font-size: 17px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+}
+
+#noTimeCheckbox {
+    margin-left: 10px;
+}
+
+#updateSemester {
+    font-size: 17px;
 }
