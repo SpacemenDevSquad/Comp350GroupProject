@@ -11,9 +11,9 @@
     overflow: hidden;
     z-index: 50;
     transition: 0.3s ease;
-    width: 40vw;
+    width: max(40vw, 300px);
     padding: 15px;
-    margin-left: 29vw;
+    margin-left: calc(calc(calc(100vw - max(40vw, 300px)) / 2) - 15px);
     height: auto;
 
     pointer-events: all;
