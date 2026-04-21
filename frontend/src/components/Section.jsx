@@ -10,17 +10,23 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
       {/* Stop propagation so clicking inside the modal doesn't close it */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()} style={modalStyle}>
         <h2>Professor {name}</h2>
-        <h3>
-          <a
-            href={`https://www.ratemyprofessors.com/professor/${rmpId}`} target='_blank' rel='noopener noreferrer'
-            style={{ color: '#82b8fe', textDecoration: 'none' }}>
-            RateMyProfessors Entry 🛈
-          </a></h3>
-        <ul>
-          <li>Quality: {qualityRating}/5 ({numRatings} ratings)</li>
-          <li>{wouldTakeAgain*100}% would take again</li>
-          <li>Difficulty: {difficulty}/5</li>
-        </ul>
+        {rmpId !== 0 && rmpId !== "Null" && (
+          <div style={{"height": "unset"}}>
+            <h3>
+              <a
+                href={`https://www.ratemyprofessors.com/professor/${rmpId}`} target='_blank' rel='noopener noreferrer'
+                style={{ color: '#82b8fe', textDecoration: 'none' }}>
+                RateMyProfessors Entry 🛈
+              </a>
+            </h3>
+            <ul>
+              <li>Quality: {qualityRating}/5 ({numRatings} ratings)</li>
+              <li>{wouldTakeAgain*100}% would take again</li>
+              <li>Difficulty: {difficulty}/5</li>
+            </ul>
+          </div>
+        )}
+        
         <button onClick={onClose} className='closeProfessorModal'>Close</button>
       </div>
     </div>
@@ -191,12 +197,14 @@ export default Section;
 // Quick inline styles just for the example to work visually
 const backdropStyle = {
   position: 'fixed', top: '30vh', left: '30vw', width: '40vw', height: '40vh',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', 
-  justifyContent: 'center', alignItems: 'center', zIndex: 1000
+  display: 'flex', 
+  justifyContent: 'center', alignItems: 'center', zIndex: 1000,
+  overflowY: 'auto'
 };
 
 const modalStyle = {
   backgroundColor: 'rgb(160,0,0)', padding: '20px', borderRadius: '8px', 
   minWidth: '300px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '4px solid rgb(255, 255, 255)',
-  'text-shadow': '2px 2px black'
+  'text-shadow': '2px 2px black',
+  height: 'fit-content', maxHeight: '90vh'
 };
