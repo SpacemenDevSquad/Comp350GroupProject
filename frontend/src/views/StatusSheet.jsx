@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../css/StatusSheet.css'
-import { statusSheetTransition } from '../js/screenTransitions.js'
+import { statusSheetTransition, goToSearch } from '../js/screenTransitions.js'
 import RequirementGroup from '../components/RequirementGroup.jsx';
 
 const MAJORS = [
@@ -17,13 +17,26 @@ function StatusSheet(){
     const [degreeData, setDegreeData] = useState(null); 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [completedCourses, setCompletedCourses] = useState([]);
+    // Initialize state by checking local storage first
+    const [completedCourses, setCompletedCourses] = useState(() => {
+        const saved = localStorage.getItem('prij_completed_courses');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // Update state and local storage whenever a checkbox is clicked
     const handleCourseToggle = (courseCode, isChecking) => {
-        if (isChecking) {
-            setCompletedCourses((prev) => [...prev, courseCode]);
-        } else {
-            setCompletedCourses((prev) => prev.filter((code) => code !== courseCode));
-        }
+        setCompletedCourses((prev) => {
+            // Determine what the new array of courses should look like
+            const updatedCourses = isChecking 
+                ? [...prev, courseCode] 
+                : prev.filter((code) => code !== courseCode);
+            
+            // Save it to the browser's memory
+            localStorage.setItem('prij_completed_courses', JSON.stringify(updatedCourses));
+            
+            // Return it to update the React state
+            return updatedCourses;
+        });
     };
 
     // ==========================================
@@ -64,6 +77,23 @@ function StatusSheet(){
             localStorage.setItem('selectedMajor', pendingMajor);
         }
     };
+    const handleCourseSearch = (courseCode) => {
+        const searchInput = document.getElementById("searchBar");
+        
+        if (searchInput) {
+            // 1. Physically set the value in the DOM
+            searchInput.value = courseCode;
+            
+            // 2. Dispatch an event to wake up React's `onChange` handler 
+            // so it knows to actually fetch the course data
+            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            searchInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        
+        // 3. Trigger your vanilla JS transition (this handles the slide AND the URL!)
+        goToSearch();
+    };
+
     return (
         <div id="statusSheetBlock">
             <button id="statusBackArrow" onClick={statusSheetTransition}></button>
@@ -139,6 +169,7 @@ function StatusSheet(){
                                         groupData={group} 
                                         completedCourses={completedCourses}
                                         onToggle={handleCourseToggle}
+                                        onCourseClick={handleCourseSearch}
                                     />
                                 ))}
                             </div>
