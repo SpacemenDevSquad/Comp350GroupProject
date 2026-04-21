@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../css/StatusSheet.css'
-import { statusSheetTransition } from '../js/screenTransitions.js'
+import { statusSheetTransition, goToSearch } from '../js/screenTransitions.js'
 import RequirementGroup from '../components/RequirementGroup.jsx';
 
 const MAJORS = [
@@ -17,13 +17,26 @@ function StatusSheet(){
     const [degreeData, setDegreeData] = useState(null); 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [completedCourses, setCompletedCourses] = useState([]);
+    // Initialize state by checking local storage first
+    const [completedCourses, setCompletedCourses] = useState(() => {
+        const saved = localStorage.getItem('prij_completed_courses');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // Update state and local storage whenever a checkbox is clicked
     const handleCourseToggle = (courseCode, isChecking) => {
-        if (isChecking) {
-            setCompletedCourses((prev) => [...prev, courseCode]);
-        } else {
-            setCompletedCourses((prev) => prev.filter((code) => code !== courseCode));
-        }
+        setCompletedCourses((prev) => {
+            // Determine what the new array of courses should look like
+            const updatedCourses = isChecking 
+                ? [...prev, courseCode] 
+                : prev.filter((code) => code !== courseCode);
+            
+            // Save it to the browser's memory
+            localStorage.setItem('prij_completed_courses', JSON.stringify(updatedCourses));
+            
+            // Return it to update the React state
+            return updatedCourses;
+        });
     };
 
     // Calculate total credits earned based on completed courses and degree requirements
@@ -62,6 +75,25 @@ function StatusSheet(){
             localStorage.setItem('selectedMajor', pendingMajor);
         }
     };
+    const handleCourseSearch = (courseCode) => {
+        const searchInput = document.getElementById("searchBar");
+        
+        if (searchInput) {
+            // 1. Bypass React's internal value tracker and force the native DOM to update
+            const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+            nativeInputValueSetter.call(searchInput, courseCode);
+            
+            // 2. Now dispatch the event so React's onChange actually triggers
+            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+            
+            // 3. Trigger the screen slide
+            goToSearch();
+            window.dispatchEvent(new PopStateEvent('popstate'));
+        } else {
+            console.error("The search bar doesn't exist in the DOM right now!");
+        }
+    };
+
     return (
         <div id="statusSheetBlock">
             <button id="statusBackArrow" onClick={statusSheetTransition}></button>
@@ -136,6 +168,7 @@ function StatusSheet(){
                                         groupData={group} 
                                         completedCourses={completedCourses}
                                         onToggle={handleCourseToggle}
+                                        onCourseClick={handleCourseSearch}
                                     />
                                 ))}
                             </div>

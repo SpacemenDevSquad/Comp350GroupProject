@@ -154,3 +154,27 @@ select option {
     margin-top: 30px;
     /* We will convert this to display: grid when you have your Javalin data ready! */
 }
+
+.courseSearchIcon {
+    height: 16px;
+    width: 16px;
+    border: 0px;
+    cursor: pointer;
+    
+    /* Transparent background, relying on the image */
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('../images/searchIcon.svg'); /* Make sure to name your downloaded SVG this! */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Spacing it away from the course name */
+    margin-left: 8px; 
+    
+    /* Optional: A quick hover effect so it feels interactive */
+    transition: transform 0.2s ease;
+}
+
+.courseSearchIcon:hover {
+    transform: scale(1.2); 
+}

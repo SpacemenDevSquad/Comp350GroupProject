@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Course from './Course';
 import '../css/requirements.css';
 
-function RequirementGroup({ groupData, completedCourses, onToggle }) {
+function RequirementGroup({ groupData, completedCourses, onToggle, onCourseClick }) {
 
 
     
@@ -43,6 +43,7 @@ function RequirementGroup({ groupData, completedCourses, onToggle }) {
 
                             isChecked={completedCourses.includes(courseObj.code)}
                             onToggle={(isChecked) => onToggle(courseObj.code, isChecked)}
+                            onCourseClick={onCourseClick}
                         />
                     ))
                 ) : groupData.options ? (
@@ -59,6 +60,7 @@ function RequirementGroup({ groupData, completedCourses, onToggle }) {
 
                                         isChecked={completedCourses.includes(courseObj.code)}
                                         onToggle={(isChecked) => onToggle(courseObj.code, isChecked)}
+                                        onCourseClick={onCourseClick}
                                     />
                                 ))}
                             </div>
