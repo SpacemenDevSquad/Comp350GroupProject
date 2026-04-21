@@ -79,17 +79,19 @@ function StatusSheet(){
         const searchInput = document.getElementById("searchBar");
         
         if (searchInput) {
-            // 1. Physically set the value in the DOM
-            searchInput.value = courseCode;
+            // 1. Bypass React's internal value tracker and force the native DOM to update
+            const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+            nativeInputValueSetter.call(searchInput, courseCode);
             
-            // 2. Dispatch an event to wake up React's `onChange` handler 
-            // so it knows to actually fetch the course data
+            // 2. Now dispatch the event so React's onChange actually triggers
             searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-            searchInput.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // 3. Trigger the screen slide
+            goToSearch();
+            window.dispatchEvent(new PopStateEvent('popstate'));
+        } else {
+            console.error("The search bar doesn't exist in the DOM right now!");
         }
-        
-        // 3. Trigger your vanilla JS transition (this handles the slide AND the URL!)
-        goToSearch();
     };
 
     return (
