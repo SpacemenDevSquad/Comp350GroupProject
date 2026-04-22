@@ -33,7 +33,7 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
   );
 };
 
-function Section({ data, year, term }) {
+function Section({ data, year, term, userId, scheduleName }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Gets the title of the course and formats it with proper capitalization
@@ -95,8 +95,12 @@ function Section({ data, year, term }) {
 
   //ADD/DROP LOGIC
   async function addSection(force=false) {
+    if (!userId || !scheduleName) {
+      createAlert("Sign in required", "Please log in to add courses", "orange");
+      return;
+    }
     //make api call
-    const response= await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/add/1/${year}/${term}?force=${force}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/add/${userId}/${year}/${term}/${scheduleName}?force=${force}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -124,8 +128,12 @@ function Section({ data, year, term }) {
   }
 
   async function dropSection() {
+    if (!userId || !scheduleName) {
+      createAlert("Sign in required", "Please log in to drop courses", "orange");
+      return;
+    }
     //make api call
-    const response= await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/1/${year}/${term}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/${userId}/${year}/${term}/${scheduleName}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -146,7 +154,7 @@ function Section({ data, year, term }) {
   const sectionLetter = data.sectionLetter || "?";
   const credits = data.course?.credits || "Null";
   const title = joinedTitle;
-  const timeSlots = joinedTimes.join(" ");
+  const timeSlots = Array.isArray(joinedTimes) ? joinedTimes.join(" ") : "No Time Listed";
   const description = data.course?.description || "Null";
   const sectionTerm = data.semester?.term || "Null";
   const sectionYear = data.semester?.year || "Null";

@@ -62,7 +62,7 @@ public class Driver implements Runnable {
 
     // String flag with a default value
     @Option(names = "--db-type", description = "Type of database to use")
-    private String dbType = "inmemory";
+    private String dbType = "sqlite";
 
     public static void main(String[] args) {
         // Picocli automatically parses the args and populates the variables
@@ -79,7 +79,7 @@ public class Driver implements Runnable {
         Repository<Rating, Integer> ratingRepository;
         Repository<Schedule, ScheduleKey> scheduleRepository;
         Repository<Semester, SemesterKey> semesterRepository;
-        Repository<User, Integer> userRepository;
+        Repository<User, String> userRepository;
         
         if(dbType.equals("sqlite")){
             deleteDatabaseFolder("sqlite");
@@ -182,7 +182,7 @@ public class Driver implements Runnable {
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
         List<Controller> controllers = List.of(
             new CourseController(courseRepository, departmentRepository),
-            new UserController(),
+            new UserController(userRepository),
             new SectionController(sectionRepository, departmentRepository, courseRepository),
             new SearchController(sectionRepository, departmentRepository, courseRepository),
             new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository, semesterRepository, userRepository),

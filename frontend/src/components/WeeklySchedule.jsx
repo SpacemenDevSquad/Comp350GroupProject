@@ -1,8 +1,8 @@
 import '../css/weeklySchedule.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
 
-function WeeklySchedule({ year, term }){
+function WeeklySchedule({ userId, year, term, scheduleName, setScheduleName, existingSchedules}){
     // ----STATE MANAGEMENT----
     // Tracks the schedule object, loading status, and total credits from the backend
     const [schedule, setSchedule] = useState(null);
@@ -10,14 +10,18 @@ function WeeklySchedule({ year, term }){
     const [loading, setLoading] = useState(null);
 
     const [totalCreds, setCreds] = useState(null);
+    const [newScheduleInput, setNewScheduleInput] = useState("");
 
     // ----DATA FETCHING----
+    
     //pull the latest schedule and credit totals for the current user/semester
     async function fetchSchedule(){
         console.log(year, term)
+        if (!userId || !scheduleName) return;
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/1/${year}/${term}`);
-            const creds = await (await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/credits/1/${year}/${term}`)).json()
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/${userId}/${year}/${term}/${scheduleName}`);
+            const credsResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/credits/${userId}/${year}/${term}/${scheduleName}`);
+            const creds = await credsResponse.json();
             const data = await response.json();
             setSchedule(data);
             setCreds(creds);
@@ -32,15 +36,14 @@ function WeeklySchedule({ year, term }){
     //runs automatically when props/semester change or add/drop event
     useEffect(() => {
         fetchSchedule();
-    }, [year, term]);
+    }, [year, term, scheduleName, userId]);
 
     // Listen for add/drop refresh to do another fetch
     useEffect(() => {
         const handler = () => fetchSchedule();
         window.addEventListener('scheduleRefresh', handler);
         return () => window.removeEventListener('scheduleRefresh', handler);
-    }, [year, term]);
-
+    }, [year, term, scheduleName, userId]);
 
     if (!schedule) {
         return <div className="schedule-box">Loading your schedule...</div>;
@@ -100,9 +103,22 @@ function WeeklySchedule({ year, term }){
     }
 
     // ----ACTION HANDLERS----
+
+    //Creates a new blank schedule
+    const createNewSchedule = async () => {
+    if (newScheduleInput.trim() !== "") {
+        const newName = newScheduleInput.trim();
+       
+        await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/${userId}/${year}/${term}/${newName}`);
+    
+        setScheduleName(newName);
+        setNewScheduleInput("");
+        window.dispatchEvent(new CustomEvent('scheduleRefresh'));
+    }
+};
     // Calls java delete endpoint to remove section
     async function dropSection(courseData) {
-        const response = await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/${userId}/${year}/${term}/${scheduleName}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(courseData),
@@ -125,8 +141,55 @@ function WeeklySchedule({ year, term }){
         "S": "Spring"
     }
     
+   if (!userId) {
+        return (
+            
+            <div className="login-prompt-content">
+                <h2 className="login-prompt-header">Access Restricted</h2>
+                <p className="login-prompt-text">Please sign in to view and manage your custom schedules.</p>
+            </div>
+        
+        );
+    }
+
+      
+    
+
     return (
     <div className="schedule-container">
+        <div className="schedule-controls">
+            <div className="control-row">
+                <label>Select Schedule:</label>
+                <select
+                    value={scheduleName}
+                    onChange={(e) => setScheduleName(e.target.value)}
+                    className="schedule-dropdown"
+                    disabled={!userId}
+                >
+                    <option value="Main Schedule">Main Schedule</option>
+                
+                    {(existingSchedules || [])
+                        .filter(name => name !== "Main Schedule")
+                        .map((name, index) => (
+                            <option key={`${name}-${index}`} value={name}>{name}</option>
+                        ))}
+                </select>
+            </div>
+
+            <div className="control-row">
+                <input 
+                    type="text" 
+                    placeholder="New schedule name..."
+                    value={newScheduleInput}
+                    onChange={(e) => setNewScheduleInput(e.target.value)}
+                    className="schedule-input"
+                />
+                <button onClick={createNewSchedule} className="schedule-plus-btn">+</button>
+            </div>
+        </div>
+        
+
+
 
         <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
         <p id="totalCredLabel">Total Credits: {totalCreds}</p>
