@@ -1,4 +1,5 @@
-const cacheName = "gccCourseSchedule - File Caching"
+const cacheName = "gccCourseSchedule - File Caching v1"
+const apiCacheName = "gccCourseSchedule - API Caching v1"
 const cachedFiles = [
   "/",
   "/schedule",
@@ -57,6 +58,29 @@ const cachedFiles = [
   "/src/images/PRIJ_horizontal_white.svg?import"
 ]
 
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  return cached || fetch(request);
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(apiCacheName);
+
+  try {
+    const response = await fetch(request);
+
+    // Save a copy to cache
+    cache.put(request, response.clone());
+
+    return response;
+  } catch (err) {
+    // Offline → try cache
+    const cached = await cache.match(request);
+    return cached || null;
+  }
+}
+
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(self.clients.claim());
 });
@@ -74,9 +98,15 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
-    })
-  );
+  const {request} = event;
+
+  // Handle API calls differently
+  if (isApiRequest(request)) {
+    event.respondWith(networkFirst(request));
+  } else {
+    event.respondWith(cacheFirst(request));
+  }
 });
+
+
+const isApiRequest = (request) => {return request.url.includes("/api/")}
