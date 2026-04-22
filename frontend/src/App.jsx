@@ -5,11 +5,9 @@ import Schedule from './views/Schedule';
 import StatusSheet from './views/StatusSheet';
 import TopBar from './components/TopBar';
 import './css/login.css'
-import {useState} from 'react'
 import './css/App.css'
 import { auth } from "./js/firebase.js"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
-import { useEffect } from "react";
 import OfflineAlert from './components/OfflineAlert.jsx'
 
 
@@ -28,7 +26,7 @@ function App() {
   const [existingSchedules, setExistingSchedules] = useState([]); // Shared dropdown menu State
 
   //SEMESTER STATES
-  const [year, setYear] = useState(2025)
+  const [year, setYear] = useState(2026)
   const [term, setTerm] = useState('F')
 
 
