@@ -15,6 +15,7 @@ import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.Repository;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import java.util.List;
 
 
 // SCHEDULE CONTROLLER CLASS: Manages API endpoints for creating, retrieving, and modifying student schedules.
@@ -26,7 +27,7 @@ public class ScheduleController implements Controller {
     private Repository<Course, CourseKey> courseRepo;
     private Repository<Schedule, ScheduleKey> scheduleRepository;
     private Repository<Semester, SemesterKey> semesterRepository;
-    private Repository<User, Integer> userRepository;
+    private Repository<User, String> userRepository;
     
     // ---- CONSTRUCTOR ----
     // standard constructor (initizlzies all the repositories used to fill schedule)
@@ -36,7 +37,7 @@ public class ScheduleController implements Controller {
         Repository<Course, CourseKey> courseRepo,
         Repository<Schedule, ScheduleKey> scheduleRepository,
         Repository<Semester, SemesterKey> semesterRepository,
-        Repository<User, Integer> userRepository)
+        Repository<User, String> userRepository)
     {
         this.sectionRepo = sectionRepo;
         this.courseRepo = courseRepo;
@@ -50,33 +51,21 @@ public class ScheduleController implements Controller {
 
     // Parses Javalin path parameters to get/initialize a schedule (parses)
     private Schedule getOrAddSchedule(Context ctx){
-        int userId = Integer.parseInt(ctx.pathParam("userId"));
+        String userId = ctx.pathParam("userId");
         int year = Integer.parseInt(ctx.pathParam("year"));
         char term = ctx.pathParam("term").charAt(0);
+        String scheduleName = ctx.pathParam("scheduleName");
 
-        return getOrAddSchedule(userId, year, term);
+        return getOrAddSchedule(userId, year, term, scheduleName);
     }
 
     //ensures variables actually exist in the repositories (doesn't parse) 
-    private Schedule getOrAddSchedule(int userId, int year, char term){
-        // Ensure the User exists, using a fallback if they aren't in the repo yet
-        User fallbackUser = new User(userId, "merrickrw23@gcc.edu", "Ryan Merrick");
-        User user = userRepository.getOrAdd(userId, fallbackUser);
-
-        // Ensure the Semester exists
-        Semester fallbackSemester = new Semester(
-            year,
-            term
-        );
-        Semester sem = semesterRepository.getOrAdd(
-            fallbackSemester.getKey(),
-            fallbackSemester
-        );
-
-        ScheduleKey key = new ScheduleKey(user, sem);
-
-        // Fetch current schedule or create a new one for this user/semester combo
-        return scheduleRepository.getOrAdd(key, new Schedule(user, sem));
+    private Schedule getOrAddSchedule(String userId, int year, char term, String scheduleName){
+        User user = userRepository.getOrAdd(userId, new User(userId, "unknown@gcc.edu", "New User"));
+        Semester sem = semesterRepository.getOrAdd(new SemesterKey(year, term), new Semester(year, term));
+        
+        ScheduleKey key = new ScheduleKey(user, sem, scheduleName);
+        return scheduleRepository.getOrAdd(key, new Schedule(user, sem, scheduleName));
     }
 
     // ---- ROUTE REGISTRATION ----
@@ -84,7 +73,7 @@ public class ScheduleController implements Controller {
     public void registerRoutes(Javalin app){
         
         // GET: Retreives the schedule
-        app.get("/api/schedule/{userId}/{year}/{term}", ctx -> {
+        app.get("/api/schedule/{userId}/{year}/{term}/{scheduleName}", ctx -> {
             //Gets a current schedule or makes a new one based on ScheduleKey
             Schedule sch = getOrAddSchedule(ctx);
 
@@ -93,18 +82,35 @@ public class ScheduleController implements Controller {
         });
 
         // GET: Retrieves total credits
-        app.get("/api/schedule/credits/{userId}/{year}/{term}", ctx -> {
+        app.get("/api/schedule/credits/{userId}/{year}/{term}/{scheduleName}", ctx -> {
             //Gets a current schedule or makes a new one based on ScheduleKey
             Schedule sch = getOrAddSchedule(ctx);
 
             // Returns just the integer of current credits
             ctx.json(sch.currentCredits());
         });
+        
+        //GET: Retrieves all the schedule names for the dropdown list
+        app.get("/api/schedules/{userId}/{year}/{term}", ctx -> {
+            String userId = ctx.pathParam("userId");
+            int year = Integer.parseInt(ctx.pathParam("year"));
+            char term = ctx.pathParam("term").charAt(0);
+
+            // Filters the repository for all schedules matching this user/semester
+            List<String> names = scheduleRepository.findAll().stream()
+                .filter(s -> s.getUser().getId().equals(userId) && 
+                            s.getSemester().getYear() == year && 
+                            s.getSemester().getTerm() == term)
+                .map(Schedule::getName)
+                .toList();
+            
+            ctx.json(names);
+        });
 
 
 
         // POST: Add a section to the schedule
-        app.post("/api/schedule/add/{userId}/{year}/{term}", ctx -> {
+        app.post("/api/schedule/add/{userId}/{year}/{term}/{scheduleName}", ctx -> {
             
             // Check for the "force" query param (used when user confirms overriding 18-credit limit)
             boolean force = Boolean.parseBoolean(ctx.queryParam("force"));
@@ -147,7 +153,7 @@ public class ScheduleController implements Controller {
         });
 
         //DELETE: Delete section from the schedule
-        app.delete("/api/schedule/drop/{userId}/{year}/{term}", ctx ->{
+        app.delete("/api/schedule/drop/{userId}/{year}/{term}/{scheduleName}", ctx ->{
 
             System.out.println("DELETE Request received for user: " + ctx.pathParam("userId"));
 
