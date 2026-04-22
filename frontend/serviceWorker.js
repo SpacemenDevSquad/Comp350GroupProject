@@ -15,7 +15,6 @@ const cachedFiles = [
   "/src/js/firebase.js",
   "/src/js/screenTransitions.js",
   "/src/js/searchBar.js",
-  "/src/js/offlineDetect.js",
   "/src/js/toggleFilter.js",
   "/src/images/AppleIcon.png",
   "/src/images/backArrow.svg",

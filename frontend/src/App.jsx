@@ -8,6 +8,7 @@ import './css/App.css'
 import { auth } from "./js/firebase.js"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { useEffect } from "react";
+import OfflineAlert from './components/OfflineAlert.jsx'
 
 
 
@@ -73,6 +74,7 @@ function App() {
   return (
     <div>
       {/* pass User and trigger function to TopBar */}
+      <OfflineAlert />
       <TopBar
         user={currentUser}
         onLoginClick={() => setShowLogin(true)}
