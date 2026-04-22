@@ -54,7 +54,7 @@ div {height: 100%; width: 100%;}
 /* Search Bar */
 
 #searchBar {
-    width: 40vw;
+    width: max(40vw, 220px);
     height: 40px;
     margin-top: 10px;
     transition: 0.4s ease;
@@ -86,7 +86,7 @@ div {height: 100%; width: 100%;}
 }
 
 #searchBar:focus {
-    width: 44vw;
+    width: max(40vw, 250px);
     height: 45px;
 
     font-size: 23px;
@@ -185,4 +185,37 @@ div {height: 100%; width: 100%;}
 
 #autocompleteDropdown li:hover {
     background-color: rgb(220, 220, 220);
+}
+
+
+.schedule-dropdown {
+   
+    height: 35px !important;
+    margin-left: 10px;
+    margin-top: 10px;
+    
+    background-color: white !important;
+    color: black !important;
+    border: 4px solid rgb(50, 50, 50) !important;
+    border-radius: 20px;
+    
+    padding: 0 15px;
+    font-family: 'Roboto Slab';
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.4s ease;
+    pointer-events: auto;
+
+   
+}
+
+.schedule-dropdown:focus {
+    border: 4px solid rgb(160, 0, 0); /* Matches search bar focus color */
+    outline: none;
+}
+
+.schedule-dropdown:disabled {
+    background-color: rgb(220, 220, 220);
+    cursor: not-allowed;
+    opacity: 0.8;
 }

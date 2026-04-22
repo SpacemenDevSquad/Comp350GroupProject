@@ -2,7 +2,7 @@ import '../css/schedule.css'
 import calendarTransition from '../js/screenTransitions.js'
 import WeeklySchedule from "../components/WeeklySchedule.jsx"
 
-function Schedule({ year, term }){
+function Schedule({ year, term, userId, scheduleName, setScheduleName, existingSchedules }){
   return (
     <div id="scheduleBlock">
       <button id="backArrow" onClick={() => window.history.back()}></button>
@@ -11,6 +11,10 @@ function Schedule({ year, term }){
         key={`${year}-${term}`}
         year={year}
         term={term}
+        userId={userId}
+        scheduleName={scheduleName}
+        setScheduleName={setScheduleName}
+        existingSchedules={existingSchedules}
       />
     </div>
   )

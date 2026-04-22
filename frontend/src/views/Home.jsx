@@ -1,4 +1,4 @@
-import {useState, useEffect, use} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'
@@ -9,12 +9,14 @@ import UpdateSemester from '../components/UpdateSemester.jsx';
 
 let addedListener = false;
 
-function Home({year, setYear, term, setTerm}) {
+function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleName, existingSchedules}) {
   const [sections, setSections] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [availability, setAvailability] = useState([]);
   const [credits, setCredits] = useState(0);
   const [noTimeSections, setNoTimeSections] = useState(false);
+
+  
 
   // Reusable search function to avoid duplicated logic
   const executeSearch = async (searchText, year, term, currentAvailability, credits, noTimeSections, skipNavigation = false) => {
@@ -80,6 +82,7 @@ function Home({year, setYear, term, setTerm}) {
     };
   }, [year, term]);
 
+ 
   return (
     <div>
 
@@ -126,6 +129,23 @@ function Home({year, setYear, term, setTerm}) {
 
           <button id="filterButton" onClick={()=>{toggleFilter(false)}}>☰</button>
 
+          {/* DROPDOWN */}
+          
+          <select
+            value={scheduleName}
+            onChange={(e) => setScheduleName(e.target.value)}
+            className="schedule-dropdown"
+            disabled={!userId}
+        >
+            <option value="Main Schedule">Main Schedule</option>
+            {(existingSchedules || [])
+                .filter(name => name !== "Main Schedule")
+                .map((name, index) => (
+                    <option key={`${name}-${index}`} value={name}>{name}</option>
+                ))}
+        </select>
+      
+
         </div>
       </div>
 
@@ -148,7 +168,16 @@ function Home({year, setYear, term, setTerm}) {
       <div id='courseContainer'>
         {sections.length > 0 ? (
           sections.map((section, index) => {
-            return <Section key={index} data={section} year={year} term={term} />;
+            return (
+              <Section 
+                key={index} 
+                data={section} 
+                year={year} 
+                term={term} 
+                userId={userId} 
+                scheduleName={scheduleName}
+              />
+            );
           })
         ) : null}
       </div>

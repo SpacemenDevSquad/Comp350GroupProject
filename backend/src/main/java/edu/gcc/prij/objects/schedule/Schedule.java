@@ -22,13 +22,15 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
     // ----SCHEDULE VARIABLES----
     private User user;
     private Semester semester;
+    private String name;
     private Map<SectionKey, Section> sections;
 
     // ----SCHEDULE CONSTRUCTORS----
     // standard constructor (initizlzies User,Semester, Sections)
-    public Schedule(User user, Semester semester){
+    public Schedule(User user, Semester semester, String name){
         this.semester = semester;
         this.user = user;
+        this.name= name;
         this.sections = new HashMap<>();
     }
     // default empty constructor (helps with the JSON initialization when building schedule)
@@ -143,9 +145,13 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return semester; 
     }
 
+    public String getName() { 
+        return name; 
+    }
+
     // Generates a composite key used by the Repository to identify this schedule.
     @Override
     public ScheduleKey getKey() {
-        return new ScheduleKey(user, semester);
+        return new ScheduleKey(user, semester, name);
     }
 }
