@@ -19,6 +19,19 @@ export default function toggleFilter(forceOff = false) {
     setTimeout(() => {filter.style.height = 'auto';}, 300);
 }
 
+// Handle click outside filter menu to close it
+function handleClickOutsideFilter(event) {
+    const filter = document.getElementById("filters");
+    const filterButton = document.getElementById("filterButton");
+    
+    if (filter && filterButton && shown) {
+        // Check if click is outside both the filter menu and the filter button
+        if (!filter.contains(event.target) && !filterButton.contains(event.target)) {
+            toggleFilter(true); // Force close
+        }
+    }
+}
+
 function schedulePlacement() {
     const filter = document.getElementById("filters");
     const searchBar = document.getElementById("searchContainer");
@@ -30,5 +43,8 @@ function schedulePlacement() {
     }
     setTimeout(schedulePlacement, 50);
 }
+
+// Add click-outside listener for filter menu
+document.addEventListener('mousedown', handleClickOutsideFilter);
 
 schedulePlacement();

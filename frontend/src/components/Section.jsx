@@ -33,8 +33,9 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
   );
 };
 
-function Section({ data, year, term, userId, scheduleName }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function Section({ data, year, term, userId, scheduleName, openProfessor, setOpenProfessor }) {
+  // Creates a unique identifier for this professor to compare with openProfessor
+  const professorId = `${data.faculty[0]?.id || 'null'}-${data.course?.id || 'null'}-${data.sectionLetter || 'null'}`;
 
   // Gets the title of the course and formats it with proper capitalization
   let rawTitle = data.course?.title || "Null";
@@ -173,7 +174,15 @@ function Section({ data, year, term, userId, scheduleName }) {
         Professor:{' '}
         {/* Note: It's better for accessibility to use a button styled as text than a span */}
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => setOpenProfessor({
+            id: professorId,
+            name: profName,
+            qualityRating: profQualityRating,
+            numRatings: profNumRatings,
+            wouldTakeAgain: profWouldTakeAgain,
+            difficulty: profDifficulty,
+            rmpId: profRMPId
+          })}
           style={{ background: 'none', border: 'none', color: 'inherit', textDecoration: 'none', cursor: 'pointer', padding: 0, fontFamily: 'inherit', fontSize: 'inherit', 'text-shadow': '2px 2px black'}}
         >
           {profName} 🛈
@@ -185,15 +194,15 @@ function Section({ data, year, term, userId, scheduleName }) {
       <button onClick={addSection} className="addButton">Add</button>
       <button onClick={dropSection} className="dropButton">Drop</button>
 
-      {isModalOpen && (
+      {openProfessor && openProfessor.id === professorId && (
         <ProfessorModal 
-          name={profName}
-          qualityRating={profQualityRating}
-          numRatings={profNumRatings}
-          wouldTakeAgain={profWouldTakeAgain}
-          difficulty={profDifficulty}
-          rmpId={profRMPId}
-          onClose={() => setIsModalOpen(false)} 
+          name={openProfessor.name}
+          qualityRating={openProfessor.qualityRating}
+          numRatings={openProfessor.numRatings}
+          wouldTakeAgain={openProfessor.wouldTakeAgain}
+          difficulty={openProfessor.difficulty}
+          rmpId={openProfessor.rmpId}
+          onClose={() => setOpenProfessor(null)} 
         />
       )}
     </div>
@@ -204,15 +213,16 @@ export default Section;
 
 // Quick inline styles just for the example to work visually
 const backdropStyle = {
-  position: 'fixed', top: '30vh', left: '30vw', width: '40vw', height: '40vh',
+  position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
   display: 'flex', 
   justifyContent: 'center', alignItems: 'center', zIndex: 1000,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
   overflowY: 'auto'
 };
 
 const modalStyle = {
   backgroundColor: 'rgb(160,0,0)', padding: '20px', borderRadius: '8px', 
-  minWidth: '300px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '4px solid rgb(255, 255, 255)',
+  minWidth: '300px', maxWidth: '50vw', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '4px solid rgb(255, 255, 255)',
   'text-shadow': '2px 2px black',
   height: 'fit-content', maxHeight: '90vh'
 };

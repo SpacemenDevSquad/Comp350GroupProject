@@ -1,8 +1,9 @@
 import '../css/weeklySchedule.css'
 import React, { useState, useEffect, useCallback } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
+import UpdateSemester from './UpdateSemester';
 
-function WeeklySchedule({ userId, year, term, scheduleName, setScheduleName, existingSchedules}){
+function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, setScheduleName, existingSchedules}){
     // ----STATE MANAGEMENT----
     // Tracks the schedule object, loading status, and total credits from the backend
     const [schedule, setSchedule] = useState(null);
@@ -187,9 +188,15 @@ function WeeklySchedule({ userId, year, term, scheduleName, setScheduleName, exi
                 <button onClick={createNewSchedule} className="schedule-plus-btn">+</button>
             </div>
         </div>
-        
 
-
+        <div className="schedule-semester-selector">
+            <UpdateSemester
+                year={year}
+                setYear={setYear}
+                term={term}
+                setTerm={setTerm}
+            />
+        </div>
 
         <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
         <p id="totalCredLabel">Total Credits: {totalCreds}</p>
