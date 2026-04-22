@@ -102,7 +102,7 @@ function WeeklySchedule({ year, term }){
     // ----ACTION HANDLERS----
     // Calls java delete endpoint to remove section
     async function dropSection(courseData) {
-        const response = await fetch(`http://localhost:8096/api/schedule/drop/1/${year}/${term}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/1/${year}/${term}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(courseData),

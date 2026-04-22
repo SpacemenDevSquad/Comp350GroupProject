@@ -54,7 +54,7 @@ div {height: 100%; width: 100%;}
 /* Search Bar */
 
 #searchBar {
-    width: 40vw;
+    width: max(40vw, 220px);
     height: 40px;
     margin-top: 10px;
     transition: 0.4s ease;
@@ -86,7 +86,7 @@ div {height: 100%; width: 100%;}
 }
 
 #searchBar:focus {
-    width: 44vw;
+    width: max(40vw, 250px);
     height: 45px;
 
     font-size: 23px;
