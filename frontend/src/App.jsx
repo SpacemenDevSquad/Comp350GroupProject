@@ -4,16 +4,15 @@ import Home from './views/Home';
 import Schedule from './views/Schedule';
 import StatusSheet from './views/StatusSheet';
 import TopBar from './components/TopBar';
-import './css/login.css';
-import './css/App.css'; 
-import { auth } from "./js/firebase.js";
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  onAuthStateChanged, 
-  signOut, 
-  updateProfile 
-} from "firebase/auth";
+import './css/login.css'
+import {useState} from 'react'
+import './css/App.css'
+import { auth } from "./js/firebase.js"
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { useEffect } from "react";
+import OfflineAlert from './components/OfflineAlert.jsx'
+
+
 
 
 function App() {
@@ -128,6 +127,7 @@ function App() {
   return (
     <div>
       {/* pass User and trigger function to TopBar */}
+      <OfflineAlert />
       <TopBar
         user={currentUser}
         onLoginClick={() => setShowLogin(true)}
