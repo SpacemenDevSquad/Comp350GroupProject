@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect, useCallback, useRef} from 'react'
 import {goToSearch} from '../js/screenTransitions.js'
 import '../css/Home.css'
 import OnHitEnter, { OnType } from '../js/searchBar.js'
@@ -15,6 +15,8 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
   const [availability, setAvailability] = useState([]);
   const [credits, setCredits] = useState(0);
   const [noTimeSections, setNoTimeSections] = useState(false);
+  const [openProfessor, setOpenProfessor] = useState(null); // Stores currently open professor data
+  const autocompleteRef = useRef(null);
 
   
 
@@ -82,6 +84,24 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
     };
   }, [year, term]);
 
+  // Handle click outside autocomplete dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (autocompleteRef.current && !autocompleteRef.current.contains(event.target)) {
+        // Check if the click is not on the search bar either
+        const searchBar = document.getElementById("searchBar");
+        if (searchBar && !searchBar.contains(event.target)) {
+          setSuggestions([]);
+        }
+      }
+    };
+
+    if (suggestions.length > 0) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [suggestions.length]);
+
  
   return (
     <div>
@@ -108,7 +128,7 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
           }}></input>
 
           {suggestions.length > 0 && (
-            <ul id="autocompleteDropdown">
+            <ul id="autocompleteDropdown" ref={autocompleteRef}>
               {suggestions.map((suggestion, index) => (
                 <li 
                   key={index} 
@@ -176,6 +196,8 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
                 term={term} 
                 userId={userId} 
                 scheduleName={scheduleName}
+                openProfessor={openProfessor}
+                setOpenProfessor={setOpenProfessor}
               />
             );
           })

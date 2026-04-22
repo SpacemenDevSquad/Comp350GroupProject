@@ -144,7 +144,9 @@ function App() {
       />
       <Schedule
         year={year}
+        setYear={setYear}
         term={term}
+        setTerm={setTerm}
         userId={currentUser?.id}
         scheduleName={scheduleName}
         setScheduleName={setScheduleName}
@@ -154,8 +156,13 @@ function App() {
       <StatusSheet />
 
       {showLogin && (
-        <div className="loginModel">
-          <div className="loginContent">
+        <div className="loginModel" onClick={(e) => {
+          // Close modal if clicking on the backdrop (outside loginContent)
+          if (e.target.className === 'loginModel') {
+            setShowLogin(false);
+          }
+        }}>
+          <div className="loginContent" onClick={(e) => e.stopPropagation()}>
             <h2 className="loginTitle">{isSignup ? "Create Account" : "Sign In"}</h2>
 
             {/* Name, Email, and Password inputs */}
