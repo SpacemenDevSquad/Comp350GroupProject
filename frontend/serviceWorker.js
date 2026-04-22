@@ -42,6 +42,7 @@ const cachedFiles = [
   "/src/css/StatusSheet.css",
   "/src/css/TopBar.css",
   "/src/css/weeklySchedule.css",
+  "/src/css/offlineAlert.css",
   "/src/components/Alert.jsx",
   "/src/components/Course.jsx",
   "/src/components/Filters.jsx",
@@ -56,7 +57,8 @@ const cachedFiles = [
   "/serviceWorker.js",
   "/src/js/registerWorkers.js",
   "/@react-refresh",
-  "/src/images/PRIJ_horizontal_white.svg?import"
+  "/src/images/PRIJ_horizontal_white.svg?import",
+  "/src/main.jsx?t=1776833821156"
 ]
 
 async function cacheFirst(request) {

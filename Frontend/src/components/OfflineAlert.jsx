@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import "../css/offlineAlert.css";
 
 async function checkConnection() {
-    console.log("Checking...")
     try {
     const res = await fetch("/ping");
     return true;
@@ -13,13 +13,18 @@ async function checkConnection() {
 function OfflineAlert() {
     useEffect(() => {
         async function runCheck() {
-        const status = await checkConnection();
+        let status = false;
+        status = await checkConnection();
         console.log("Connection:", status);
-        setIsOnline(status);
+        if (status) document.getElementById("offlineAlertDiv").remove();
         }
         runCheck();
     }, []);
-    return <div>TEST</div>;
+    return (
+        <div id="offlineAlertDiv">
+            <p>You are offline. Functionality may be limited.</p>
+        </div>
+    );
 }
 
 export default OfflineAlert;
