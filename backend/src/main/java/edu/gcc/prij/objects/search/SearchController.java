@@ -42,12 +42,12 @@ public class SearchController implements Controller {
       // Get the complete list of sections from the repository
       Collection<Section> masterCatalog = sectionRepository.findAll();
 
-      /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" as the department
-      masterCatalog = masterCatalog.stream()
-                    .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
-                    .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
-                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with dept = "zload"
-                    .collect(Collectors.toList());
+      // Get the year and term from the path parameters
+      int year = Integer.parseInt(ctx.pathParam("year"));
+      char term = ctx.pathParam("term").charAt(0);
+
+      // Filter out classes that aren't in the specified semester, and also filter out ZLOAD classes
+      masterCatalog = searchEngine.getFilteredCatalog(masterCatalog, year, term);
 
       // Pass the search query and the complete section list to the search engine
       List<Section> results = searchEngine.executeSearch(userTicket, masterCatalog);
@@ -59,31 +59,15 @@ public class SearchController implements Controller {
     app.get("/api/autocomplete/{year}/{term}", ctx -> {
     // Grab the text the user is currently typing
     String query = ctx.queryParam("q");
-    
-    if (query == null || query.trim().length() < 2) {
-        // Return an empty list if they haven't typed much
-        ctx.json(new ArrayList<>());
-        return;
-    }
-    String lowerQuery = query.toLowerCase();
+
     // Get all the sections 
     Collection<Section> masterCatalog = sectionRepository.findAll();
 
-    /// Harcoded filters to exclude sections with null semesters, Fall 2023 sections, and sections with "zload" as the department
-    masterCatalog = masterCatalog.stream()
-                    .filter(section -> section.getSemester() != null) // Filter out sections with null semesters
-                    .filter(section -> (section.getSemester().getTerm() == ctx.pathParam("term").charAt(0) && section.getSemester().getYear() == Integer.parseInt(ctx.pathParam("year"))))
-                    .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload")) // Filter out sections with "zload" as the department
-                    .collect(Collectors.toList());
+    // Get the year and term from the path parameters
+    int year = Integer.parseInt(ctx.pathParam("year"));
+    char term = ctx.pathParam("term").charAt(0);
 
-    // Filter and extract the names
-    List<String> suggestions = masterCatalog.stream()
-            .map(section -> section.getCourse().getTitle()) // Get just the course names
-            .filter(title -> title != null && title.toLowerCase().contains(lowerQuery)) // Match the text
-            .distinct() // Remove duplicates
-            .sorted() // Sort alphabetically
-            .limit(5) // Only send the top 5 matches back to the frontend
-            .collect(Collectors.toList());
+    List<String> suggestions = searchEngine.getAutocompleteSuggestions(query, masterCatalog, year, term);
 
     ctx.json(suggestions);
 });
