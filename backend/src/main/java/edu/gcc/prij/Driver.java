@@ -187,7 +187,8 @@ public class Driver implements Runnable {
             new SearchController(sectionRepository, departmentRepository, courseRepository),
             new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository, semesterRepository, userRepository),
             new RatingController(ratingRepository),
-            new StatusSheetController()
+            new StatusSheetController(),
+            new Ping()
         );
 
         controllers.forEach(c -> c.registerRoutes(app));
