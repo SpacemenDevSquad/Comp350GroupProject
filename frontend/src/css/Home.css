@@ -19,7 +19,7 @@ div {height: 100%; width: 100%;}
 /* Background CSS */
 
 #bgImage {
-    background-image: url('../images/bg2.jpg');
+    background-image: url('/src/images/bg2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
