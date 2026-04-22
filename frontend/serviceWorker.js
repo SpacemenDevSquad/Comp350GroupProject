@@ -58,7 +58,8 @@ const cachedFiles = [
   "/src/js/registerWorkers.js",
   "/@react-refresh",
   "/src/images/PRIJ_horizontal_white.svg?import",
-  "/src/main.jsx?t=1776833821156"
+  "/src/main.jsx?t=1776833821156",
+  "/src/main.jsx?t=1776873822670"
 ]
 
 async function cacheFirst(request) {
