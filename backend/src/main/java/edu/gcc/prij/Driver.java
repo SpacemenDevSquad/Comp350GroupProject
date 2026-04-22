@@ -55,14 +55,17 @@ import picocli.CommandLine.Option;
 @Command(name = "CourseSchedulingApp", mixinStandardHelpOptions = true)
 public class Driver implements Runnable {
     @Option(names = "--read-courses", description = "Enable reading courses")
-    private boolean readCourses = false;
+    private boolean readCourses = true;
 
     @Option(names = "--read-rmp", description = "Enable reading RMP")
-    private boolean readRmp = false;
+    private boolean readRmp = true;
 
     // String flag with a default value
     @Option(names = "--db-type", description = "Type of database to use")
     private String dbType = "sqlite";
+
+    @Option(names = "--clear-db", description = "Clear the database before starting")
+    private boolean clearDb = false;
 
     public static void main(String[] args) {
         // Picocli automatically parses the args and populates the variables
@@ -82,7 +85,9 @@ public class Driver implements Runnable {
         Repository<User, String> userRepository;
         
         if(dbType.equals("sqlite")){
-            deleteDatabaseFolder("sqlite");
+            if(clearDb) {
+                deleteDatabaseFolder("sqlite");
+            }
 
             sectionRepository = new SQLiteRepository<>(Section.class);
             courseRepository = new SQLiteRepository<>(Course.class);
