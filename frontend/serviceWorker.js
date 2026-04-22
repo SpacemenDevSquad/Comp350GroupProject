@@ -1,17 +1,11 @@
 const cacheName = "gccCourseSchedule - File Caching v1"
 const apiCacheName = "gccCourseSchedule - API Caching v1"
+const JSXCacheName = "gccCourseSchedule - JSX Caching v1"
 const cachedFiles = [
   "/",
   "/schedule",
   "/status",
   "/manifest.json",
-  "/src/main.jsx",
-  "/src/App.jsx",
-  "/src/views/Home.jsx",
-  "/src/views/Schedule.jsx",
-  "/src/views/StatusSheet.jsx",
-  "/src/js/alertPop.js",
-  "/src/js/createAlert.jsx",
   "/src/js/firebase.js",
   "/src/js/screenTransitions.js",
   "/src/js/searchBar.js",
@@ -43,23 +37,13 @@ const cachedFiles = [
   "/src/css/TopBar.css",
   "/src/css/weeklySchedule.css",
   "/src/css/offlineAlert.css",
-  "/src/components/Alert.jsx",
-  "/src/components/Course.jsx",
-  "/src/components/Filters.jsx",
-  "/src/components/RequirementGroup.jsx",
-  "/src/components/Section.jsx",
-  "/src/components/TopBar.jsx",
-  "/src/components/UpdateSemester.jsx",
-  "/src/components/WeeklySchedule.jsx",
-  "/src/components/OfflineAlert.jsx",
   "/@vite/client",
   "/node_modules/vite/dist/client/env.mjs",
   "/serviceWorker.js",
   "/src/js/registerWorkers.js",
+  "/src/js/alertPop.js",
   "/@react-refresh",
   "/src/images/PRIJ_horizontal_white.svg?import",
-  "/src/main.jsx?t=1776833821156",
-  "/src/main.jsx?t=1776873822670"
 ]
 
 async function cacheFirst(request) {
@@ -67,8 +51,8 @@ async function cacheFirst(request) {
   return cached || fetch(request);
 }
 
-async function networkFirst(request) {
-  const cache = await caches.open(apiCacheName);
+async function networkFirst(request, usedCache) {
+  const cache = await caches.open(usedCache);
 
   try {
     const response = await fetch(request);
@@ -106,7 +90,9 @@ self.addEventListener('fetch', (event) => {
 
   // Handle API calls differently
   if (isApiRequest(request)) {
-    event.respondWith(networkFirst(request));
+    event.respondWith(networkFirst(request, apiCacheName));
+  } else if (isJSXRequest(request)) {
+    event.respondWith(networkFirst(request, JSXCacheName))
   } else {
     event.respondWith(cacheFirst(request));
   }
@@ -114,3 +100,5 @@ self.addEventListener('fetch', (event) => {
 
 
 const isApiRequest = (request) => {return request.url.includes("/api/")}
+
+const isJSXRequest = (request) => {return request.url.includes(".jsx") || request.url.includes("?t=")}
