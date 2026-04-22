@@ -1,6 +1,8 @@
 const cacheName = "gccCourseSchedule - File Caching"
 const cachedFiles = [
   "/",
+  "/schedule",
+  "/status",
   "/manifest.json",
   "/src/main.jsx",
   "/src/App.jsx",
