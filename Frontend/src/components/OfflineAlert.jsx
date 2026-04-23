@@ -1,32 +1,30 @@
-/* OfflineAlert.jsx */
 import { useEffect, useState } from "react";
 import "../css/offlineAlert.css";
 
+async function checkConnection() {
+    try {
+    const res = await fetch("/ping");
+    return true;
+    } catch {
+    return false;
+    }
+}
+
 function OfflineAlert() {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
-
-  useEffect(() => {
-    const handleStatus = () => setIsOnline(navigator.onLine);
-
-    // Listen for actual browser online/offline events
-    window.addEventListener('online',  handleStatus);
-    window.addEventListener('offline', handleStatus);
-
-    return () => {
-      window.removeEventListener('online',  handleStatus);
-      window.removeEventListener('offline', handleStatus);
-    };
-  }, []);
-
-  // ONLY show if offline. 
-  // Returning null allows React to safely unmount the element without a crash.
-  if (isOnline) return null;
-
-  return (
-    <div id="offlineAlertDiv">
-      <p>You are offline. Functionality may be limited.</p>
-    </div>
-  );
+    useEffect(() => {
+        async function runCheck() {
+        let status = false;
+        status = await checkConnection();
+        console.log("Connection:", status);
+        if (status) document.getElementById("offlineAlertDiv").remove();
+        }
+        runCheck();
+    }, []);
+    return (
+        <div id="offlineAlertDiv">
+            <p>You are offline. Functionality may be limited.</p>
+        </div>
+    );
 }
 
 export default OfflineAlert;
