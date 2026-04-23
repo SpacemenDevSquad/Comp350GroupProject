@@ -6,6 +6,7 @@ import Section from '../components/Section.jsx';
 import Filters from '../components/Filters.jsx';
 import toggleFilter from '../js/toggleFilter.js';
 import UpdateSemester from '../components/UpdateSemester.jsx';
+import calendarTransition, { statusSheetTransition } from '../js/screenTransitions.js'
 
 let addedListener = false;
 
@@ -136,16 +137,30 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
             onChange={(e) => setScheduleName(e.target.value)}
             className="schedule-dropdown"
             disabled={!userId}
-        >
-            <option value="Main Schedule">Main Schedule</option>
+          >
+            <option value="Main Schedule">
+              {userId ? "Main Schedule" : "Login/Signup"}
+            </option>
+
+
             {(existingSchedules || [])
                 .filter(name => name !== "Main Schedule")
                 .map((name, index) => (
                     <option key={`${name}-${index}`} value={name}>{name}</option>
                 ))}
         </select>
-      
 
+        <button 
+          className="schedule-add-btn" 
+          disabled={!userId}
+          onClick={() => { calendarTransition(); toggleFilter(true); }}
+        
+          
+        >
+          +
+        </button>
+
+      
         </div>
       </div>
 
