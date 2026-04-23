@@ -46,6 +46,18 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         return () => window.removeEventListener('scheduleRefresh', handler);
     }, [year, term, scheduleName, userId]);
 
+
+    if (!userId) {
+        return (
+            
+            <div className="login-prompt-content">
+                <h2 className="login-prompt-header">Access Restricted</h2>
+                <p className="login-prompt-text">Please sign in to view and manage your custom schedules.</p>
+            </div>
+        
+        );
+    }
+
     if (!schedule) {
         return <div className="schedule-box">Loading your schedule...</div>;
     }
@@ -115,8 +127,8 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         setScheduleName(newName);
         setNewScheduleInput("");
         window.dispatchEvent(new CustomEvent('scheduleRefresh'));
-    }
-};
+    }};
+
     // Calls java delete endpoint to remove section
     async function dropSection(courseData) {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/${userId}/${year}/${term}/${scheduleName}`, {
@@ -141,19 +153,6 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         "F": "Fall",
         "S": "Spring"
     }
-    
-   if (!userId) {
-        return (
-            
-            <div className="login-prompt-content">
-                <h2 className="login-prompt-header">Access Restricted</h2>
-                <p className="login-prompt-text">Please sign in to view and manage your custom schedules.</p>
-            </div>
-        
-        );
-    }
-
-      
     
 
     return (

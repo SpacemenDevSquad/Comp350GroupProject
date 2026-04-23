@@ -96,10 +96,20 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
 
   //ADD/DROP LOGIC
   async function addSection(force=false) {
-    if (!userId || !scheduleName) {
-      createAlert("Sign in required", "Please log in to add courses", "orange");
-      return;
+    // check if user is logged in before doing anything
+    if (!userId) {
+        window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+            detail: {
+                title: "Login Required",
+                desc: "Please sign in to add courses to a schedule.",
+                color: "red"
+            }
+        }));
+        //open login modal automatically
+        window.dispatchEvent(new CustomEvent('showLogin')); 
+        return;
     }
+
     //make api call
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/add/${userId}/${year}/${term}/${scheduleName}?force=${force}`, {
       method: 'POST',
@@ -129,10 +139,22 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
   }
 
   async function dropSection() {
-    if (!userId || !scheduleName) {
-      createAlert("Sign in required", "Please log in to drop courses", "orange");
-      return;
+
+    // check if user is logged in before doing anything
+    if (!userId) {
+        window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+            detail: {
+                title: "Login Required",
+                desc: "Please sign in to add courses to a schedule.",
+                color: "red"
+            }
+        }));
+        //open login modal automatically
+        window.dispatchEvent(new CustomEvent('showLogin')); 
+        return;
     }
+
+    
     //make api call
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/${userId}/${year}/${term}/${scheduleName}`, {
       method: 'DELETE',

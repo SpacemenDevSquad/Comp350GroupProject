@@ -9,6 +9,7 @@ import './css/App.css'
 import { auth } from "./js/firebase.js"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import OfflineAlert from './components/OfflineAlert.jsx'
+import Alert from './components/Alert.jsx';
 
 
 
@@ -24,12 +25,14 @@ function App() {
   const [name, setName] = useState("");
   const [scheduleName, setScheduleName] = useState("Main Schedule");
   const [existingSchedules, setExistingSchedules] = useState([]); // Shared dropdown menu State
+  const [activeAlert, setActiveAlert] = useState(null);
 
   //SEMESTER STATES
   const [year, setYear] = useState(2026)
   const [term, setTerm] = useState('F')
 
 
+  //FETCH LOGIC
   //fetch schedule dropdown
   const fetchSchedules = useCallback(async () => {
     if (!currentUser?.id || !year || !term) return;
@@ -81,22 +84,44 @@ function App() {
     return () => unsubscribe(); // listener cleanup
   }, []);
 
-  //Authentication handler
+  useEffect(() => {
+    const handleGlobalAlert = (e) => {
+        const { title, desc, color } = e.detail;
+        triggerAlert(title, desc, color);
+    };
+    
+    window.addEventListener('triggerCustomAlert', handleGlobalAlert);
+    return () => window.removeEventListener('triggerCustomAlert', handleGlobalAlert);
+  }, []);
+
+  //helper method to trigger alerts
+  const triggerAlert = (title, desc, color) => {
+    setActiveAlert({ title, desc, color, id: Date.now() });
+
+    setTimeout(() => {
+        setActiveAlert(null);
+    }, 5500);
+    
+   
+  };
+
+  //AUTHENTICATION HANDLER
   const handleAuth = async () => {
   try {
     let firebaseUser;
     if (isSignup) {
-      // 1. Create the account
+      // Create Account
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      
-      // 2. Attach the name to the Firebase profile
+      // Attach the name to the Firebase profile
       await updateProfile(userCredential.user, {
         displayName: name
       });
       firebaseUser = userCredential.user;
+
     } else {
       const creds = await signInWithEmailAndPassword(auth, email, password);
       firebaseUser = creds.user;
+
     }
 
     //syncs the firebase user to the java backend
@@ -109,23 +134,51 @@ function App() {
         name: firebaseUser.displayName || name
       })
     });
-    
+
     setShowLogin(false);
+    
+    //Success alerts
+    triggerAlert(
+      isSignup ? "Account Created" : "Welcome Back", 
+      isSignup ? `Welcome, ${name}!` : "Successfully signed in.", 
+      "green"
+    );
+    
+
     setEmail("");
     setPassword("");
     setName(""); // Clear name state
   } catch (error) {
-    alert("Error: " + error.message);
+    let errorMessage = error.message;
+    if (error.code === 'auth/wrong-password') errorMessage = "Incorrect password. Please try again.";
+    if (error.code === 'auth/user-not-found') errorMessage = "No account found with this email.";
+    if (error.code === 'auth/invalid-email') errorMessage = "Please input a valid email.";
+    
+    triggerAlert("Auth Error", errorMessage, "red");
   }
-};
+  };
 
   const handleLogout = () => signOut(auth);
+
+
+  
 
 
   return (
     <div>
       {/* pass User and trigger function to TopBar */}
       <OfflineAlert />
+    
+        {/* Custom alert if state is present */}
+        {activeAlert && (
+          <Alert 
+            key={activeAlert.id} 
+            alertTitle={activeAlert.title} 
+            alertDesc={activeAlert.desc} 
+            alertColor={activeAlert.color} 
+          />
+        )}
+
       <TopBar
         user={currentUser}
         onLoginClick={() => setShowLogin(true)}
