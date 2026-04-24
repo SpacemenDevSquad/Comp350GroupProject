@@ -1,6 +1,10 @@
 import '../css/weeklySchedule.css'
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { createAlert } from '../js/createAlert.jsx';
+import trashCanIcon from '../images/trashCan.svg'
+import exportIcon from '../images/exportIcon.svg'
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import UpdateSemester from './UpdateSemester';
 
 function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, setScheduleName, existingSchedules}){
@@ -12,6 +16,8 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
 
     const [totalCreds, setCreds] = useState(null);
     const [newScheduleInput, setNewScheduleInput] = useState("");
+
+    const printRef = useRef();
 
     // ----DATA FETCHING----
     
@@ -129,6 +135,112 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         window.dispatchEvent(new CustomEvent('scheduleRefresh'));
     }};
 
+    const deleteSchedule = async () => {
+        //main schedule cannot be deleted
+        if (scheduleName === "Main Schedule") {
+            window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                detail: { title: "Action Denied", desc: "You cannot delete the Main Schedule.", color: "red" }
+            }));
+            return;
+        }
+
+        if (!window.confirm(`Are you sure you want to delete "${scheduleName}"?`)) return;
+
+        try {
+            
+            const encodedName = encodeURIComponent(scheduleName);
+            const url = `${import.meta.env.VITE_API_URL}/api/schedule/delete/${userId}/${year}/${term}/${encodedName}`;
+            
+            const response = await fetch(url, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                    detail: { title: "Schedule Deleted", desc: `"${scheduleName}" has been removed.`, color: "green" }
+                }));
+                
+                setScheduleName("Main Schedule");
+                setTimeout(() => {
+                    window.dispatchEvent(new CustomEvent('scheduleRefresh'));
+                }, 0);
+            } else {
+                // DIAGNOSIS: Capture the actual error from the backend
+                const errorText = await response.text();
+                console.error("Delete Failed. Status:", response.status, "Error:", errorText);
+                
+                window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                    detail: { title: "Error", desc: `Server returned ${response.status}: ${errorText || "Could not delete"}`, color: "red" }
+                }));
+            }
+        } catch (error) {
+            console.error("Network/Delete error:", error);
+        }
+    };
+
+    /* WeeklySchedule.jsx - Update the exportPDF function */
+
+    /* WeeklySchedule.jsx */
+
+    const exportPDF = async () => {
+        const element = printRef.current;
+        if (!element) return;
+
+        // 1. Temporarily force the element to its full height to capture everything
+        const originalHeight = element.style.height;
+        const originalOverflow = element.style.overflow;
+        
+        element.style.height = 'auto';
+        element.style.overflow = 'visible';
+
+        // 2. Capture the entire content (including the 1200px day columns)
+        const canvas = await html2canvas(element, {
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: "#a00000",
+            scrollY: -window.scrollY, // Fixes offset if page is scrolled
+        });
+
+        // Restore original styles immediately
+        element.style.height = originalHeight;
+        element.style.overflow = originalOverflow;
+
+        const imgData = canvas.toDataURL('image/png');
+        
+        // 3. Initialize PDF (Landscape A4)
+        const pdf = new jsPDF('l', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        // 4. Calculate dimensions
+        const imgProps = pdf.getImageProperties(imgData);
+        const ratio = imgProps.height / imgProps.width;
+        const finalWidth = pdfWidth;
+        const finalHeight = pdfWidth * ratio;
+
+        // 5. Multi-page Logic
+        let heightLeft = finalHeight;
+        let position = 0;
+
+        // Add the first page
+        pdf.addImage(imgData, 'PNG', 0, position, finalWidth, finalHeight);
+        heightLeft -= pdfHeight;
+
+        // If there is more content, add new pages and offset the image
+        while (heightLeft > 0) {
+            position = heightLeft - finalHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, 'PNG', 0, position, finalWidth, finalHeight);
+            heightLeft -= pdfHeight;
+        }
+
+        pdf.save(`${scheduleName}_Schedule.pdf`);
+        
+        window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+            detail: { title: "Export Success", desc: "Full schedule saved.", color: "green" }
+        }));
+    };
+
     // Calls java delete endpoint to remove section
     async function dropSection(courseData) {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/drop/${userId}/${year}/${term}/${scheduleName}`, {
@@ -138,10 +250,15 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         });
 
         if (!response.ok) {
-            createAlert("Could not drop course", "Not found in schedule", "red");
+            window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                detail: { title: "Error", desc: "Could not drop course", color: "red" }
+            }));
+            
             return;
         }
-        createAlert("Course Dropped", "Updated Schedule", "green");
+        window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+            detail: { title: "Course Dropped", desc: "Updated Schedule", color: "green" }
+        }));
         fetchSchedule();
     }
 
@@ -156,36 +273,54 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
     
 
     return (
-    <div className="schedule-container">
-        <div className="schedule-controls">
-            <div className="control-row">
-                <label>Select Schedule:</label>
-                <select
-                    value={scheduleName}
-                    onChange={(e) => setScheduleName(e.target.value)}
-                    className="schedule-dropdown"
-                    disabled={!userId}
-                >
-                    <option value="Main Schedule">Main Schedule</option>
-                
-                    {(existingSchedules || [])
-                        .filter(name => name !== "Main Schedule")
-                        .map((name, index) => (
-                            <option key={`${name}-${index}`} value={name}>{name}</option>
-                        ))}
-                </select>
+    <div className="schedule-container" ref={printRef}>
+        {/* top section controls and text above calendar view */}
+        <div className="schedule-top-section">
+
+            {/* Navigate/Create New Schedule controls */}
+            <div className="schedule-controls">
+                <div className="control-row">
+                    <label>Select Schedule:</label>
+                    <select
+                        value={scheduleName}
+                        onChange={(e) => setScheduleName(e.target.value)}
+                        className="schedule-dropdown"
+                        disabled={!userId}
+                    >
+                        <option value="Main Schedule">Main Schedule</option>
+                    
+                        {(existingSchedules || [])
+                            .filter(name => name !== "Main Schedule")
+                            .map((name, index) => (
+                                <option key={`${name}-${index}`} value={name}>{name}</option>
+                            ))}
+                    </select>
+                </div>
+                <div className="control-row" data-html2canvas-ignore>
+                    <input 
+                        type="text" 
+                        placeholder="New schedule name..."
+                        value={newScheduleInput}
+                        onChange={(e) => setNewScheduleInput(e.target.value)}
+                        className="schedule-input"
+                    />
+                    <button onClick={createNewSchedule} className="schedule-plus-btn">+</button>
+                </div>
             </div>
 
-            <div className="control-row">
-                <input 
-                    type="text" 
-                    placeholder="New schedule name..."
-                    value={newScheduleInput}
-                    onChange={(e) => setNewScheduleInput(e.target.value)}
-                    className="schedule-input"
-                />
-                <button onClick={createNewSchedule} className="schedule-plus-btn">+</button>
+            {/* Header Text */}
+            <div className="header-section">
+                <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
+    
             </div>
+            
+            
+            {/* Schedule Status, including delete button, export, and total credits */}
+            <div className="schedule-status-group">
+                <div className="delete-export-buttons" data-html2canvas-ignore>
+                    <button className="export-btn" onClick={exportPDF} title="Export schedule as PDF">
+                        <img className="export-icon" src={exportIcon} alt="Export" />
+                    </button>
         </div>
 
         <div className="schedule-semester-selector">
@@ -197,10 +332,17 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
             />
         </div>
 
-        <h2 className="schedule-header">Weekly View - {termMap[term]} {year}</h2>
-        <p id="totalCredLabel">Total Credits: {totalCreds}</p>
+                    <button className="schedule-delete-btn" onClick={deleteSchedule} title="Delete current schedule">
+                        <img className="trash-icon" src={trashCanIcon} alt="Delete" />
+                    </button>
+                </div>
+            
+                <p id="totalCredLabel">Total Credits: {totalCreds}</p>
+            </div>
+            
+            
 
-        
+        </div>
         <div className="weekly-grid">
             {/* TIME COLUMN */}
             <div className="time-gutter">
@@ -263,3 +405,4 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
 }
 
 export default WeeklySchedule;
+
