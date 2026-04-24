@@ -5,8 +5,9 @@ import trashCanIcon from '../images/trashCan.svg'
 import exportIcon from '../images/exportIcon.svg'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import UpdateSemester from './UpdateSemester';
 
-function WeeklySchedule({ userId, year, term, scheduleName, setScheduleName, existingSchedules}){
+function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, setScheduleName, existingSchedules}){
     // ----STATE MANAGEMENT----
     // Tracks the schedule object, loading status, and total credits from the backend
     const [schedule, setSchedule] = useState(null);
@@ -320,6 +321,16 @@ function WeeklySchedule({ userId, year, term, scheduleName, setScheduleName, exi
                     <button className="export-btn" onClick={exportPDF} title="Export schedule as PDF">
                         <img className="export-icon" src={exportIcon} alt="Export" />
                     </button>
+        </div>
+
+        <div className="schedule-semester-selector">
+            <UpdateSemester
+                year={year}
+                setYear={setYear}
+                term={term}
+                setTerm={setTerm}
+            />
+        </div>
 
                     <button className="schedule-delete-btn" onClick={deleteSchedule} title="Delete current schedule">
                         <img className="trash-icon" src={trashCanIcon} alt="Delete" />

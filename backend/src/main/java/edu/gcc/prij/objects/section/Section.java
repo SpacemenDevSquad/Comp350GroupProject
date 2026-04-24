@@ -13,6 +13,7 @@ public class Section implements RepositoryObject<SectionKey> {
     private Timeslot[] timeslots;
     private Professor[] faculty;
     private Semester semester;
+    private String superString;
 
     //Constructor
     public Section(Course course, char sectionLetter, Timeslot[] timeslots, Professor[] faculty, Semester semester){
@@ -21,6 +22,7 @@ public class Section implements RepositoryObject<SectionKey> {
         this.timeslots = timeslots;
         this.faculty = faculty;
         this.semester = semester;
+        this.superString = buildSuperString();
     }
     
     public Section(){}
@@ -31,12 +33,14 @@ public class Section implements RepositoryObject<SectionKey> {
     public Timeslot[] getTimeslots(){ return timeslots; }
     public Professor[] getFaculty(){ return faculty; }
     public Semester getSemester(){ return semester; }
+    public String getSuperString(){ return superString; }
 
     public void setCourse(Course course) { this.course = course; }
     public void setSectionLetter(char sectionLetter) { this.sectionLetter = sectionLetter; }
     public void setTimeslots(Timeslot[] timeslots) { this.timeslots = timeslots; }
     public void setFaculty(Professor[] faculty) { this.faculty = faculty; }
     public void setSemester(Semester semester) { this.semester = semester; }
+    public void setSuperString(String superString) { this.superString = superString; }
 
     @Override
     public SectionKey getKey() {
@@ -58,6 +62,34 @@ public class Section implements RepositoryObject<SectionKey> {
     @Override
     public int hashCode() {
         return Objects.hash(course, sectionLetter, semester);
+    }
+
+    // Helper method to create a super string that contains all searchable text for a section
+    private String buildSuperString() {
+        String subject = this.getCourse().getDepartment().getCode().toLowerCase();
+        String deptName = this.getCourse().getDepartment().getFullName().toLowerCase();
+        String number = String.valueOf(this.getCourse().getNumber());
+        String name = this.getCourse().getTitle().toLowerCase();
+
+        StringBuilder facultyBuilder = new StringBuilder();
+
+        if (this.getFaculty() != null) {
+            for (Professor prof : this.getFaculty()) {
+                if (prof != null) {
+                    facultyBuilder.append(prof.getName()).append(" ");
+                }
+            }
+        }
+
+        String faculty = facultyBuilder.toString().toLowerCase();
+
+        String description = "";
+        if (this.getCourse().getDescription() != null) {
+            description = this.getCourse().getDescription().toLowerCase();
+        }
+
+        // Include "acct 201" and "acct201"
+        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description + " " + deptName;
     }
 }
 

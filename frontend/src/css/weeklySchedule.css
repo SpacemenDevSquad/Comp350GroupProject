@@ -169,6 +169,7 @@
     border-radius: 20px;
 
     
+    grid-column: 1 / -1;
 }
 
 .day-column {
@@ -215,6 +216,20 @@
     align-items: center;
     width: 100%;
     flex-grow: 1;
+}
+
+/* Labels/Headers */
+
+.schedule-header {
+    color: white;
+    text-shadow: 2px 2px rgb(0, 0, 0);
+    user-select: none;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    text-align: center;
 }
 
 .day-label {
@@ -336,6 +351,22 @@
     background-color: rgb(195, 0, 0);
 }
 
+
+.schedule-controls {
+    align-self: flex-start; 
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+    height: auto;
+    grid-column: 1;
+    grid-row: 1;
+}
+
 .control-row {
     display: flex;
     align-items: center;
@@ -391,4 +422,55 @@
 
 [data-html2canvas-ignore] .action-group {
     display: none !important;
+/* Semester Selector Styling for WeeklySchedule */
+.schedule-semester-selector {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    z-index: 10;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.schedule-semester-selector #updateSemester {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    color: white;
+    text-shadow: 2px 2px black;
+    font-weight: bold;
+}
+
+.schedule-semester-selector #semester_year_selector,
+.schedule-semester-selector #semester_term_selector {
+    height: 30px !important;
+    border-radius: 5px !important;
+    border: 1px solid white !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    padding: 0 10px !important;
+    width: 120px !important;
+    font-family: 'Roboto Slab' !important;
+    font-size: 14px !important;
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.schedule-semester-selector #semester_year_selector:focus,
+.schedule-semester-selector #semester_term_selector:focus {
+    outline: none;
+    border: 2px solid white !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.schedule-semester-selector #semester_year_selector option,
+.schedule-semester-selector #semester_term_selector option {
+    color: black;
+    background-color: white;
 }
