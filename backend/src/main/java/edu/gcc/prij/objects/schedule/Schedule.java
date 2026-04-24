@@ -38,16 +38,16 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
 
     // ----SCHEDULE METHODS----
     // adds a section if it passes time conflict and credit limits, returns error as specific string otherwise
-    public String addSection(Section newSection){
+    public String addSection(Section newSection, boolean force){
         int numCredits = newSection.getCourse().getCredits();
         if(hasOverlap(newSection)){
             return "CONFLICT";
         }
-        if(exceedsCredits(numCredits)){
-            return "CREDIT_LIMIT";
-        }
         if(duplicateCourse(newSection)){
             return "DUPLICATE";
+        }
+        if (exceedsCredits(numCredits) && !force) {
+            return "CREDIT_LIMIT";
         }
         sections.put(newSection.getKey(), newSection);
         return "ADD";

@@ -126,14 +126,12 @@ public class ScheduleController implements Controller {
                 Section newSection = ctx.bodyAsClass(Section.class);
                 
                 //adds section to schedule if there is no conflict
-                String result = sch.addSection(newSection);
+                String result = sch.addSection(newSection, force);
                 System.out.println("addSection result for " + newSection.getCourse().getDepartment().getCode() + newSection.getCourse().getNumber() + newSection.getSectionLetter() + ": " + result);
 
                 //If added successfully or forced, update the Schedule Repository accordingly (201=Success)
                 if (result.equals("ADD") || (result.equals("CREDIT_LIMIT")  && force)) {
-                    System.out.println("About to update repo for schedule key: " + sch.getKey());
                     scheduleRepository.update(sch.getKey(), sch);
-                    System.out.println("Repo update complete");
                     ctx.status(201).json(sch);
                 } 
                 // If time conflict (409= Conflict)

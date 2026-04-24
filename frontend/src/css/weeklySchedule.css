@@ -14,6 +14,7 @@
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+    overflow-y: auto;
 
     font-family: 'Roboto Slab';
     border-radius: 10px;
@@ -44,7 +45,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    width: 20%;
+    width: 30%;
     height: auto;     
 }
 
@@ -87,7 +88,7 @@
     justify-content: flex-end;
     align-items: center;
     
-    width: 60%; 
+    width: 40%; 
     height: auto; 
 
 }
@@ -107,7 +108,7 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 20px;
-    width: 20%; 
+    width: 30%; 
     height: auto;      
 }
 .delete-export-buttons{
@@ -151,18 +152,28 @@
 }
 
 
+.main-scroll-area {
+    width: 100%;
+    flex: 1; /* Takes up remaining space in the 75vh container */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* WEEKLY CALENDAR */
 .weekly-grid {
     width: 100%;
+    height: 1200px;
     min-height: 0; 
 
     display: flex;
     gap: 8px;
-    flex: 1;
-    flex-grow: 1;
+    
     flex-direction: row;
-    overflow-y: auto; 
-    overflow-x: hidden; 
+    flex-shrink: 0;
+    overflow: visible;
     
     padding-bottom: 20px;
 
@@ -380,10 +391,62 @@
     max-width: 300px;
 }
 
+/* no time slot section */
+
+.no-time-container {
+    width: 100%;
+    padding: 20px 25px;
+    box-sizing: border-box;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    
+}
+
+.no-time-header {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px black;
+}
+
+.no-time-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.no-time-card {
+    background-color: rgb(160, 0, 0);
+    border: 3px solid white;
+    border-radius: 8px;
+    padding: 10px;
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.no-time-card .card-dept, 
+.no-time-card .card-title {
+    color: white;
+}
+
+.no-time-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 170px;
+}
+
+.no-time-drop {
+    flex-shrink: 0;
+}
+
+
 /* weeklySchedule.css */
-
-
-
 
 .calendar-card .action-group {
     display: flex;
@@ -392,3 +455,4 @@
 [data-html2canvas-ignore] .action-group {
     display: none !important;
 }
+
