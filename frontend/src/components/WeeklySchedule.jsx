@@ -77,18 +77,25 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         'R': [],
         'F': [],
     };
+    const noTimeSections= [];
 
-    for (const section of schedule.sections) {
-        for (const timeslot of section.timeslots) {
-            //adds time slot to the day array in the map
-            scheduleMap[timeslot.day].push({
-                title: section.course.title,
-                start: timeslot.startTime,
-                end: timeslot.endTime,
-                dept: section.course.department.code,
-                num: section.course.number,
-                originalData: section
-            });
+    if (schedule && schedule.sections) {
+        for (const section of schedule.sections) {
+            if (!section.timeslots || section.timeslots.length === 0) {
+            noTimeSections.push(section);
+        } else {
+            // Only iterate if timeslots actually exist
+            for (const timeslot of section.timeslots) {
+                scheduleMap[timeslot.day].push({
+                    title: section.course.title,
+                    start: timeslot.startTime,
+                    end: timeslot.endTime,
+                    dept: section.course.department.code,
+                    num: section.course.number,
+                    originalData: section
+                });
+            }
+        }
         }
     }
 
@@ -343,62 +350,84 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
             
 
         </div>
-        <div className="weekly-grid">
-            {/* TIME COLUMN */}
-            <div className="time-gutter">
-                <div className="day-label" style={{border: "0px", margin: "1px"}}>Time</div>
-                <div className="hours-container">
-                    {hours.map((hour) => (
-                        <div key={hour} className="hour-marker">
-                            {hour}
-                        </div>
-                    ))}
-                </div>
-            </div>
-            
-            {/* DAY COLUMNS*/}
-            {dayEntries.map(([day, courses]) => (
-                
-                <div key={day} className="day-column">
-                    <div className="day-label">{getDayName(day)}</div>
-                    <div className="courses-container">
-                        {courses.length === 0 && <p className="no-classes">No Classes</p>}
-                        
-                        {courses.map((course, index) => {
-                            const startOffset = 420; // 7 AM
-                            const pixelsPerMinute = 80 / 60; // 1.333 pixels per minute
-                            const labelHeight = 40; // height of .day-label in CSS
-
-                            const topPosition = Math.round(((course.start - startOffset) * pixelsPerMinute) + labelHeight);
-                            const blockHeight = Math.round((course.end - course.start) * pixelsPerMinute);
-
-                            return (
-                                <div 
-                                    key={index} 
-                                    className="calendar-card"
-                                    style={{
-                                        position: 'absolute',
-                                        top: `${topPosition +2}px`,
-                                        height: `${blockHeight-10}px`
-                                    }}>
-
-                                    <span className="card-dept">{course.dept} {course.num}</span>
-                                    <p className="card-title">{course.title}</p>
-                                    
-                                    <p className="card-time">
-                                        {formatMinutesToTime(course.start)} - {formatMinutesToTime(course.end)}
-                                    </p>
-                                    <div className="action-group">
-                                        <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
-                                    </div>
-                                   
-                                </div>
-
-                            );
-                        })}
+        <div className="main-scroll-area">
+            <div className="weekly-grid">
+                {/* TIME COLUMN */}
+                <div className="time-gutter">
+                    <div className="day-label" style={{border: "0px", margin: "1px"}}>Time</div>
+                    <div className="hours-container">
+                        {hours.map((hour) => (
+                            <div key={hour} className="hour-marker">
+                                {hour}
+                            </div>
+                        ))}
                     </div>
                 </div>
-            ))}
+                
+                {/* DAY COLUMNS*/}
+                {dayEntries.map(([day, courses]) => (
+                    
+                    <div key={day} className="day-column">
+                        <div className="day-label">{getDayName(day)}</div>
+                        <div className="courses-container">
+                            {courses.length === 0 && <p className="no-classes">No Classes</p>}
+                            
+                            {courses.map((course, index) => {
+                                const startOffset = 420; // 7 AM
+                                const pixelsPerMinute = 80 / 60; // 1.333 pixels per minute
+                                const labelHeight = 40; // height of .day-label in CSS
+
+                                const topPosition = Math.round(((course.start - startOffset) * pixelsPerMinute) + labelHeight);
+                                const blockHeight = Math.round((course.end - course.start) * pixelsPerMinute);
+
+                                return (
+                                    <div 
+                                        key={index} 
+                                        className="calendar-card"
+                                        style={{
+                                            position: 'absolute',
+                                            top: `${topPosition +2}px`,
+                                            height: `${blockHeight-10}px`
+                                        }}>
+
+                                        <span className="card-dept">{course.dept} {course.num}</span>
+                                        <p className="card-title">{course.title}</p>
+                                        
+                                        <p className="card-time">
+                                            {formatMinutesToTime(course.start)} - {formatMinutesToTime(course.end)}
+                                        </p>
+                                        <div className="action-group">
+                                            <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
+                                        </div>
+                                    
+                                    </div>
+
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        
+        
+            {/* courses without time slots */}
+            {noTimeSections.length > 0 && (
+                <div className="no-time-container">
+                    <h3 className="no-time-header">Online / No Time Slot Courses</h3>
+                    <div className="no-time-grid">
+                        {noTimeSections.map((section, index) => (
+                            <div key={index} className="no-time-card">
+                                <div className="no-time-info">
+                                    <span className="card-dept">{section.course.department.code} {section.course.number}</span>
+                                    <p className="card-title">{section.course.title}</p>
+                                </div>
+                                <button className="action-button no-time-drop" onClick={() => dropSection(section)}>Drop</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
         </div>
     </div>
     );
