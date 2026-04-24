@@ -6,6 +6,55 @@ import exportIcon from '../images/exportIcon.svg'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import UpdateSemester from './UpdateSemester';
+import StarRating from './StarRating.jsx';
+
+// Compact rating badge for schedule cards
+function CardRating({ section }) {
+    const [rating, setRating] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        let cancelled = false;
+        async function fetchRating() {
+            try {
+                const deptCode = section.course?.department?.code || section.course?.department?.id || "N/A";
+                const courseNum = section.course?.number || "000";
+                const profName = section.faculty?.[0]?.name || "Null";
+                const url = `${import.meta.env.VITE_API_URL}/api/ratings/course/${encodeURIComponent(deptCode)}/${courseNum}/professor/${encodeURIComponent(profName)}`;
+                const res = await fetch(url);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (!cancelled) setRating(data);
+                }
+            } catch (e) {
+                console.error('Failed to fetch card rating:', e);
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        }
+        fetchRating();
+        return () => { cancelled = true; };
+    }, [section]);
+
+    if (loading) return null;
+
+    const avgQuality = rating && rating.length > 0
+        ? (rating.reduce((sum, r) => sum + (r.quality || 0), 0) / rating.length)
+        : 0;
+
+    return (
+        <div className="card-rating" title={rating?.length > 0 ? `${avgQuality.toFixed(1)} / 3 (${rating.length} ratings)` : 'No ratings yet'}>
+            {rating && rating.length > 0 ? (
+                <>
+                    <StarRating rating={Math.round(avgQuality)} maxStars={3} size={12} />
+                    <span className="card-rating-text">{avgQuality.toFixed(1)}</span>
+                </>
+            ) : (
+                <span className="card-rating-text">—</span>
+            )}
+        </div>
+    );
+}
 
 function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, setScheduleName, existingSchedules}){
     // ----STATE MANAGEMENT----
@@ -328,21 +377,22 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
                     <button className="export-btn" onClick={exportPDF} title="Export schedule as PDF">
                         <img className="export-icon" src={exportIcon} alt="Export" />
                     </button>
-        </div>
-
-        <div className="schedule-semester-selector">
-            <UpdateSemester
-                year={year}
-                setYear={setYear}
-                term={term}
-                setTerm={setTerm}
-            />
-        </div>
-
                     <button className="schedule-delete-btn" onClick={deleteSchedule} title="Delete current schedule">
                         <img className="trash-icon" src={trashCanIcon} alt="Delete" />
                     </button>
                 </div>
+
+                <div className="schedule-semester-selector" data-html2canvas-ignore="true">
+                    <UpdateSemester
+                        year={year}
+                        setYear={setYear}
+                        term={term}
+                        setTerm={setTerm}
+                        style={{height: 0, margin: {bottom: 10}}}
+                    />
+                </div>
+
+               
             
                 <p id="totalCredLabel">Total Credits: {totalCreds}</p>
             </div>
@@ -392,10 +442,11 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
 
                                         <span className="card-dept">{course.dept} {course.num}</span>
                                         <p className="card-title">{course.title}</p>
-                                        
+
                                         <p className="card-time">
                                             {formatMinutesToTime(course.start)} - {formatMinutesToTime(course.end)}
                                         </p>
+                                        <CardRating section={course.originalData} />
                                         <div className="action-group">
                                             <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
                                         </div>
@@ -420,6 +471,7 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
                                 <div className="no-time-info">
                                     <span className="card-dept">{section.course.department.code} {section.course.number}</span>
                                     <p className="card-title">{section.course.title}</p>
+                                    <CardRating section={section} />
                                 </div>
                                 <button className="action-button no-time-drop" onClick={() => dropSection(section)}>Drop</button>
                             </div>

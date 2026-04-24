@@ -329,6 +329,19 @@
     font-size: 0.65rem;
 }
 
+.card-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.card-rating-text {
+    font-size: 0.65rem;
+    color: #ddd;
+}
+
 /* Drop Button in calendar card */
 
 .action-group{

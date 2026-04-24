@@ -1,10 +1,5 @@
 package edu.gcc.prij.objects.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.gcc.prij.objects.schedule.Schedule;
-import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.utils.RepositoryObject;
 import java.util.Objects;
 
@@ -25,10 +20,6 @@ public class User implements RepositoryObject<String> {
     }
 
     // GETTERS AND SETTERS
-
-    private void setId(String id){ this.id = id; }
-    private void setEmail(String email){ this.email = email; }
-    private void setName(String name){ this.name = name; }
 
     public String getName(){ return name; }
     public String getEmail(){ return email; }

@@ -203,9 +203,12 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
       <div id='courseContainer'>
         {sections.length > 0 ? (
           sections.map((section, index) => {
+            // Create a more comprehensive key that includes timeslot and semester data to ensure uniqueness
+            const timeslotKey = section.timeslots?.map(ts => `${ts.day}${ts.startTime}${ts.endTime}`).join('-') || 'no-time';
+            const sectionKey = `${section.faculty[0]?.id || 'null'}-${section.course?.id || 'null'}-${section.sectionLetter || 'null'}-${section.semester?.year || ''}-${section.semester?.term || ''}-${timeslotKey}`;
             return (
               <Section 
-                key={index} 
+                key={sectionKey} 
                 data={section} 
                 year={year} 
                 term={term} 

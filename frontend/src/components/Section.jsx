@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import '../css/section.css'
 import { createAlert } from '../js/createAlert.jsx';
 import { useState } from 'react';
+import ProfessorRatings from './ProfessorRatings.jsx';
 
 const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, difficulty, rmpId, onClose }) => {
   return (
@@ -24,6 +25,9 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
               <li>{wouldTakeAgain*100}% would take again</li>
               <li>Difficulty: {difficulty}/5</li>
             </ul>
+            <h3>Student Ratings</h3>
+            {/* here we will fetch the average professor rating from the /api/ratings/professor/{professorName} endpoint and compute an average */}
+            <ProfessorRatings professorName={name} />
           </div>
         )}
         

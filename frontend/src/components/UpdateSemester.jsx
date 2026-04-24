@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-function UpdateSemester({ year, setYear, term, setTerm }){
+function UpdateSemester({ year, setYear, term, setTerm, style }) {
   return (
-    <div id="updateSemester">
+    <div id="updateSemester" style={style}>
       Update Semester:
       <select name="semester_year_selector" id="semester_year_selector" onChange={(e) => setYear(parseInt(e.target.value))} value={year}>
         <option value="2025">2025</option>

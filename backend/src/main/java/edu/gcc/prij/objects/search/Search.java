@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import edu.gcc.prij.filters.CreditFilter;
 import edu.gcc.prij.filters.Filter;
 import edu.gcc.prij.filters.TimeFilter;
-import edu.gcc.prij.objects.professor.Professor;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.utils.Availability;
 

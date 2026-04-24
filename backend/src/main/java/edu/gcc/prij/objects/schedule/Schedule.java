@@ -8,7 +8,6 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.gcc.prij.objects.course.Course;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.semester.Semester;
