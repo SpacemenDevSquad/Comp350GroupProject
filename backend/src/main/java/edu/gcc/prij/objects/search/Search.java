@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import edu.gcc.prij.filters.CreditFilter;
 import edu.gcc.prij.filters.Filter;
@@ -29,8 +29,7 @@ public class Search {
             String[] tokens = searchText.toLowerCase().trim().split("\\s+");
 
             for (Section section : masterCatalog) {
-                // Build the super-string (subject + number + name + faculty)
-                String superString = buildSuperString(section);
+                String superString = section.getSuperString();
 
                 // Check if every token is inside the super-string
                 boolean matchesAllTokens = true;
@@ -40,14 +39,12 @@ public class Search {
                         break;
                     }
                 }
-
                 if (matchesAllTokens) {
                     textMatchResults.add(section);
                 }
             }
         }
 
-        // 3. Isaiah's job: Apply the filters to the results
         List<Filter> filters = new ArrayList<>();
 
         if (query.getCredits() != null && query.getCredits() != 0) { 
@@ -68,8 +65,6 @@ public class Search {
             }
         }
 
-
-
         ArrayList<Section> finalResults = textMatchResults;
         for (Filter f : filters){
             finalResults = f.filter(finalResults);
@@ -89,31 +84,30 @@ public class Search {
         return finalResults;
     }
 
-    // Helper method to create a super string that contains all searchable text for a section
-    private String buildSuperString(Section section) {
-        String subject = section.getCourse().getDepartment().getCode().toLowerCase();
-        String deptName = section.getCourse().getDepartment().getFullName().toLowerCase();
-        String number = String.valueOf(section.getCourse().getNumber());
-        String name = section.getCourse().getTitle().toLowerCase();
+    // Grabs the catalog and filters based on missing values and the year and term
+    public List<Section> getFilteredCatalog(Collection<Section> masterCatalog, int year, char term) {
+        return masterCatalog.stream()
+                .filter(section -> section.getSemester() != null)
+                .filter(section -> section.getSemester().getTerm() == term && section.getSemester().getYear() == year)
+                .filter(section -> !section.getCourse().getDepartment().getCode().toLowerCase().contains("zload"))
+                .collect(Collectors.toList());
+    }
 
-        StringBuilder facultyBuilder = new StringBuilder();
-
-        if (section.getFaculty() != null) {
-            for (Professor prof : section.getFaculty()) {
-                if (prof != null) {
-                    facultyBuilder.append(prof.getName()).append(" ");
-                }
-            }
+    // Generates 5 autocomplete suggestions based on the query and term
+    public List<String> getAutocompleteSuggestions(String query, Collection<Section> masterCatalog, int year, char term) {
+        if (query == null || query.trim().length() < 2) {
+            return new ArrayList<>();
         }
 
-        String faculty = facultyBuilder.toString().toLowerCase();
+        String lowerQuery = query.toLowerCase();
+        List<Section> filteredCatalog = getFilteredCatalog(masterCatalog, year, term);
 
-        String description = "";
-        if (section.getCourse().getDescription() != null) {
-            description = section.getCourse().getDescription().toLowerCase();
-        }
-
-        // Include "acct 201" and "acct201"
-        return subject + " " + number + " " + subject + number + " " + name + " " + faculty + " " + description + " " + deptName;
+        return filteredCatalog.stream()
+                .map(section -> section.getCourse().getTitle())
+                .filter(title -> title != null && title.toLowerCase().contains(lowerQuery))
+                .distinct()
+                .sorted()
+                .limit(5)
+                .collect(Collectors.toList());
     }
 }
