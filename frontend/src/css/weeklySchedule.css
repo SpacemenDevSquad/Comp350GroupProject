@@ -265,7 +265,11 @@
     color: white;
     padding: 0 10px;
     width: 200px;
-    
+}
+
+.schedule-input::placeholder {
+    color: #cecece;
+    opacity: 1;
 }
 
 .schedule-dropdown option {
