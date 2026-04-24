@@ -21,5 +21,5 @@ function shrinkBar(width, loadBar, alertBox) {
 }
 
 function deleteAlert(alertBox) {
-    alertBox.remove()
+    // alertBox.remove()
 }

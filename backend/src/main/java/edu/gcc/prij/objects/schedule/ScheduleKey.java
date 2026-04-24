@@ -36,4 +36,14 @@ public class ScheduleKey implements AccessKey {
   public int hashCode(){
     return Objects.hash(user, semester, scheduleName);
   }
+
+  @Override
+  public String toString() {
+      // Generates a stable, unique ID for the SQLite database
+      // Format: userId_year_term_scheduleName
+      return user.getId() + "_" + 
+            semester.getYear() + "_" + 
+            semester.getTerm() + "_" + 
+            scheduleName;
+  }
 }

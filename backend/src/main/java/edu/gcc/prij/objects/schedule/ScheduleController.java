@@ -68,6 +68,8 @@ public class ScheduleController implements Controller {
         return scheduleRepository.getOrAdd(key, new Schedule(user, sem, scheduleName));
     }
 
+    
+
     // ---- ROUTE REGISTRATION ----
 
     public void registerRoutes(Javalin app){
@@ -102,6 +104,7 @@ public class ScheduleController implements Controller {
                             s.getSemester().getYear() == year && 
                             s.getSemester().getTerm() == term)
                 .map(Schedule::getName)
+                .distinct()
                 .toList();
             
             ctx.json(names);
@@ -189,6 +192,37 @@ public class ScheduleController implements Controller {
             }catch (Exception e){
                 e.printStackTrace();
                 ctx.status(500).result("Error: " + e.getMessage());
+            }
+        });
+        // DELETE: Deletes an entire schedule from the repository
+        app.delete("/api/schedule/delete/{userId}/{year}/{term}/{scheduleName}", ctx -> {
+            String userId = ctx.pathParam("userId");
+            int year = Integer.parseInt(ctx.pathParam("year"));
+            char term = ctx.pathParam("term").charAt(0);
+            String scheduleName = ctx.pathParam("scheduleName");
+
+            try {
+                // Find the User and Semester to build the composite key
+                User user = userRepository.findById(userId);
+                Semester sem = semesterRepository.findById(new SemesterKey(year, term));
+
+                if (user != null && sem != null) {
+                    ScheduleKey key = new ScheduleKey(user, sem, scheduleName);
+                    
+                    // Attempt to delete from the repository
+                    boolean deleted = scheduleRepository.deleteById(key);
+                    
+                    if (deleted) {
+                        ctx.status(200).result("Schedule deleted successfully.");
+                    } else {
+                        ctx.status(404).result("Schedule not found.");
+                    }
+                } else {
+                    ctx.status(404).result("User or Semester not found.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ctx.status(500).result("Backend Error: " + e.getMessage());
             }
         });
 

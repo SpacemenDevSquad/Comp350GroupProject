@@ -37,7 +37,9 @@ function App() {
   const fetchSchedules = useCallback(async () => {
     if (!currentUser?.id || !year || !term) return;
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedules/${currentUser.id}/${year}/${term}`);
+      const url = `${import.meta.env.VITE_API_URL}/api/schedules/${currentUser.id}/${year}/${term}?t=${Date.now()}`;
+      const response = await fetch(url);
+      
       if (response.ok) {
         const names = await response.json();
         setExistingSchedules(names);
