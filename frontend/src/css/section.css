@@ -68,6 +68,35 @@
     font-size: 1.2cqw;
 }
 
+.sectionRating {
+    position: absolute;
+    top: 11.8cqw;
+    left: 15px;
+    z-index: 2;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    white-space: nowrap;
+
+    font-size: 1.1cqw;
+    cursor: pointer;
+    padding: 4px 8px;
+    background: rgba(130, 184, 254, 0.15);
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.sectionRating:hover {
+    background: rgba(130, 184, 254, 0.3);
+}
+
+.sectionRatingText {
+    font-size: 0.95cqw;
+    color: #ddd;
+}
+
 .addButton, .dropButton{
     right: 15px;
     width: 75px;

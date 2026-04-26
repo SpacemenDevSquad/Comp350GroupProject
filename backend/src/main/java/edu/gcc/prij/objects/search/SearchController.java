@@ -1,13 +1,8 @@
 package edu.gcc.prij.objects.search;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import edu.gcc.prij.objects.course.Course;
-import edu.gcc.prij.objects.course.CourseKey;
-import edu.gcc.prij.objects.department.Department;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.utils.Controller;
@@ -18,18 +13,12 @@ public class SearchController implements Controller {
   private Search searchEngine;
 
   private Repository<Section, SectionKey> sectionRepository;
-  private Repository<Department, String> departmentRepository;
-  private Repository<Course, CourseKey> courseRepository;
 
   public SearchController(
-    Repository<Section, SectionKey> sectionRepository,
-    Repository<Department, String> departmentRepository,
-    Repository<Course, CourseKey> courseRepository
+    Repository<Section, SectionKey> sectionRepository
   ){
     this.searchEngine = new Search();
     this.sectionRepository = sectionRepository;
-    this.departmentRepository = departmentRepository;
-    this.courseRepository = courseRepository;
   }
 
   @Override

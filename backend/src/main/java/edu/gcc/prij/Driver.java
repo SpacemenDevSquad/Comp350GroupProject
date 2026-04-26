@@ -189,9 +189,9 @@ public class Driver implements Runnable {
             new CourseController(courseRepository, departmentRepository),
             new UserController(userRepository),
             new SectionController(sectionRepository, departmentRepository, courseRepository),
-            new SearchController(sectionRepository, departmentRepository, courseRepository),
-            new ScheduleController(sectionRepository, departmentRepository, courseRepository, scheduleRepository, semesterRepository, userRepository),
-            new RatingController(ratingRepository),
+            new SearchController(sectionRepository),
+            new ScheduleController(sectionRepository, scheduleRepository, semesterRepository, userRepository),
+            new RatingController(ratingRepository, userRepository),
             new StatusSheetController(),
             new Ping()
         );

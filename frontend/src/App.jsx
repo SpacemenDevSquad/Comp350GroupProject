@@ -11,9 +11,6 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthState
 import OfflineAlert from './components/OfflineAlert.jsx'
 import Alert from './components/Alert.jsx';
 
-
-
-
 function App() {
 
   //LOGIN STATES

@@ -1,16 +1,10 @@
 package edu.gcc.prij.objects.schedule;
 import edu.gcc.prij.objects.user.User;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import edu.gcc.prij.objects.course.Course;
-import edu.gcc.prij.objects.course.CourseKey;
 import edu.gcc.prij.objects.section.Section;
 import edu.gcc.prij.objects.section.SectionKey;
 import edu.gcc.prij.objects.semester.Semester;
 import edu.gcc.prij.objects.semester.SemesterKey;
-import edu.gcc.prij.objects.department.Department;
 import edu.gcc.prij.utils.Controller;
 import edu.gcc.prij.utils.Repository;
 import io.javalin.Javalin;
@@ -23,8 +17,6 @@ public class ScheduleController implements Controller {
 
     // ---- Initialize Repositories ----
     private Repository<Section, SectionKey> sectionRepo;
-    private Repository<Department, String> deptRepo;
-    private Repository<Course, CourseKey> courseRepo;
     private Repository<Schedule, ScheduleKey> scheduleRepository;
     private Repository<Semester, SemesterKey> semesterRepository;
     private Repository<User, String> userRepository;
@@ -33,15 +25,11 @@ public class ScheduleController implements Controller {
     // standard constructor (initizlzies all the repositories used to fill schedule)
     public ScheduleController(
         Repository<Section, SectionKey> sectionRepo,
-        Repository<Department, String> deptRepo,
-        Repository<Course, CourseKey> courseRepo,
         Repository<Schedule, ScheduleKey> scheduleRepository,
         Repository<Semester, SemesterKey> semesterRepository,
         Repository<User, String> userRepository)
     {
         this.sectionRepo = sectionRepo;
-        this.courseRepo = courseRepo;
-        this.deptRepo = deptRepo;
         this.scheduleRepository = scheduleRepository;
         this.semesterRepository = semesterRepository;
         this.userRepository = userRepository;
