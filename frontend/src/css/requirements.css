@@ -240,3 +240,9 @@ progress::-moz-progress-bar {
     background-color: #2ecc71 !important;
     border-radius: 10px;
 }
+
+.progressLabel {
+    margin-top: 8px;
+    color: white;
+    font-family: 'Roboto Slab';
+}
