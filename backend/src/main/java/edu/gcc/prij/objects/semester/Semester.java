@@ -1,6 +1,7 @@
 package edu.gcc.prij.objects.semester;
 
 import edu.gcc.prij.utils.RepositoryObject;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Semester implements RepositoryObject<SemesterKey> {
     private int year;
@@ -13,12 +14,24 @@ public class Semester implements RepositoryObject<SemesterKey> {
 
     public Semester(){}
 
+    @JsonProperty("year")
     public int getYear(){
         return year;
     }
 
+    @JsonProperty("year")
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    @JsonProperty("term")
     public char getTerm(){
         return term;
+    }
+
+    @JsonProperty("term")
+    public void setTerm(char term) {
+        this.term = term;
     }
 
     public static Semester getSemesterFromString(String semesterString){

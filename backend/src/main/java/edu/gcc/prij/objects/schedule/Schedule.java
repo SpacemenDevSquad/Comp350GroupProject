@@ -137,15 +137,34 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
         return sections;
     }
 
+    @JsonProperty("user")
     public User getUser() { 
         return user; 
     }
+
+    @JsonProperty("user")
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @JsonProperty("semester")
     public Semester getSemester() { 
         return semester; 
     }
 
+    @JsonProperty("semester")
+    public void setSemester(Semester semester) {
+        this.semester = semester;
+    }
+
+    @JsonProperty("name")
     public String getName() { 
         return name; 
+    }
+
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
     }
 
     // Generates a composite key used by the Repository to identify this schedule.

@@ -1,7 +1,9 @@
 package edu.gcc.prij.objects.user;
 
 import edu.gcc.prij.utils.RepositoryObject;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
+
 
 
 public class User implements RepositoryObject<String> {
@@ -21,9 +23,30 @@ public class User implements RepositoryObject<String> {
 
     // GETTERS AND SETTERS
 
-    public String getName(){ return name; }
-    public String getEmail(){ return email; }
+    @JsonProperty("id")
     public String getId(){ return id; }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty("email")
+    public String getEmail(){ return email; }
+
+    @JsonProperty("email")
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @JsonProperty("name")
+    public String getName(){ return name; }
+
+    @JsonProperty("name")
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
    
 
