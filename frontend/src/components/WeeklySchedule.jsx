@@ -201,7 +201,7 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
     // Tracks the schedule object, loading status, and total credits from the backend
     const [schedule, setSchedule] = useState(null);
 
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const [totalCreds, setCreds] = useState(null);
     const [newScheduleInput, setNewScheduleInput] = useState("");
@@ -214,12 +214,32 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
     //pull the latest schedule and credit totals for the current user/semester
     async function fetchSchedule(){
         console.log(year, term)
-        if (!userId || !scheduleName) return;
+        if (!userId || !scheduleName) {
+            setLoading(false);
+            return;
+        }
+        
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/${userId}/${year}/${term}/${scheduleName}`);
             const credsResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/schedule/credits/${userId}/${year}/${term}/${scheduleName}`);
             const creds = await credsResponse.json();
             const data = await response.json();
+            
+            // Check if this schedule was just deleted and recreated as empty
+            if (data && data.sections && data.sections.length === 0 && scheduleName !== "Main Schedule") {
+                // Check if this schedule name exists in the current schedule list
+                const currentSchedulesResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/schedules/${userId}/${year}/${term}`);
+                if (currentSchedulesResponse.ok) {
+                    const currentSchedules = await currentSchedulesResponse.json();
+                    if (!currentSchedules.includes(scheduleName)) {
+                        console.log(`Schedule "${scheduleName}" was deleted, switching to Main Schedule`);
+                        setScheduleName("Main Schedule");
+                        setLoading(true); // Will trigger another fetch for Main Schedule
+                        return;
+                    }
+                }
+            }
+            
             setSchedule(data);
             setCreds(creds);
             setLoading(false);
@@ -254,7 +274,7 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         );
     }
 
-    if (!schedule) {
+    if (loading || !schedule) {
         return <div className="schedule-box">Loading your schedule...</div>;
     }
 
@@ -357,10 +377,15 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
                     detail: { title: "Schedule Deleted", desc: `"${scheduleName}" has been removed.`, color: "green" }
                 }));
                 
+                // Clear the current schedule state immediately to prevent race conditions
+                setSchedule(null);
+                setLoading(true); // Show loading while switching to new schedule
                 setScheduleName("Main Schedule");
+                
+                // Trigger refresh after state has updated
                 setTimeout(() => {
                     window.dispatchEvent(new CustomEvent('scheduleRefresh'));
-                }, 0);
+                }, 100); // Small delay to ensure state updates complete
             } else {
                 // DIAGNOSIS: Capture the actual error from the backend
                 const errorText = await response.text();

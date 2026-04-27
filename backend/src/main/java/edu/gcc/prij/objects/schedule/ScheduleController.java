@@ -86,6 +86,9 @@ public class ScheduleController implements Controller {
             int year = Integer.parseInt(ctx.pathParam("year"));
             char term = ctx.pathParam("term").charAt(0);
 
+            System.out.println("=== FETCHING ALL SCHEDULES ===");
+            System.out.println("Request for user: " + userId + ", " + year + " " + term);
+            
             // Filters the repository for all schedules matching this user/semester
             List<String> names = scheduleRepository.findAll().stream()
                 .filter(s -> s.getUser().getId().equals(userId) && 
@@ -95,6 +98,7 @@ public class ScheduleController implements Controller {
                 .distinct()
                 .toList();
             
+            System.out.println("Found schedules: " + names);
             ctx.json(names);
         });
 
