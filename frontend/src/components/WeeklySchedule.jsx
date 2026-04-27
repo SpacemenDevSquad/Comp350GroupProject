@@ -8,6 +8,146 @@ import jsPDF from 'jspdf';
 import UpdateSemester from './UpdateSemester';
 import StarRating from './StarRating.jsx';
 
+const CourseRatingModal = ({ userId, deptCode, courseNum, profName, onClose }) => {
+    const [difficulty, setDifficulty] = useState(0);
+    const [quality, setQuality] = useState(0);
+    const [review, setReview] = useState('');
+    const [loadingExisting, setLoadingExisting] = useState(true);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        async function fetchExistingRating() {
+            if (!userId) {
+                setLoadingExisting(false);
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL}/api/ratings/user/${encodeURIComponent(userId)}/course/${encodeURIComponent(deptCode)}/${encodeURIComponent(courseNum)}/professor/${encodeURIComponent(profName)}`
+                );
+
+                if (response.ok) {
+                    const existing = await response.json();
+                    if (isMounted) {
+                        setDifficulty(existing.difficulty || 0);
+                        setQuality(existing.quality || 0);
+                        setReview(existing.review || '');
+                    }
+                } else if (response.status !== 404) {
+                    throw new Error(`Could not load existing rating (${response.status})`);
+                }
+            } catch (error) {
+                createAlert(error.message, 'Rating Load Error', 'red');
+            } finally {
+                if (isMounted) {
+                    setLoadingExisting(false);
+                }
+            }
+        }
+
+        fetchExistingRating();
+        return () => {
+            isMounted = false;
+        };
+    }, [userId, deptCode, courseNum, profName]);
+
+    async function submitRating() {
+        if (!userId) {
+            window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                detail: {
+                    title: 'Login Required',
+                    desc: 'Please sign in to rate this course.',
+                    color: 'red'
+                }
+            }));
+            window.dispatchEvent(new CustomEvent('showLogin'));
+            return;
+        }
+
+        if (difficulty < 1 || quality < 1) {
+            createAlert('Please select both difficulty and quality ratings.', 'Missing Rating', 'red');
+            return;
+        }
+
+        setSaving(true);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rating`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user: { id: userId },
+                    course: {
+                        department: { code: deptCode },
+                        number: Number(courseNum)
+                    },
+                    professor: { name: profName },
+                    difficulty,
+                    quality,
+                    review
+                })
+            });
+
+            if (!response.ok) {
+                const msg = await response.text();
+                throw new Error(msg || `Failed to save rating (${response.status})`);
+            }
+
+            createAlert('Your rating was saved.', 'Rating Submitted', 'green');
+            onClose();
+        } catch (error) {
+            createAlert(error.message, 'Rating Error', 'red');
+        } finally {
+            setSaving(false);
+        }
+    }
+
+    return (
+        <div className="modal-backdrop" onClick={onClose} style={backdropStyle}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()} style={modalStyle}>
+                <h2>Rate {deptCode} {courseNum}</h2>
+                <p className="ratingMetaText">Professor: {profName}</p>
+
+                {loadingExisting ? (
+                    <p>Loading your existing rating...</p>
+                ) : (
+                    <>
+                        <div className="ratingInputGroup">
+                            <p className="ratingLabel">Difficulty (1-3)</p>
+                            <StarRating rating={difficulty} maxStars={3} interactive={true} onRate={setDifficulty} size={28} />
+                        </div>
+
+                        <div className="ratingInputGroup">
+                            <p className="ratingLabel">Quality (1-3)</p>
+                            <StarRating rating={quality} maxStars={3} interactive={true} onRate={setQuality} size={28} />
+                        </div>
+
+                        <div className="ratingInputGroup">
+                            <p className="ratingLabel">Review</p>
+                            <textarea
+                                className="ratingReviewInput"
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                                placeholder="Share your experience..."
+                                rows={4}
+                            />
+                        </div>
+                    </>
+                )}
+
+                <div className="ratingModalActions">
+                    <button onClick={submitRating} className="rating-modal-button" disabled={loadingExisting || saving}>
+                        {saving ? 'Saving...' : 'Submit'}
+                    </button>
+                    <button onClick={onClose} className="rating-modal-button">Close</button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 // Compact rating badge for schedule cards
 function CardRating({ section }) {
     const [rating, setRating] = useState(null);
@@ -43,14 +183,14 @@ function CardRating({ section }) {
         : 0;
 
     return (
-        <div className="card-rating" title={rating?.length > 0 ? `${avgQuality.toFixed(1)} / 3 (${rating.length} ratings)` : 'No ratings yet'}>
+        <div className="card-rating" title={rating?.length > 0 ? `${avgQuality.toFixed(1)} / 3 (${rating.length} ratings)` : 'No ratings yet'} style={{height: "unset"}}>
             {rating && rating.length > 0 ? (
                 <>
-                    <StarRating rating={Math.round(avgQuality)} maxStars={3} size={12} />
-                    <span className="card-rating-text">{avgQuality.toFixed(1)}</span>
+                    <StarRating rating={Math.round(avgQuality)} maxStars={3} size={10} />
+                    <span className="card-rating-text">({avgQuality.toFixed(1)})</span>
                 </>
             ) : (
-                <span className="card-rating-text">—</span>
+                <span className="card-rating-text">-</span>
             )}
         </div>
     );
@@ -65,6 +205,7 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
 
     const [totalCreds, setCreds] = useState(null);
     const [newScheduleInput, setNewScheduleInput] = useState("");
+    const [selectedRatingSection, setSelectedRatingSection] = useState(null);
 
     const printRef = useRef();
 
@@ -318,6 +459,28 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
         fetchSchedule();
     }
 
+    function openCourseRatingModal(section) {
+        if (!userId) {
+            window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+                detail: {
+                    title: 'Login Required',
+                    desc: 'Please sign in to rate this course/professor.',
+                    color: 'red'
+                }
+            }));
+            window.dispatchEvent(new CustomEvent('showLogin'));
+            return;
+        }
+
+        const profName = section.faculty?.[0]?.name || "Null";
+        if (!profName || profName === 'Null') {
+            createAlert('No professor is attached to this section yet.', 'Rating Unavailable', 'red');
+            return;
+        }
+
+        setSelectedRatingSection(section);
+    }
+
     // ----COMPONENT VARIABLES FOR JSX----
     const dayEntries = Object.entries(scheduleMap); //converts map into array of [key,value]
     const currSemester= schedule.currSemester;
@@ -440,16 +603,20 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
                                             height: `${blockHeight-10}px`
                                         }}>
 
-                                        <span className="card-dept">{course.dept} {course.num}</span>
-                                        <p className="card-title">{course.title}</p>
+                                        <button className="card-dept-button" onClick={() => openCourseRatingModal(course.originalData)}>
+                                            <span className="card-dept">{course.dept} {course.num}</span>
+                                        </button>
+                                        <div className="card-title-row">
+                                            <span className="card-title" style={{height: "unset"}}>{course.title}</span>
+                                            <div className="action-group">
+                                                <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
+                                            </div>
+                                        </div>
 
+                                        <CardRating section={course.originalData} />
                                         <p className="card-time">
                                             {formatMinutesToTime(course.start)} - {formatMinutesToTime(course.end)}
                                         </p>
-                                        <CardRating section={course.originalData} />
-                                        <div className="action-group">
-                                            <button className="action-button" onClick={() => dropSection(course.originalData)}>Drop</button>
-                                        </div>
                                     
                                     </div>
 
@@ -469,8 +636,10 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
                         {noTimeSections.map((section, index) => (
                             <div key={index} className="no-time-card">
                                 <div className="no-time-info">
-                                    <span className="card-dept">{section.course.department.code} {section.course.number}</span>
-                                    <p className="card-title">{section.course.title}</p>
+                                    <button className="card-dept-button" onClick={() => openCourseRatingModal(section)}>
+                                        <span className="card-dept">{section.course.department.code} {section.course.number}</span>
+                                    </button>
+                                    <span className="card-title">{section.course.title}</span>
                                     <CardRating section={section} />
                                 </div>
                                 <button className="action-button no-time-drop" onClick={() => dropSection(section)}>Drop</button>
@@ -481,9 +650,47 @@ function WeeklySchedule({ userId, year, setYear, term, setTerm, scheduleName, se
             )}
 
         </div>
+
+        {selectedRatingSection && (
+            <CourseRatingModal
+                userId={userId}
+                deptCode={selectedRatingSection.course?.department?.code || selectedRatingSection.course?.department?.id || "N/A"}
+                courseNum={selectedRatingSection.course?.number || "000"}
+                profName={selectedRatingSection.faculty?.[0]?.name || "Null"}
+                onClose={() => setSelectedRatingSection(null)}
+            />
+        )}
     </div>
     );
 }
 
 export default WeeklySchedule;
+
+const backdropStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    overflowY: 'auto',
+    color: 'white'
+};
+
+const modalStyle = {
+    backgroundColor: 'rgb(160,0,0)',
+    padding: '20px',
+    borderRadius: '8px',
+    minWidth: '300px',
+    maxWidth: '50vw',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    border: '4px solid rgb(255, 255, 255)',
+    textShadow: '2px 2px black',
+    height: 'fit-content',
+    maxHeight: '90vh'
+};
 

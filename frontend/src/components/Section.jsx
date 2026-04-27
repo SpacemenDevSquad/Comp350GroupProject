@@ -11,8 +11,9 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
       {/* Stop propagation so clicking inside the modal doesn't close it */}
       <div className="modal-content" onClick={(e) => e.stopPropagation()} style={modalStyle}>
         <h2>Professor {name}</h2>
+        <div style={{"height": "unset"}}>
         {rmpId !== 0 && rmpId !== "Null" && (
-          <div style={{"height": "unset"}}>
+          <>
             <h3>
               <a
                 href={`https://www.ratemyprofessors.com/professor/${rmpId}`} target='_blank' rel='noopener noreferrer'
@@ -25,11 +26,12 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
               <li>{wouldTakeAgain*100}% would take again</li>
               <li>Difficulty: {difficulty}/5</li>
             </ul>
-            <h3>Student Ratings</h3>
-            {/* here we will fetch the average professor rating from the /api/ratings/professor/{professorName} endpoint and compute an average */}
-            <ProfessorRatings professorName={name} />
-          </div>
+          </>
         )}
+        <h3>Student Ratings</h3>
+        {/* here we will fetch the average professor rating from the /api/ratings/professor/{professorName} endpoint and compute an average */}
+        <ProfessorRatings professorName={name} />
+        </div>
         
         <button onClick={onClose} className='closeProfessorModal'>Close</button>
       </div>
