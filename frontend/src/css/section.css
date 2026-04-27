@@ -40,6 +40,15 @@
     text-align: right;
 }
 
+.courseName {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.courseName:hover {
+    color: #82b8fe;
+}
+
 .sectionProf {
     position: absolute;
     top: 4cqw;
@@ -117,6 +126,46 @@
 .closeProfessorModal{
     padding: 5px;
     cursor: pointer;
+}
+
+.closeProfessorModal:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.ratingMetaText {
+    margin-top: 0;
+}
+
+.ratingInputGroup {
+    margin-bottom: 12px;
+}
+
+.ratingLabel {
+    margin-bottom: 6px;
+}
+
+.ratingReviewInput {
+    width: 100%;
+    padding: 8px;
+    color: white;
+    background-color: rgb(99, 0, 0);
+    border: 1.5px solid rgb(255, 255, 255);
+    border-radius: 6px;
+    font-family: 'Roboto Slab';
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.ratingReviewInput::placeholder {
+    color: #dddddd;
+}
+
+.ratingModalActions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 
 .dropButton{

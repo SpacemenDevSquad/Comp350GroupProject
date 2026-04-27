@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../css/section.css'
 import { createAlert } from '../js/createAlert.jsx';
-import { useState } from 'react';
 import ProfessorRatings from './ProfessorRatings.jsx';
+import StarRating from './StarRating.jsx';
 
 const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, difficulty, rmpId, onClose }) => {
   return (
@@ -37,7 +37,150 @@ const ProfessorModal = ({ name, qualityRating, numRatings, wouldTakeAgain, diffi
   );
 };
 
+const CourseRatingModal = ({ userId, deptCode, courseNum, profName, onClose }) => {
+  const [difficulty, setDifficulty] = useState(0);
+  const [quality, setQuality] = useState(0);
+  const [review, setReview] = useState('');
+  const [loadingExisting, setLoadingExisting] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchExistingRating() {
+      if (!userId) {
+        setLoadingExisting(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/ratings/user/${encodeURIComponent(userId)}/course/${encodeURIComponent(deptCode)}/${encodeURIComponent(courseNum)}/professor/${encodeURIComponent(profName)}`
+        );
+
+        if (response.ok) {
+          const existing = await response.json();
+          if (isMounted) {
+            setDifficulty(existing.difficulty || 0);
+            setQuality(existing.quality || 0);
+            setReview(existing.review || '');
+          }
+        } else if (response.status !== 404) {
+          throw new Error(`Could not load existing rating (${response.status})`);
+        }
+      } catch (error) {
+        createAlert(error.message, 'Rating Load Error', 'red');
+      } finally {
+        if (isMounted) {
+          setLoadingExisting(false);
+        }
+      }
+    }
+
+    fetchExistingRating();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userId, deptCode, courseNum, profName]);
+
+  async function submitRating() {
+    if (!userId) {
+      window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+        detail: {
+          title: 'Login Required',
+          desc: 'Please sign in to rate this course.',
+          color: 'red'
+        }
+      }));
+      window.dispatchEvent(new CustomEvent('showLogin'));
+      return;
+    }
+
+    if (difficulty < 1 || quality < 1) {
+      createAlert('Please select both difficulty and quality ratings.', 'Missing Rating', 'red');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/rating`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user: { id: userId },
+          course: {
+            department: { code: deptCode },
+            number: Number(courseNum)
+          },
+          professor: { name: profName },
+          difficulty,
+          quality,
+          review
+        })
+      });
+
+      if (!response.ok) {
+        const msg = await response.text();
+        throw new Error(msg || `Failed to save rating (${response.status})`);
+      }
+
+      createAlert('Your rating was saved.', 'Rating Submitted', 'green');
+      onClose();
+    } catch (error) {
+      createAlert(error.message, 'Rating Error', 'red');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose} style={backdropStyle}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()} style={modalStyle}>
+        <h2>Rate {deptCode} {courseNum}</h2>
+        <p className="ratingMetaText">Professor: {profName}</p>
+
+        {loadingExisting ? (
+          <p>Loading your existing rating...</p>
+        ) : (
+          <>
+            <div className="ratingInputGroup">
+              <p className="ratingLabel">Difficulty (1-3)</p>
+              <StarRating rating={difficulty} maxStars={3} interactive={true} onRate={setDifficulty} size={28} />
+            </div>
+
+            <div className="ratingInputGroup">
+              <p className="ratingLabel">Quality (1-3)</p>
+              <StarRating rating={quality} maxStars={3} interactive={true} onRate={setQuality} size={28} />
+            </div>
+
+            <div className="ratingInputGroup">
+              <p className="ratingLabel">Review</p>
+              <textarea
+                className="ratingReviewInput"
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                placeholder="Share your experience..."
+                rows={4}
+              />
+            </div>
+          </>
+        )}
+
+        <div className="ratingModalActions">
+          <button onClick={submitRating} className="closeProfessorModal" disabled={loadingExisting || saving}>
+            {saving ? 'Saving...' : 'Submit'}
+          </button>
+          <button onClick={onClose} className="closeProfessorModal">Close</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function Section({ data, year, term, userId, scheduleName, openProfessor, setOpenProfessor }) {
+  const [showCourseRatingModal, setShowCourseRatingModal] = useState(false);
+
   // Creates a unique identifier for this professor to compare with openProfessor
   const professorId = `${data.faculty[0]?.id || 'null'}-${data.course?.id || 'null'}-${data.sectionLetter || 'null'}`;
 
@@ -192,10 +335,46 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
   const profDifficulty = data.faculty[0]?.difficulty || "Null";
   const profRMPId = data.faculty[0]?.id || "Null";
 
+  function openCourseRatingModal() {
+    if (!userId) {
+      window.dispatchEvent(new CustomEvent('triggerCustomAlert', {
+        detail: {
+          title: 'Login Required',
+          desc: 'Please sign in to rate this course/professor.',
+          color: 'red'
+        }
+      }));
+      window.dispatchEvent(new CustomEvent('showLogin'));
+      return;
+    }
+
+    if (!profName || profName === 'Null') {
+      createAlert('No professor is attached to this section yet.', 'Rating Unavailable', 'red');
+      return;
+    }
+
+    setShowCourseRatingModal(true);
+  }
+
   return (
     <div className="sectionCard">
       <p className="sectionTitle">{title}</p>
-      <p className="sectionDeptInfo">{deptCode} {courseNum} - Section {sectionLetter}</p>
+      <p className="sectionDeptInfo">
+        <span
+          className="courseName"
+          onClick={openCourseRatingModal}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openCourseRatingModal();
+            }
+          }}
+          role="button"
+          tabIndex={0}
+        >
+          {deptCode} {courseNum}
+        </span> - Section {sectionLetter}
+      </p>
       <p className="sectionProf">
         Professor:{' '}
         {/* Note: It's better for accessibility to use a button styled as text than a span */}
@@ -229,6 +408,16 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
           difficulty={openProfessor.difficulty}
           rmpId={openProfessor.rmpId}
           onClose={() => setOpenProfessor(null)} 
+        />
+      )}
+
+      {showCourseRatingModal && (
+        <CourseRatingModal
+          userId={userId}
+          deptCode={deptCode}
+          courseNum={courseNum}
+          profName={profName}
+          onClose={() => setShowCourseRatingModal(false)}
         />
       )}
     </div>
