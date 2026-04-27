@@ -316,6 +316,39 @@
     white-space: nowrap;
     
     overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-dept-button {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    min-width: 0;
+    font: inherit;
+}
+
+.card-dept-button:hover .card-dept {
+    color: #82b8fe;
+    text-decoration: underline;
+}
+
+.card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+}
+
+.card-title-row .card-title {
+    flex: 1;
+    min-width: 0;
+    text-overflow: ellipsis;
 }
 
 .card-dept { 
@@ -336,22 +369,31 @@
 .card-rating {
     display: flex;
     align-items: center;
-    gap: 4px;
-    margin-top: 2px;
-    margin-bottom: 2px;
+    gap: 1px;
+    margin: 1px 0 0 0;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.card-rating span {
+    margin-right: 0 !important;
 }
 
 .card-rating-text {
     font-size: 0.65rem;
     color: #ddd;
+    margin-left: 0;
 }
 
 /* Drop Button in calendar card */
 
 .action-group{
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 0;
+    flex-shrink: 0;
+    width: fit-content;
 }
 
 .action-button {
@@ -502,6 +544,56 @@
 
 [data-html2canvas-ignore] .action-group {
     display: none !important;
+}
+
+.rating-modal-button {
+    color: white;
+    border-radius: 10px;
+    font-family: 'Roboto Slab';
+    background-color: rgb(99, 0, 0);
+    border: 1.5px solid rgb(255, 255, 255);
+    padding: 5px;
+    cursor: pointer;
+}
+
+.rating-modal-button:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+.ratingMetaText {
+    margin-top: 0;
+}
+
+.ratingInputGroup {
+    margin-bottom: 12px;
+}
+
+.ratingLabel {
+    margin-bottom: 6px;
+}
+
+.ratingReviewInput {
+    width: 100%;
+    padding: 8px;
+    color: white;
+    background-color: rgb(99, 0, 0);
+    border: 1.5px solid rgb(255, 255, 255);
+    border-radius: 6px;
+    font-family: 'Roboto Slab';
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.ratingReviewInput::placeholder {
+    color: #dddddd;
+}
+
+.ratingModalActions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 
 /* Semester Selector Styling for WeeklySchedule */

@@ -34,7 +34,7 @@ function StarRating({ rating = 0, maxStars = 3, interactive = false, onRate, siz
     );
   }
 
-  return <div style={{ display: 'inline-flex', alignItems: 'center' }}>{stars}</div>;
+  return <div style={{ display: 'inline-flex', alignItems: 'center', width: "fit-content" }}>{stars}</div>;
 }
 
 export default StarRating;
