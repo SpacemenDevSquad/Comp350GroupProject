@@ -10,16 +10,14 @@ import { auth } from "./js/firebase.js"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import OfflineAlert from './components/OfflineAlert.jsx'
 import Alert from './components/Alert.jsx';
+import LoginModal from './components/LoginSystem.jsx';
 
 function App() {
 
   //LOGIN STATES
   const [currentUser, setCurrentUser]= useState(null); // null means guest, otherwise it holds a User object
   const [showLogin, setShowLogin]= useState(false);
-  const [isSignup, setIsSignup]= useState(false);
-  const [email, setEmail]= useState("");
-  const [password, setPassword]= useState("");
-  const [name, setName] = useState("");
+
   const [scheduleName, setScheduleName] = useState("Main Schedule");
   const [existingSchedules, setExistingSchedules] = useState([]); // Shared dropdown menu State
   const [activeAlert, setActiveAlert] = useState(null);
@@ -93,6 +91,9 @@ function App() {
     return () => window.removeEventListener('triggerCustomAlert', handleGlobalAlert);
   }, []);
 
+
+  const handleLogout = () => signOut(auth);
+
   //helper method to trigger alerts
   const triggerAlert = (title, desc, color) => {
     setActiveAlert({ title, desc, color, id: Date.now() });
@@ -101,66 +102,9 @@ function App() {
         setActiveAlert(null);
     }, 5500);
     
-   
   };
 
-  //AUTHENTICATION HANDLER
-  const handleAuth = async () => {
-  try {
-    let firebaseUser;
-    if (isSignup) {
-      // Create Account
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Attach the name to the Firebase profile
-      await updateProfile(userCredential.user, {
-        displayName: name
-      });
-      firebaseUser = userCredential.user;
-
-    } else {
-      const creds = await signInWithEmailAndPassword(auth, email, password);
-      firebaseUser = creds.user;
-
-    }
-
-    //syncs the firebase user to the java backend
-    await fetch(`${import.meta.env.VITE_API_URL}/api/user/sync`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id: firebaseUser.uid,
-        email: firebaseUser.email,
-        name: firebaseUser.displayName || name
-      })
-    });
-
-    setShowLogin(false);
-    
-    //Success alerts
-    triggerAlert(
-      isSignup ? "Account Created" : "Welcome Back", 
-      isSignup ? `Welcome, ${name}!` : "Successfully signed in.", 
-      "green"
-    );
-    
-
-    setEmail("");
-    setPassword("");
-    setName(""); // Clear name state
-  } catch (error) {
-    let errorMessage = error.message;
-    if (error.code === 'auth/wrong-password') errorMessage = "Incorrect password. Please try again.";
-    if (error.code === 'auth/user-not-found') errorMessage = "No account found with this email.";
-    if (error.code === 'auth/invalid-email') errorMessage = "Please input a valid email.";
-    if (error.code === 'auth/invalid-credential') errorMessage = "The password you entered is incorrect.";
-    if (error.code === 'auth/weak-password') errorMessage = "Password must be at least 6 characters.";
-
-    
-    triggerAlert("Auth Error", errorMessage, "red");
-  }
-  };
-
-  const handleLogout = () => signOut(auth);
+  
 
 
   
@@ -210,63 +154,13 @@ function App() {
 
       <StatusSheet />
 
-      {showLogin && (
-        <div className="loginModel" onClick={(e) => {
-          // Close modal if clicking on the backdrop (outside loginContent)
-          if (e.target.className === 'loginModel') {
-            setShowLogin(false);
-          }
-        }}>
-          <div className="loginContent" onClick={(e) => e.stopPropagation()}>
-            <h2 className="loginTitle">{isSignup ? "Create Account" : "Sign In"}</h2>
+      <LoginModal 
+        isOpen={showLogin} 
+        onClose={() => setShowLogin(false)} 
+        triggerAlert={triggerAlert} 
+      />
 
-            {/* Name, Email, and Password inputs */}
-            {/* Name field ONLY shows if isSignup is true */}
-            {isSignup && (
-              <input 
-                className="loginInput"
-                type="text" 
-                placeholder="Full Name" 
-                value={name}
-                onChange={(e) => setName(e.target.value)} 
-              />
-            )}
-            <input 
-                className="loginInput"
-                type="email" 
-                placeholder="Email" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} 
-            />
-            <input 
-              className="loginInput"
-              type="password" 
-              placeholder="Password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)} 
-            />
-
-            <button className="loginBtn" onClick={handleAuth}>
-              {isSignup ? "Register" : "Login"}
-            </button>
-
-            {/* The switch between login and signup */}
-            <p className="toggleText">
-              {isSignup ? "Already have an account? " : "Need an account? "}
-              <span 
-                className="toggleLink" 
-                onClick={() => setIsSignup(!isSignup)}
-              >
-                {isSignup ? "Login" : "Sign up"}
-              </span>
-            </p>
-            {/* Cancel button */}
-            <button className="cancelBtn" onClick={() => setShowLogin(false)}>Cancel</button>
-          
-          </div>
-        </div>
-          
-      )}
+  
     </div>
   );
 }
