@@ -1,6 +1,6 @@
 FROM gradle:8.7-jdk21 AS build
 WORKDIR /app
-COPY Backend/ .
+COPY backend/ .
 RUN ./gradlew shadowJar
 
 FROM eclipse-temurin:21-jre

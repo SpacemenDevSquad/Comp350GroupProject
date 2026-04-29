@@ -175,7 +175,7 @@ public class Driver implements Runnable {
 
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
         Javalin app = Javalin.create(config -> {
-            //Frontend access allowed
+            //frontend access allowed
             config.bundledPlugins.enableCors(cors -> {
                 cors.addRule(it -> {
                     it.anyHost();

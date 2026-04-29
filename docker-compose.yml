@@ -2,14 +2,14 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Backend/Dockerfile
+      dockerfile: backend/Dockerfile
     ports:
       - "8096:8096"
 
   frontend:
     build:
       context: .
-      dockerfile: Frontend/Dockerfile
+      dockerfile: frontend/Dockerfile
     ports:
       - "5173:5173"
     environment:

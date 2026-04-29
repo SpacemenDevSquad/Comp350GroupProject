@@ -1,7 +1,7 @@
 FROM node:20
 WORKDIR /app
-COPY Frontend/package*.json ./
+COPY frontend/package*.json ./
 RUN npm install
-COPY Frontend/ .
+COPY frontend/ .
 EXPOSE 5173
 CMD ["npm", "run", "dev", "--", "--host"]
