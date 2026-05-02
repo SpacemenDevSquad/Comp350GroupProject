@@ -5,6 +5,8 @@ services:
       dockerfile: backend/Dockerfile
     ports:
       - "8096:8096"
+    volumes:
+      - ./data/sqlite:/app/sqlite
 
   frontend:
     build:
@@ -13,6 +15,6 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_URL=http://localhost:8096
+      - VITE_API_URL=https://api.prij.zim.is
     depends_on:
       - backend
