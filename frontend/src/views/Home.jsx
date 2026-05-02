@@ -263,11 +263,14 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
             const letter = section?.sectionLetter || "?";
             const semYear = section?.semester?.year || "N/A";
             const semTerm = section?.semester?.term || "N/A";
-            const sectionKey = `${dept}-${number}-${letter}-${semYear}-${semTerm}`;
+            const sectionIdentity = `${dept}-${number}-${letter}-${semYear}-${semTerm}`;
+            // Add index suffix so duplicate rows from API still get unique React keys.
+            const sectionKey = `${sectionIdentity}-${index}`;
             return (
               <Section 
                 key={sectionKey} 
                 data={section} 
+                sectionIdentity={sectionIdentity}
                 year={year} 
                 term={term} 
                 userId={userId} 

@@ -180,11 +180,11 @@ const CourseRatingModal = ({ userId, deptCode, courseNum, profName, onClose }) =
   );
 };
 
-function Section({ data, year, term, userId, scheduleName, openProfessor, setOpenProfessor }) {
+function Section({ data, sectionIdentity, year, term, userId, scheduleName, openProfessor, setOpenProfessor }) {
   const [showCourseRatingModal, setShowCourseRatingModal] = useState(false);
 
-  // Creates a unique identifier for this professor to compare with openProfessor
-  const professorId = `${data.faculty[0]?.id || 'null'}-${data.course?.id || 'null'}-${data.sectionLetter || 'null'}`;
+  // Modal targeting should be tied to the section row, not professor metadata.
+  const modalTargetId = sectionIdentity || `${data.course?.department?.code || 'N/A'}-${data.course?.number || 'N/A'}-${data.sectionLetter || '?'}-${data.semester?.year || 'N/A'}-${data.semester?.term || 'N/A'}`;
 
   // Gets the title of the course and formats it with proper capitalization
   let rawTitle = data.course?.title || "Null";
@@ -382,7 +382,7 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
         {/* Note: It's better for accessibility to use a button styled as text than a span */}
         <button
           onClick={() => setOpenProfessor({
-            id: professorId,
+            id: modalTargetId,
             name: profName,
             qualityRating: profQualityRating,
             numRatings: profNumRatings,
@@ -401,7 +401,7 @@ function Section({ data, year, term, userId, scheduleName, openProfessor, setOpe
       <button onClick={addSection} className="addButton">Add</button>
       <button onClick={dropSection} className="dropButton">Drop</button>
 
-      {openProfessor && openProfessor.id === professorId && (
+      {openProfessor && openProfessor.id === modalTargetId && (
         <ProfessorModal 
           name={openProfessor.name}
           qualityRating={openProfessor.qualityRating}
