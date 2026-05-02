@@ -35,22 +35,45 @@ export default function ProfessorRatings({ professorName }) {
     return <p>No ratings available for this professor.</p>;
   }
 
-  const averageQuality = ratings.reduce((acc, rating) => acc + rating.quality, 0) / ratings.length;
-  const averageDifficulty = ratings.reduce((acc, rating) => acc + rating.difficulty, 0) / ratings.length;
+  // Per-user averaging:
+  // 1) average each user's ratings for this professor
+  // 2) average across those user-level averages
+  const ratingsByUser = new Map();
+  for (const rating of ratings) {
+    const userId = rating?.user?.id;
+    if (!userId) continue;
+    if (!ratingsByUser.has(userId)) {
+      ratingsByUser.set(userId, []);
+    }
+    ratingsByUser.get(userId).push(rating);
+  }
+
+  const userAverages = Array.from(ratingsByUser.values()).map((userRatings) => {
+    const qualityAvg = userRatings.reduce((acc, r) => acc + (r.quality || 0), 0) / userRatings.length;
+    const difficultyAvg = userRatings.reduce((acc, r) => acc + (r.difficulty || 0), 0) / userRatings.length;
+    return { qualityAvg, difficultyAvg };
+  });
+
+  if (userAverages.length === 0) {
+    return <p>No ratings available for this professor.</p>;
+  }
+
+  const averageQuality = userAverages.reduce((acc, u) => acc + u.qualityAvg, 0) / userAverages.length;
+  const averageDifficulty = userAverages.reduce((acc, u) => acc + u.difficultyAvg, 0) / userAverages.length;
 
   return (
     <div>
       <div style={{ marginBottom: '1rem' }}>
-        <p style={{ margin: '0.25rem 0' }}>
+        <div style={{ margin: '0.25rem 0' }}>
           <strong>Average Quality:</strong>{' '}
-          <StarRating rating={Math.round(averageQuality)} maxStars={3} size={20} />
-          {' '}({averageQuality.toFixed(1)}/3)
-        </p>
-        <p style={{ margin: '0.25rem 0' }}>
+          <StarRating rating={Math.round(averageQuality)} maxStars={5} size={20} variant="quality" />
+          {' '}({averageQuality.toFixed(1)}/5)
+        </div>
+        <div style={{ margin: '0.25rem 0' }}>
           <strong>Average Difficulty:</strong>{' '}
-          <StarRating rating={Math.round(averageDifficulty)} maxStars={3} size={20} />
-          {' '}({averageDifficulty.toFixed(1)}/3)
-        </p>
+          <StarRating rating={Math.round(averageDifficulty)} maxStars={5} size={20} variant="difficulty" />
+          {' '}({averageDifficulty.toFixed(1)}/5)
+        </div>
       </div>
     </div>
   );

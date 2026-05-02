@@ -147,13 +147,13 @@ const CourseRatingModal = ({ userId, deptCode, courseNum, profName, onClose }) =
         ) : (
           <>
             <div className="ratingInputGroup">
-              <p className="ratingLabel">Difficulty (1-3)</p>
-              <StarRating rating={difficulty} maxStars={3} interactive={true} onRate={setDifficulty} size={28} />
+              <p className="ratingLabel">Difficulty (1-5)</p>
+              <StarRating rating={difficulty} maxStars={5} interactive={true} onRate={setDifficulty} size={28} variant="difficulty" />
             </div>
 
             <div className="ratingInputGroup">
-              <p className="ratingLabel">Quality (1-3)</p>
-              <StarRating rating={quality} maxStars={3} interactive={true} onRate={setQuality} size={28} />
+              <p className="ratingLabel">Quality (1-5)</p>
+              <StarRating rating={quality} maxStars={5} interactive={true} onRate={setQuality} size={28} variant="quality" />
             </div>
 
             <div className="ratingInputGroup">

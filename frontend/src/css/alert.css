@@ -8,22 +8,30 @@
 
 /* Alert stack container */
 .alertStack {
-    position: fixed;
-    top: 65px;
-    right: 15px;
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    position: fixed !important;
+    inset: 72px 16px auto auto !important; /* top-right anchor */
+    top: 72px !important;
+    right: 16px !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 10px !important;
     pointer-events: none;
+    width: auto;
+    max-width: min(92vw, 360px);
 }
 
 /* Global Alert CSS */
 .alertBox {
-    width: 250px;
+    width: min(320px, 92vw);
     height: fit-content;
     pointer-events: auto;
     border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
     transform: translateX(280px);
     opacity: 0;
     animation: alertIn 0.35s ease forwards, alertOut 0.35s ease 5.15s forwards;

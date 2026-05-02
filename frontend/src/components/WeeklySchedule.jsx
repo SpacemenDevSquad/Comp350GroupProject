@@ -115,13 +115,13 @@ const CourseRatingModal = ({ userId, deptCode, courseNum, profName, onClose }) =
                 ) : (
                     <>
                         <div className="ratingInputGroup">
-                            <p className="ratingLabel">Difficulty (1-3)</p>
-                            <StarRating rating={difficulty} maxStars={3} interactive={true} onRate={setDifficulty} size={28} />
+                            <p className="ratingLabel">Difficulty (1-5)</p>
+                            <StarRating rating={difficulty} maxStars={5} interactive={true} onRate={setDifficulty} size={28} variant="difficulty" />
                         </div>
 
                         <div className="ratingInputGroup">
-                            <p className="ratingLabel">Quality (1-3)</p>
-                            <StarRating rating={quality} maxStars={3} interactive={true} onRate={setQuality} size={28} />
+                            <p className="ratingLabel">Quality (1-5)</p>
+                            <StarRating rating={quality} maxStars={5} interactive={true} onRate={setQuality} size={28} variant="quality" />
                         </div>
 
                         <div className="ratingInputGroup">
@@ -183,10 +183,10 @@ function CardRating({ section }) {
         : 0;
 
     return (
-        <div className="card-rating" title={rating?.length > 0 ? `${avgQuality.toFixed(1)} / 3 (${rating.length} ratings)` : 'No ratings yet'} style={{height: "unset"}}>
+        <div className="card-rating" title={rating?.length > 0 ? `${avgQuality.toFixed(1)} / 5 (${rating.length} ratings)` : 'No ratings yet'} style={{height: "unset"}}>
             {rating && rating.length > 0 ? (
                 <>
-                    <StarRating rating={Math.round(avgQuality)} maxStars={3} size={10} />
+                    <StarRating rating={Math.round(avgQuality)} maxStars={5} size={10} variant="quality" />
                     <span className="card-rating-text">({avgQuality.toFixed(1)})</span>
                 </>
             ) : (
