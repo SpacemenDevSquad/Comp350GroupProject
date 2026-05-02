@@ -1,18 +1,26 @@
 import '../css/TopBar.css'
 // import gccLogoImage from '../images/logo.png'
 import prijLogoImage from '../images/PRIJ_horizontal_white.svg'
-import calendarTransition, { statusSheetTransition } from '../js/screenTransitions.js'
+import calendarTransition, { statusSheetTransition, gotToHome } from '../js/screenTransitions.js'
 import toggleFilter from '../js/toggleFilter.js'
 
 function TopBar({ user, onLoginClick, onLogout }) {
   return (
     <div id='background'>
       {/* <img id="logo" src={gccLogoImage} alt='GCC Logo'/> */}
-      <img id="logo" src={prijLogoImage} alt="PRIJ Logo" />
+      <a
+        id="logo"
+        href="/"
+        onClick={(e) => {
+          e.preventDefault()
+          gotToHome()
+        }}
+      >
+        <img src={prijLogoImage} alt="PRIJ Logo" />
+      </a>
       
         <div id="topBarButtons" style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         
-
         {/* Login/User section */}
         {user ? (
           

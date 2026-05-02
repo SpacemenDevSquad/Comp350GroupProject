@@ -37,12 +37,9 @@ const cachedFiles = [
   "/src/css/TopBar.css",
   "/src/css/weeklySchedule.css",
   "/src/css/offlineAlert.css",
-  "/@vite/client",
-  "/node_modules/vite/dist/client/env.mjs",
   "/serviceWorker.js",
   "/src/js/registerWorkers.js",
   "/src/js/alertPop.js",
-  "/@react-refresh",
   "/src/images/PRIJ_horizontal_white.svg?import",
 ]
 
@@ -87,9 +84,36 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('fetch', (event) => {
   const {request} = event;
+  const searchRequestId = request.headers.get("X-Search-Request-Id");
+  if (searchRequestId || request.url.includes("/api/search/")) {
+    console.log("[SW] fetch intercepted", {
+      method: request.method,
+      url: request.url,
+      mode: request.mode,
+      searchRequestId
+    });
+  }
+
+  // Search results should always come from network to avoid stale/mismatched
+  // responses across different search bodies.
+  if (request.url.includes("/api/search/")) {
+    console.log("[SW] bypass cache for /api/search/", {
+      method: request.method,
+      url: request.url,
+      searchRequestId
+    });
+    event.respondWith(fetch(request));
+    return;
+  }
 
   // Handle API calls differently
   if (isApiRequest(request)) {
+    // Never cache non-GET API calls (e.g., POST /api/search) because cache keys
+    // do not include request body and can return stale/incorrect results.
+    if (request.method !== "GET") {
+      event.respondWith(fetch(request));
+      return;
+    }
     event.respondWith(networkFirst(request, apiCacheName));
   } else if (isJSXRequest(request)) {
     event.respondWith(networkFirst(request, JSXCacheName))

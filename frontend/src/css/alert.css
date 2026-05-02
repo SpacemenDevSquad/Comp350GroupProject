@@ -6,20 +6,38 @@
     --alertRedSecColor: rgb(255, 122, 122);
 }
 
-/* Global Alert CSS */
-#alertBox {
-    width: 250px;
-    height: fit-content;
-    position: fixed;
-    top: 65px;
-    right: -200px;
-    z-index: 99;
-    transition: 0.4s ease;
-
-    border-radius: 15px;
+/* Alert stack container */
+.alertStack {
+    position: fixed !important;
+    inset: 72px 16px auto auto !important; /* top-right anchor */
+    top: 72px !important;
+    right: 16px !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 10px !important;
+    pointer-events: none;
+    width: auto;
+    max-width: min(92vw, 360px);
 }
 
-#alertTitle {
+/* Global Alert CSS */
+.alertBox {
+    width: min(320px, 92vw);
+    height: fit-content;
+    pointer-events: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+    transform: translateX(280px);
+    opacity: 0;
+    animation: alertIn 0.35s ease forwards, alertOut 0.35s ease 5.15s forwards;
+}
+
+.alertTitle {
     margin: 8px;
     margin-right: 15px;
     
@@ -29,7 +47,7 @@
     font-size: 25px;
 }
 
-#alertDesc {
+.alertDesc {
     margin: 8px;
     margin-right: 15px;
     margin-bottom: 0px;
@@ -40,50 +58,65 @@
     font-size: 17px;
 }
 
-#loadingBar {
-    transition: 0.1s linear;
+.loadingBar {
     width: 100%;
-
     height: 8px;
     margin-top: 4px;
     border-radius: 5px;
+    transform-origin: left center;
+    animation: loadingShrink 5s linear forwards;
 }
 
 /* Green Theme */
 
-#alertBox.green {
+.alertBox.green {
     border: 4px solid var(--alertGreenPriColor);
     background-color: var(--alertGreenSecColor);
 }
 
-#alertTitle.green {
+.alertTitle.green {
     color: var(--alertGreenPriColor);
 }
 
-#alertDesc.green { 
+.alertDesc.green { 
     color: var(--alertGreenPriColor);
 }
 
-#loadingBar.green {
+.loadingBar.green {
     background-color: var(--alertGreenPriColor);
 }
 
 
 /* Red Theme */
 
-#alertBox.red {
+.alertBox.red {
     border: 4px solid var(--alertRedPriColor);
     background-color: var(--alertRedSecColor);
 }
 
-#alertTitle.red {
+.alertTitle.red {
     color: var(--alertRedPriColor);
 }
 
-#alertDesc.red { 
+.alertDesc.red { 
     color: var(--alertRedPriColor);
 }
 
-#loadingBar.red {
+.loadingBar.red {
     background-color: var(--alertRedPriColor);
+}
+
+@keyframes alertIn {
+    from { transform: translateX(280px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes alertOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(280px); opacity: 0; }
+}
+
+@keyframes loadingShrink {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
 }

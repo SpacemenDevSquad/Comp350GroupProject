@@ -1,5 +1,13 @@
 export default async function OnHitEnter(searchText, year, term, availability = [], credits = 0, noTimeSections = false) {
-  console.log("Searching for courses...", searchText, year, term, availability, credits)
+  const requestId = `search-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  console.log(`[${requestId}] Searching for courses`, {
+    searchText,
+    year,
+    term,
+    availability,
+    credits,
+    noTimeSections
+  });
   
   let courseResults = [];
 
@@ -16,20 +24,23 @@ export default async function OnHitEnter(searchText, year, term, availability = 
     }
   });
   const availabilityJson = JSON.stringify(availMap);
-  console.log("Sending search JSON:", JSON.stringify({ 
-    searchText: searchText, 
+  console.log(`[${requestId}] Sending search payload`, {
+    searchText: searchText,
     availabilityJson: availabilityJson,
-    credits: credits
-  }));
+    credits: credits,
+    noTimeSections: noTimeSections
+  });
 
   // Get the search results from the backend
   try{
     const url = `${import.meta.env.VITE_API_URL}/api/search/${year}/${term}`
-    console.log(url)
+    console.log(`[${requestId}] POST ${url}`)
     const response = await fetch(url, {
       method: "POST",
+      cache: "no-store",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "X-Search-Request-Id": requestId
       },
       body: JSON.stringify({ 
         searchText: searchText, 
@@ -42,10 +53,20 @@ export default async function OnHitEnter(searchText, year, term, availability = 
       throw new Error("Search API call failed");
     }
     courseResults = await response.json();
-    console.log(`Successfully retrieved ${courseResults.length} courses!`);
+    const sample = (courseResults || []).slice(0, 5).map((section) => {
+      const dept = section?.course?.department?.code || "N/A";
+      const num = section?.course?.number || "N/A";
+      const title = section?.course?.title || "N/A";
+      return `${dept} ${num} - ${title}`;
+    });
+    console.log(`[${requestId}] Search response`, {
+      status: response.status,
+      count: courseResults.length,
+      firstFive: sample
+    });
     return courseResults;
   } catch (error) {
-    console.error("Error fetching course results:", error);
+    console.error(`[${requestId}] Error fetching course results:`, error);
     return [];
   }
 

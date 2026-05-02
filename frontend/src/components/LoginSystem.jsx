@@ -8,8 +8,11 @@ function LoginModal({ isOpen, onClose, triggerAlert }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAuth = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
     try {
         let firebaseUser;
         if (isSignup) {
@@ -55,6 +58,8 @@ function LoginModal({ isOpen, onClose, triggerAlert }) {
 
         
         triggerAlert("Auth Error", errorMessage, "red");
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -62,22 +67,40 @@ function LoginModal({ isOpen, onClose, triggerAlert }) {
 
   return (
     <div className="loginModel" onClick={(e) => e.target.className === 'loginModel' && onClose()}>
-      <div className="loginContent" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="loginContent"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleAuth();
+          }
+        }}
+      >
         <h2 className="loginTitle">{isSignup ? "Create Account" : "Sign In"}</h2>
         
         {isSignup && (
-          <input className="loginInput" type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input className="loginInput" type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} disabled={isLoading} />
         )}
-        <input className="loginInput" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <input className="loginInput" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input className="loginInput" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading} />
+        <input className="loginInput" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} disabled={isLoading} />
 
-        <button className="loginBtn" onClick={handleAuth}>{isSignup ? "Register" : "Login"}</button>
+        <button className="loginBtn" onClick={handleAuth} disabled={isLoading}>
+          {isLoading ? (
+            <span className="loginLoadingWrap">
+              <span className="loginSpinner" aria-hidden="true"></span>
+              <span>{isSignup ? "Creating Account..." : "Signing In..."}</span>
+            </span>
+          ) : (
+            isSignup ? "Register" : "Login"
+          )}
+        </button>
 
         <p className="toggleText">
           {isSignup ? "Already have an account? " : "Need an account? "}
-          <span className="toggleLink" onClick={() => setIsSignup(!isSignup)}>{isSignup ? "Login" : "Sign up"}</span>
+          <span className="toggleLink" onClick={() => !isLoading && setIsSignup(!isSignup)}>{isSignup ? "Login" : "Sign up"}</span>
         </p>
-        <button className="cancelBtn" onClick={onClose}>Cancel</button>
+        <button className="cancelBtn" onClick={onClose} disabled={isLoading}>Cancel</button>
       </div>
     </div>
   );

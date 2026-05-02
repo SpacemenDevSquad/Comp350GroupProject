@@ -115,9 +115,9 @@ public class RatingController implements Controller {
             try {
                 Rating incoming = ctx.bodyAsClass(Rating.class);
 
-                // Validate difficulty and quality ranges (1-3)
+                // Validate difficulty and quality ranges (1-5)
                 if (!incoming.isValid()) {
-                    ctx.status(400).result("Invalid difficulty or quality. Both must be between 1 and 3.");
+                    ctx.status(400).result("Invalid difficulty or quality. Both must be between 1 and 5.");
                     return;
                 }
 
@@ -201,7 +201,7 @@ public class RatingController implements Controller {
                 Rating incoming = ctx.bodyAsClass(Rating.class);
 
                 if (!incoming.isValid()) {
-                    ctx.status(400).result("Invalid difficulty or quality. Both must be between 1 and 3.");
+                    ctx.status(400).result("Invalid difficulty or quality. Both must be between 1 and 5.");
                     return;
                 }
 

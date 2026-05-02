@@ -1,9 +1,9 @@
 
 import { useState, useEffect, useCallback } from "react"; 
-import Home from './views/Home';
-import Schedule from './views/Schedule';
-import StatusSheet from './views/StatusSheet';
-import TopBar from './components/TopBar';
+import Home from './views/Home.jsx';
+import Schedule from './views/Schedule.jsx';
+import StatusSheet from './views/StatusSheet.jsx';
+import TopBar from './components/TopBar.jsx';
 import './css/login.css'
 import './css/App.css'
 import { auth } from "./js/firebase.js"
@@ -20,7 +20,7 @@ function App() {
 
   const [scheduleName, setScheduleName] = useState("Main Schedule");
   const [existingSchedules, setExistingSchedules] = useState([]); // Shared dropdown menu State
-  const [activeAlert, setActiveAlert] = useState(null);
+  const [activeAlerts, setActiveAlerts] = useState([]);
 
   //SEMESTER STATES
   const [year, setYear] = useState(2026)
@@ -96,10 +96,11 @@ function App() {
 
   //helper method to trigger alerts
   const triggerAlert = (title, desc, color) => {
-    setActiveAlert({ title, desc, color, id: Date.now() });
+    const id = Date.now() + Math.random();
+    setActiveAlerts((prev) => [...prev, { title, desc, color, id }]);
 
     setTimeout(() => {
-        setActiveAlert(null);
+        setActiveAlerts((prev) => prev.filter((alert) => alert.id !== id));
     }, 5500);
     
   };
@@ -115,15 +116,17 @@ function App() {
       {/* pass User and trigger function to TopBar */}
       <OfflineAlert />
     
-        {/* Custom alert if state is present */}
-        {activeAlert && (
-          <Alert 
-            key={activeAlert.id} 
-            alertTitle={activeAlert.title} 
-            alertDesc={activeAlert.desc} 
-            alertColor={activeAlert.color} 
-          />
-        )}
+        {/* Custom alerts stack */}
+        <div className="alertStack">
+          {activeAlerts.map((activeAlert) => (
+            <Alert 
+              key={activeAlert.id} 
+              alertTitle={activeAlert.title} 
+              alertDesc={activeAlert.desc} 
+              alertColor={activeAlert.color} 
+            />
+          ))}
+        </div>
 
       <TopBar
         user={currentUser}

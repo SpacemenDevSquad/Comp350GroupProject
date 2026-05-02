@@ -1,0 +1,10 @@
+.gradle
+build
+bin
+sqlite
+*.db
+
+.git
+.gitignore
+
+Dockerfile

@@ -40,7 +40,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
 
     // After adding a new availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits, noTimeSections);
+    if (triggerSearch) triggerSearch(currentSearchText, year, term, updatedAvailability, credits, noTimeSections);
   };
 
   const handleRemove = (indexToRemove) => {
@@ -49,7 +49,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
 
     // After removing an availability block, trigger a search with the updated filters
     const currentSearchText = document.getElementById("searchBar").value;
-    if (triggerSearch) triggerSearch(currentSearchText, updatedAvailability, credits, noTimeSections);
+    if (triggerSearch) triggerSearch(currentSearchText, year, term, updatedAvailability, credits, noTimeSections);
   };
 
 
@@ -124,7 +124,7 @@ function Filters({ availability, setAvailability, credits, setCredits, triggerSe
             setCredits(newCredits);
             const currentSearchText = document.getElementById("searchBar").value;
             if (triggerSearch && currentSearchText) {
-              triggerSearch(currentSearchText, availability, credits, noTimeSections);
+              triggerSearch(currentSearchText, year, term, availability, newCredits, noTimeSections);
             }
           }}>
             <option value="0">Any</option>

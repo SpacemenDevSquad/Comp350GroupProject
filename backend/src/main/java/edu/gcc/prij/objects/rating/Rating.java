@@ -48,14 +48,14 @@ public class Rating implements RepositoryObject<Integer> {
     public void setQuality(int quality) { this.quality = quality; }
     public void setReview(String review) { this.review = review; }
 
-    // validation helpers: difficulty and quality should be 1-3
-    // (1=easy/bad, 2=average, 3=hard/good)
+    // validation helpers: difficulty and quality should be 1-5
+    // (1=easy/bad, 3=average, 5=hard/good)
     public boolean isValidDifficulty() {
-        return difficulty >= 1 && difficulty <= 3;
+        return difficulty >= 1 && difficulty <= 5;
     }
 
     public boolean isValidQuality() {
-        return quality >= 1 && quality <= 3;
+        return quality >= 1 && quality <= 5;
     }
 
     public boolean isValid() {
