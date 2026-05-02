@@ -15,7 +15,11 @@
 
 #logo {
     margin: 5px;
-    height: 75%;
+    height: 100%;
+
+    img{
+        height: 100%;
+    }
 }
 
 #calendarBtn {

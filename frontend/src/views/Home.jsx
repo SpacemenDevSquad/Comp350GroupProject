@@ -92,19 +92,17 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
   // Handle URL query string for search
   useEffect(() => {
     const handlePopState = () => {
-      if (location.pathname === '/search' && location.search) {
+      if (location.pathname === '/search') {
         const searchQuery = decodeURIComponent(location.search.substring(1));
-        if (searchQuery && searchQuery.trim().length > 0) {
-          if (lastAutoSearchQueryRef.current === searchQuery) {
-            console.log("[auto-search] skipped duplicate query", searchQuery);
-            return;
-          }
-          lastAutoSearchQueryRef.current = searchQuery;
-          // Delay slightly to ensure DOM elements are ready
-          setTimeout(() => {
-            executeSearch(searchQuery, year, term, availability, credits, noTimeSections, true);
-          }, 100);
+        if (lastAutoSearchQueryRef.current === searchQuery) {
+          console.log("[auto-search] skipped duplicate query", searchQuery);
+          return;
         }
+        lastAutoSearchQueryRef.current = searchQuery;
+        // Delay slightly to ensure DOM elements are ready
+        setTimeout(() => {
+          executeSearch(searchQuery, year, term, availability, credits, noTimeSections, true);
+        }, 100);
       }
     };
 
