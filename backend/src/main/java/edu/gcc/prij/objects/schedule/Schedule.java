@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -100,12 +101,36 @@ public class Schedule implements RepositoryObject<ScheduleKey> {
 
     // Helper method to check if the course is already in the schedule
     public boolean duplicateCourse(Section newSection){
+        boolean newSectionIsLab = isLabSection(newSection);
         for (Section existingSection : sections.values()) {
             if (existingSection.getCourse().equals(newSection.getCourse())) {
-                return true;
+                boolean existingSectionIsLab = isLabSection(existingSection);
+
+                // Allow exactly one lecture + one lab for the same course code.
+                // Reject a second lecture or a second lab.
+                if (existingSectionIsLab == newSectionIsLab) {
+                    return true;
+                }
             }
         }
         return false;       
+    }
+
+    private boolean isLabSection(Section section) {
+        if (section == null || section.getCourse() == null) {
+            return false;
+        }
+
+        String title = section.getCourse().getTitle();
+        if (title != null) {
+            String normalized = title.toLowerCase(Locale.ROOT);
+            if (normalized.matches(".*\\blab\\b.*") || normalized.contains("laboratory")) {
+                return true;
+            }
+        }
+
+        // Some exports use section letter L for lab sections.
+        return Character.toUpperCase(section.getSectionLetter()) == 'L';
     }
 
     // ----JSON, GETTERS/SETTERS----

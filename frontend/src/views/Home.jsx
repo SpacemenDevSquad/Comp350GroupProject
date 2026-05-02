@@ -18,16 +18,67 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
   const [noTimeSections, setNoTimeSections] = useState(false);
   const [openProfessor, setOpenProfessor] = useState(null); // Stores currently open professor data
   const autocompleteRef = useRef(null);
+  const latestSearchRequestSeq = useRef(0);
+  const lastAutoSearchQueryRef = useRef(null);
+
+  useEffect(() => {
+    const firstFive = (sections || []).slice(0, 5).map((section) => {
+      const dept = section?.course?.department?.code || "N/A";
+      const num = section?.course?.number || "N/A";
+      const letter = section?.sectionLetter || "?";
+      return `${dept} ${num}${letter}`;
+    });
+    console.log("[render] sections state updated", {
+      count: (sections || []).length,
+      firstFive
+    });
+  }, [sections]);
 
   
 
   // Reusable search function to avoid duplicated logic
   const executeSearch = async (searchText, year, term, currentAvailability, credits, noTimeSections, skipNavigation = false) => {
+    const uiSearchId = `ui-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const requestSeq = ++latestSearchRequestSeq.current;
+    console.log(`[${uiSearchId}] executeSearch called`, {
+      searchText,
+      year,
+      term,
+      currentAvailability,
+      credits,
+      noTimeSections,
+      skipNavigation,
+      requestSeq,
+      pathname: location.pathname,
+      query: location.search
+    });
+
     // Hide the autocomplete dropdown
     setSuggestions([]);
     
     // Pass the text and filters straight through to searchController.java and get the results
     const fetchedSections = await OnHitEnter(searchText, year, term, currentAvailability, credits, noTimeSections);
+    const preview = (fetchedSections || []).slice(0, 5).map((section) => {
+      const dept = section?.course?.department?.code || "N/A";
+      const num = section?.course?.number || "N/A";
+      const title = section?.course?.title || "N/A";
+      return `${dept} ${num} - ${title}`;
+    });
+    console.log(`[${uiSearchId}] executeSearch received results`, {
+      requestSeq,
+      latestRequestSeq: latestSearchRequestSeq.current,
+      count: (fetchedSections || []).length,
+      firstFive: preview
+    });
+
+    // Ignore stale results if a newer search has already started.
+    if (requestSeq !== latestSearchRequestSeq.current) {
+      console.log(`[${uiSearchId}] ignoring stale results`, {
+        requestSeq,
+        latestRequestSeq: latestSearchRequestSeq.current
+      });
+      return;
+    }
     
     // Update the UI
     setSections(fetchedSections || []); 
@@ -44,6 +95,11 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
       if (location.pathname === '/search' && location.search) {
         const searchQuery = decodeURIComponent(location.search.substring(1));
         if (searchQuery && searchQuery.trim().length > 0) {
+          if (lastAutoSearchQueryRef.current === searchQuery) {
+            console.log("[auto-search] skipped duplicate query", searchQuery);
+            return;
+          }
+          lastAutoSearchQueryRef.current = searchQuery;
           // Delay slightly to ensure DOM elements are ready
           setTimeout(() => {
             executeSearch(searchQuery, year, term, availability, credits, noTimeSections, true);
@@ -203,9 +259,13 @@ function Home({year, setYear, term, setTerm, userId, scheduleName, setScheduleNa
       <div id='courseContainer'>
         {sections.length > 0 ? (
           sections.map((section, index) => {
-            // Create a more comprehensive key that includes timeslot and semester data to ensure uniqueness
-            const timeslotKey = section.timeslots?.map(ts => `${ts.day}${ts.startTime}${ts.endTime}`).join('-') || 'no-time';
-            const sectionKey = `${section.faculty[0]?.id || 'null'}-${section.course?.id || 'null'}-${section.sectionLetter || 'null'}-${section.semester?.year || ''}-${section.semester?.term || ''}-${timeslotKey}`;
+            // Use a stable identity key based on section identity from backend semantics.
+            const dept = section?.course?.department?.code || "N/A";
+            const number = section?.course?.number || "N/A";
+            const letter = section?.sectionLetter || "?";
+            const semYear = section?.semester?.year || "N/A";
+            const semTerm = section?.semester?.term || "N/A";
+            const sectionKey = `${dept}-${number}-${letter}-${semYear}-${semTerm}`;
             return (
               <Section 
                 key={sectionKey} 
