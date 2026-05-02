@@ -37,12 +37,9 @@ const cachedFiles = [
   "/src/css/TopBar.css",
   "/src/css/weeklySchedule.css",
   "/src/css/offlineAlert.css",
-  "/@vite/client",
-  "/node_modules/vite/dist/client/env.mjs",
   "/serviceWorker.js",
   "/src/js/registerWorkers.js",
   "/src/js/alertPop.js",
-  "/@react-refresh",
   "/src/images/PRIJ_horizontal_white.svg?import",
 ]
 

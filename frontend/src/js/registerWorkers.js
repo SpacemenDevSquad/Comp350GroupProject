@@ -1,5 +1,6 @@
 addEventListener("DOMContentLoaded", () => {
-    if ('serviceWorker' in navigator) {
+    // Avoid SW + dev-server collisions (e.g., stale Vite dev assets in production).
+    if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         navigator.serviceWorker.register('/serviceWorker.js')
         .then(reg => {
         console.log('SW registered', reg);
