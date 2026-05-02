@@ -1,9 +1,9 @@
 
 import { useState, useEffect, useCallback } from "react"; 
-import Home from './views/Home';
-import Schedule from './views/Schedule';
-import StatusSheet from './views/StatusSheet';
-import TopBar from './components/TopBar';
+import Home from './views/Home.jsx';
+import Schedule from './views/Schedule.jsx';
+import StatusSheet from './views/StatusSheet.jsx';
+import TopBar from './components/TopBar.jsx';
 import './css/login.css'
 import './css/App.css'
 import { auth } from "./js/firebase.js"

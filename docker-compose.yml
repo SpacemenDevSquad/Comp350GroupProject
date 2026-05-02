@@ -1,20 +1,25 @@
 services:
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8096:8096"
     volumes:
-      - ./data/sqlite:/app/sqlite
+      - ./backend/sqlite:/app/sqlite
+    restart: unless-stopped
 
   frontend:
     build:
-      context: .
-      dockerfile: frontend/Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_URL=https://api.prij.zim.is
+      - VITE_API_URL=
+      - VITE_HMR_HOST=
+      - VITE_HMR_CLIENT_PORT=
+      - VITE_HMR_PROTOCOL=
     depends_on:
       - backend
+    restart: unless-stopped

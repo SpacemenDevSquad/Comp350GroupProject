@@ -181,7 +181,7 @@ public class Driver implements Runnable {
                     it.anyHost();
                 });
             });
-        }).start(8096);
+        }).start("0.0.0.0", 8096);
         /* ---------- CREATE JAVALIN APP AND ALLOW FRONTEND ACCESS ---------- */
 
         /* ---------- INITIALIZE CONTROLLERS AND REGISTER ROUTES ---------- */
